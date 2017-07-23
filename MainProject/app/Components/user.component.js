@@ -15,11 +15,14 @@ var forms_1 = require("@angular/forms");
 var ng2_bs3_modal_1 = require("ng2-bs3-modal/ng2-bs3-modal");
 var enum_1 = require("../Shared/enum");
 var global_1 = require("../Shared/global");
+//import { loginuser } from '../Model/login';
+//import { LoginUser } from '../Model/login';
 var UserComponent = (function () {
     function UserComponent(fb, _userService) {
         this.fb = fb;
         this._userService = _userService;
         this.indLoading = false;
+        this.info = "Start";
     }
     UserComponent.prototype.ngOnInit = function () {
         this.userFrm = this.fb.group({
@@ -28,8 +31,14 @@ var UserComponent = (function () {
             Email: [''],
             Password: ['', forms_1.Validators.required]
         });
-        this.LoadUsers();
+        //this.LoadUsers();        
     };
+    //LoadUsers(): void {
+    //    this.indLoading = true;
+    //    this._userService.get(Global.BASE_USER_ENDPOINT)
+    //        .subscribe(users => { this.users = users; this.indLoading = false; },
+    //        error => this.msg = <any>error);
+    //}
     UserComponent.prototype.LoadUsers = function () {
         var _this = this;
         this.indLoading = true;
@@ -67,32 +76,62 @@ var UserComponent = (function () {
         this.msg = "";
         switch (this.dbops) {
             case enum_1.DBOperation.create:
-                this._userService.post(global_1.Global.BASE_USER_ENDPOINT, formData._value).subscribe(function (data) {
-                    if (data == 1) {
-                        _this.msg = "Data successfully added.";
-                        _this.LoadUsers();
-                    }
-                    else {
-                        _this.msg = "There is some issue in saving records, please contact to system administrator!";
-                    }
-                    _this.modal.dismiss();
-                }, function (error) {
-                    _this.msg = error;
-                });
+                this.info = "Finish";
+                global_1.Asd.Mabe.setemail("Test");
+                console.log(global_1.Asd.Mabe.getparams());
+                this.msg = "Data successfully updated.";
+                global_1.Asd.Mabe.setemail(formData._value.Email);
+                console.log(global_1.Asd.Mabe.getparams());
+                global_1.Asd.Mabe.setData(formData._value);
+                console.log(global_1.Asd.Mabe.getparams());
+                //this._userService.post(Global.BASE_USER_ENDPOINT, formData._value).subscribe(
+                //    data => {
+                //        if (data == 1) //Success
+                //        {
+                //            this.msg = "Data successfully added.";
+                //            this.LoadUsers();                                                      
+                //        }
+                //        else
+                //        {
+                //            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                //        }
+                //        this.modal.dismiss();
+                //    },
+                //    error => {
+                //      this.msg = error;
+                //    }
+                //);
                 break;
             case enum_1.DBOperation.update:
-                this._userService.put(global_1.Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(function (data) {
-                    if (data == 1) {
-                        _this.msg = "Data successfully updated.";
-                        _this.LoadUsers();
-                    }
-                    else {
-                        _this.msg = "There is some issue in saving records, please contact to system administrator!";
-                    }
-                    _this.modal.dismiss();
-                }, function (error) {
-                    _this.msg = error;
-                });
+                this.info = "Finish";
+                global_1.Asd.Mabe.setemail("Test");
+                console.log(global_1.Asd.Mabe.getparams());
+                this.msg = "Data successfully updated.";
+                global_1.Asd.Mabe.setemail(formData._value.Email);
+                console.log(global_1.Asd.Mabe.getparams());
+                //this._userService.put(Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(
+                //    data => {
+                //        if (data == 1) //Success
+                //        {
+                //            this.info = "Finish";
+                //            Asd.Mabe.setemail("Test");
+                //            console.log(Asd.Mabe.getparams());
+                //            this.msg = "Data successfully updated.";
+                //            this.LoadUsers();
+                //            Asd.Mabe.setemail(formData._value.Email);
+                //            console.log(Asd.Mabe.getparams());
+                //            //LoginUser.Log.Email = "test";
+                //            //this.info = LoginUser.Log.Email;
+                //        }
+                //        else {
+                //            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                //        }
+                //        this.modal.dismiss();
+                //    },
+                //    error => {
+                //        this.msg = error;
+                //    }
+                //);
                 break;
             case enum_1.DBOperation.delete:
                 this._userService.delete(global_1.Global.BASE_USER_ENDPOINT, formData._value.Id).subscribe(function (data) {

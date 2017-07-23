@@ -5,7 +5,9 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { IUser } from '../Model/user';
 import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
-import { Global } from '../Shared/global';
+import { Global, Asd } from '../Shared/global';
+//import { loginuser } from '../Model/login';
+//import { LoginUser } from '../Model/login';
 
 @Component({
     templateUrl: 'app/Components/user.component.html'
@@ -22,8 +24,12 @@ export class UserComponent implements OnInit {
     dbops: DBOperation;
     modalTitle: string;
     modalBtnTitle: string;
+    info: string = "Start";
 
-    constructor(private fb: FormBuilder, private _userService: UserService) { }
+    constructor(private fb: FormBuilder, private _userService: UserService) {
+        
+    }
+
 
     ngOnInit(): void {
         this.userFrm = this.fb.group({
@@ -32,15 +38,25 @@ export class UserComponent implements OnInit {
             Email: [''],
             Password: ['', Validators.required]
         });
-        this.LoadUsers();
+        //this.LoadUsers();        
     }
 
-    LoadUsers(): void {
+    //LoadUsers(): void {
+    //    this.indLoading = true;
+    //    this._userService.get(Global.BASE_USER_ENDPOINT)
+    //        .subscribe(users => { this.users = users; this.indLoading = false; },
+    //        error => this.msg = <any>error);
+      
+    //}
+
+        LoadUsers(): void {
         this.indLoading = true;
         this._userService.get(Global.BASE_USER_ENDPOINT)
             .subscribe(users => { this.users = users; this.indLoading = false; },
-            error => this.msg = <any>error);
-    }
+            error => this.msg = <any>error);     
+           
+        }
+
 
     addUser() {
         this.dbops = DBOperation.create;
@@ -76,43 +92,70 @@ export class UserComponent implements OnInit {
    
         switch (this.dbops) {
             case DBOperation.create:
-                this._userService.post(Global.BASE_USER_ENDPOINT, formData._value).subscribe(
-                    data => {
-                        if (data == 1) //Success
-                        {
-                            this.msg = "Data successfully added.";
-                            this.LoadUsers();
-                        }
-                        else
-                        {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                        }
+
+                this.info = "Finish";
+                Asd.Mabe.setemail("Test");
+                console.log(Asd.Mabe.getparams());
+                this.msg = "Data successfully updated.";
+
+                Asd.Mabe.setemail(formData._value.Email);
+                console.log(Asd.Mabe.getparams());
+                Asd.Mabe.setData(formData._value);
+                console.log(Asd.Mabe.getparams());
+                //this._userService.post(Global.BASE_USER_ENDPOINT, formData._value).subscribe(
+                //    data => {
+                //        if (data == 1) //Success
+                //        {
+                //            this.msg = "Data successfully added.";
+                //            this.LoadUsers();                                                      
+                //        }
+                //        else
+                //        {
+                //            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                //        }
                         
-                        this.modal.dismiss();
-                    },
-                    error => {
-                      this.msg = error;
-                    }
-                );
+                //        this.modal.dismiss();
+                //    },
+                //    error => {
+                //      this.msg = error;
+                //    }
+                //);
                 break;
             case DBOperation.update:
-                this._userService.put(Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(
-                    data => {
-                        if (data == 1) //Success
-                        {
-                            this.msg = "Data successfully updated.";
-                            this.LoadUsers();
-                        }
-                        else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                        }
 
-                        this.modal.dismiss();
-                    },
-                    error => {
-                        this.msg = error;
-                    }
-                );
+                this.info = "Finish";
+                Asd.Mabe.setemail("Test");
+                console.log(Asd.Mabe.getparams());
+                this.msg = "Data successfully updated.";                
+
+                Asd.Mabe.setemail(formData._value.Email);
+                console.log(Asd.Mabe.getparams());
+                //this._userService.put(Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(
+                //    data => {
+                //        if (data == 1) //Success
+                //        {
+                //            this.info = "Finish";
+                //            Asd.Mabe.setemail("Test");
+                //            console.log(Asd.Mabe.getparams());
+                //            this.msg = "Data successfully updated.";
+                //            this.LoadUsers();
+                            
+                //            Asd.Mabe.setemail(formData._value.Email);
+                //            console.log(Asd.Mabe.getparams());
+                //            //LoginUser.Log.Email = "test";
+                           
+                //            //this.info = LoginUser.Log.Email;
+                //        }
+                //        else {
+                //            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                //        }
+
+                //        this.modal.dismiss();
+                //    },
+                //    error => {
+                //        this.msg = error;
+                //    }
+                //);
                 break;
             case DBOperation.delete:
                 this._userService.delete(Global.BASE_USER_ENDPOINT, formData._value.Id).subscribe(

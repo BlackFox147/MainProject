@@ -9,14 +9,15 @@ import { routing } from './app.routing';
 import { UserComponent } from './components/user.component';
 import { HomeComponent } from './components/home.component';
 import { AboutComponent } from './components/about.component';
+import { LoginComponent } from './components/login.component';
 
-
+//import { LoginUser } from './Model/login';
 import { UserService } from './Service/user.service'
 
 
 @NgModule({
     imports: [BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule],
-    declarations: [AppComponent, UserComponent, HomeComponent, AboutComponent],
+    declarations: [AppComponent, UserComponent, HomeComponent, AboutComponent, LoginComponent],
     providers: [{ provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]
 

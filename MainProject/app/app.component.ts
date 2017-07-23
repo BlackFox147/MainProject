@@ -1,25 +1,35 @@
 ﻿import { Component } from "@angular/core"
+import { Global, Asd } from './Shared/global';
+import { ILogin } from './Model/login';
 
 @Component({
     selector: "user-app",
-    template: `
-                <div>
-                    <nav class='navbar navbar-inverse'>
-                        <div class='container-fluid'>
-                            <ul class='nav navbar-nav'>
-                                <li><a [routerLink]="['home']">Home</a></li>
-                                <li><a [routerLink]="['user']">Users Management</a></li>
-                                <li><a [routerLink]="['about']">About</a></li>                               
-                            </ul>
-                        </div>
-                    </nav>
-                    <div class='container'>
-                        <router-outlet></router-outlet>
-                    </div>
-                 </div>
-                `
+    templateUrl: 'app/app.component.html'
 })
 
 export class AppComponent {
 
+    asd: ILogin = Asd.Mabe.getparams();
+
+    ShowE(): void {
+        console.log(this.asd);
+    }
+
+
+    a: string = "a";
+
+    Add(): void {
+        this.a += "a";
+        Asd.Mabe.setemail(this.a);
+        console.log(this.asd);
+        //this.qqq = Asd.Mabe.getparams();
+    }
+
+    isUserLoggedIn(): boolean {
+        if (this.asd.Email != "w") {
+            return false;
+        }
+        else
+            return true;
+    }
 }

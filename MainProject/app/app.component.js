@@ -7,13 +7,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var global_1 = require("./Shared/global");
 var AppComponent = (function () {
     function AppComponent() {
+        this.asd = global_1.Asd.Mabe.getparams();
+        this.a = "a";
     }
+    AppComponent.prototype.ShowE = function () {
+        console.log(this.asd);
+    };
+    AppComponent.prototype.Add = function () {
+        this.a += "a";
+        global_1.Asd.Mabe.setemail(this.a);
+        console.log(this.asd);
+        //this.qqq = Asd.Mabe.getparams();
+    };
+    AppComponent.prototype.isUserLoggedIn = function () {
+        if (this.asd.Email != "w") {
+            return false;
+        }
+        else
+            return true;
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: "user-app",
-            template: "\n                <div>\n                    <nav class='navbar navbar-inverse'>\n                        <div class='container-fluid'>\n                            <ul class='nav navbar-nav'>\n                                <li><a [routerLink]=\"['home']\">Home</a></li>\n                                <li><a [routerLink]=\"['user']\">Users Management</a></li>\n                                <li><a [routerLink]=\"['about']\">About</a></li>                               \n                            </ul>\n                        </div>\n                    </nav>\n                    <div class='container'>\n                        <router-outlet></router-outlet>\n                    </div>\n                 </div>\n                "
+            templateUrl: 'app/app.component.html'
         })
     ], AppComponent);
     return AppComponent;

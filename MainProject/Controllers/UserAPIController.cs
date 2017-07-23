@@ -12,16 +12,34 @@ namespace WebApplication9.Controllers
 {
     public class UserAPIController : BaseAPIController
     {
+        static OneUser loggin;
+
         public HttpResponseMessage Get()
         {
-            return ToJson(UsersDb.AllUsers.AsEnumerable());
+            if (loggin == null)
+            {
+                return ToJson(UsersDb.AllUsers.AsEnumerable());
+            }
+            return ToJson(UsersDb.AllUsers.Where(p => p.Email == loggin.Email).AsEnumerable());
+            //var one = UsersDb.AllUsers.Where(p => p.Email == loggin.Email).ToList().First();
+            //var list = ToJson(one);
+            //return list;
+            //return ToJson(UsersDb.AllUsers.AsEnumerable());
         }
 
         public HttpResponseMessage Post(OneUser value)
         {
             int aaa =0;
-            UsersDb.AllUsers.Add(value);
-            var s = UsersDb.SaveChanges();
+
+            var one = UsersDb.AllUsers.Where(p => p.Email == value.Email).ToList();
+            if (one.Count !=0)
+            {
+                loggin = one.First();
+            }
+            
+            //UsersDb.AllUsers.Add(value);
+            //var s = UsersDb.SaveChanges();
+            var s = 1;
             return ToJson(s);
         }
 
