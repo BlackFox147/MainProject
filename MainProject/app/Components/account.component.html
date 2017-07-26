@@ -1,0 +1,32 @@
+﻿<!--<div *ngIf="qqq">
+    <p>{{qqq.Id}}</p>
+    <p>{{qqq.UserName}}</p>
+    <p>{{qqq.Email}}</p>
+    <p>{{qqq.Password}}</p>
+    <p>End</p>
+</div>-->
+
+<div class="col-xs-10">
+    <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" (change)="onChange()" type="text" name="userName"
+                                           [(ngModel)]="qqq.UserName" #UserName="ngModel" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" (change)="onChange()" class="form-control" name="email"
+                                           [(ngModel)]="qqq.Email" #Email="ngModel" />
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="text" (change)="onChange()" class="form-control" name="password"
+                                           [(ngModel)]="qqq.Password" #Password="ngModel" />
+       
+    </div>
+
+    <div>
+        <p>{{UserName.name}} : {{UserName.model}}</p>
+        <p>{{Email.name}} : {{Email.model}}</p>
+        <p>{{Password.name}} : {{Password.model}}</p>
+    </div>
+</div>

@@ -18,15 +18,15 @@ export class AppComponent {
 
     a: string = "a";
 
-    Add(): void {
-        this.a += "a";
-        Asd.Mabe.setemail(this.a);
-        console.log(this.asd);
-        //this.qqq = Asd.Mabe.getparams();
-    }
+    //Add(): void {
+    //    this.a += "a";
+    //    Asd.Mabe.setemail(this.a);
+    //    console.log(this.asd);
+    //    //this.qqq = Asd.Mabe.getparams();
+    //}
 
     isUserLoggedIn(): boolean {
-        if (this.asd.Email != "w") {
+        if (this.asd.Id == 0) {
             return false;
         }
         else

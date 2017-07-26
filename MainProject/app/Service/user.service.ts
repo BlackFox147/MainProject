@@ -16,6 +16,9 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    home(url: string): Observable<any> {
+        return this._http.get(url);           
+    }
 
 
     post(url: string, model: any): Observable<any> {

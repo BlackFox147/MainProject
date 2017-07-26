@@ -1,16 +1,19 @@
 ﻿<div>
-    <nav class='navbar navbar-inverse'>
+    <nav class='navbar navbar-inverse navbar-fixed-top'>
         <div class='container-fluid'>
             <ul class='nav navbar-nav'>
                 <li><a [routerLink]="['home']">Home</a></li>
                 <li><a [routerLink]="['user']">Users Management</a></li>
                 
-                <li><a [routerLink]="['login']">{{asd.Email}}</a></li>
+                <li><a [routerLink]="['login']">LoginTest</a></li>
+                <!--<li><a  *ngIf="!isUserLoggedIn()" [routerLink]="['register']">Register</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li *ngIf="isUserLoggedIn()"><a [routerLink]="['about']">About</a></li>
+                <li><a *ngIf="!isUserLoggedIn()" [routerLink]="['register']">Register</a></li>
+                <li *ngIf="isUserLoggedIn()"><a [routerLink]="['account']">{{asd.Email}}</a></li>
+               
             </ul>
-            <button title="Add" class="btn btn-primary" (click)="Add()">Add</button>
+            <!--<button title="Add" class="btn btn-primary" (click)="Add()">Add</button>-->
         </div>
     </nav>
     <div class='container'>

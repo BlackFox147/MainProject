@@ -8,16 +8,19 @@ import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
 import { UserComponent } from './components/user.component';
 import { HomeComponent } from './components/home.component';
-import { AboutComponent } from './components/about.component';
+import { AccountComponent } from './components/account.component';
 import { LoginComponent } from './components/login.component';
+import { RegisterComponent } from './components/register.component';
+import { FormsModule } from '@angular/forms';
 
 //import { LoginUser } from './Model/login';
 import { UserService } from './Service/user.service'
 
 
 @NgModule({
-    imports: [BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule],
-    declarations: [AppComponent, UserComponent, HomeComponent, AboutComponent, LoginComponent],
+    imports: [BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule],
+    declarations: [AppComponent, UserComponent, HomeComponent, AccountComponent,
+        LoginComponent, RegisterComponent],
     providers: [{ provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]
 

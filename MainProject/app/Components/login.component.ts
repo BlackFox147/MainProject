@@ -14,40 +14,11 @@ import { loginuser } from '../Model/login';
     templateUrl: 'app/Components/login.component.html'
 })
 
-export class LoginComponent implements OnInit {
-
-    users: IUser[];
-    user: IUser;
-    msg: string;
-    indLoading: boolean = false;
-    userFrm: FormGroup;
-    dbops: DBOperation;
-    modalTitle: string;
-    modalBtnTitle: string;
-    info: string = "Start";
-
-    constructor(private fb: FormBuilder, private _userService: UserService) {
-
-    }
-
-
-    ngOnInit(): void {
-        this.userFrm = this.fb.group({
-            Id: [''],
-            UserName: ['', Validators.required],
-            Email: [''],
-            Password: ['', Validators.required]
-        });
-        //this.LoadUsers();        
-    }
-    //constructor(private loginUser: LoginUser) {
-    //    console.log(loginUser.getParams());
-    //}
-
+export class LoginComponent {
     a: string = "a";
     Show(): void {
         console.log(Asd.Mabe.getparams());
-        Asd.Mabe.setemail("w");
+       
     }
 
     Add(): void {
@@ -56,42 +27,96 @@ export class LoginComponent implements OnInit {
         //this.qqq = Asd.Mabe.getparams();
     }
     qqq: ILogin = Asd.Mabe.getparams();
-
-
-    onSubmit(formData: any) {
-        this.msg = "";
-
-
-        //this.info = "Finish";
-        //Asd.Mabe.setemail("Test");
-        //console.log(Asd.Mabe.getparams());
-        //this.msg = "Data successfully updated.";
-
-        //Asd.Mabe.setemail(formData._value.Email);
-        //console.log(Asd.Mabe.getparams());
-        //        Asd.Mabe.setData(formData._value);
-        Asd.Mabe.setemail(formData._value.Email);
-        console.log(Asd.Mabe.getparams());
-        this._userService.post(Global.BASE_USER_ENDPOINT, formData._value).subscribe(
-            data => {
-                if (data == 1) //Success
-                {
-                    this.msg = "Data successfully added.";
-                    //this.LoadUsers();                                                      
-                }
-                else {
-                    this.msg = "There is some issue in saving records, please contact to system administrator!"
-                }
-
-            },
-            error => {
-                this.msg = error;
-            }
-        );
-    }
-
-    SetControlsState(isEnable: boolean) {
-        isEnable ? this.userFrm.enable() : this.userFrm.disable();
-    }
 }
+
+//export class LoginComponent implements OnInit {
+
+//    users: IUser[];
+//    user: IUser;
+//    msg: string;
+//    indLoading: boolean = false;
+//    userFrm: FormGroup;
+//    dbops: DBOperation;
+//    modalTitle: string;
+//    modalBtnTitle: string;
+//    info: string = "Start";
+
+//    constructor(private fb: FormBuilder, private _userService: UserService) {
+
+//    }
+
+
+//    ngOnInit(): void {
+//        this.userFrm = this.fb.group({
+//            Id: [''],
+//            UserName: ['', Validators.required],
+//            Email: [''],
+//            Password: ['', Validators.required],
+//            ConformPassword: ['']
+//        });
+//        //this.LoadUsers();        
+//    }
+
+//    LoadOneUsers(): void {
+//        this.indLoading = true;
+//        this._userService.get(Global.BASE_LOGIN_ENDPOINT)
+//            .subscribe(user => { Asd.Mabe.setId(user.Id); },
+//            error => this.msg = <any>error);
+//        //Asd.Mabe.setId(this.user.Id);
+//    }
+
+//    //constructor(private loginUser: LoginUser) {
+//    //    console.log(loginUser.getParams());
+//    //}
+
+//    a: string = "a";
+//    Show(): void {
+//        console.log(Asd.Mabe.getparams());
+//        Asd.Mabe.setemail("w");
+//    }
+
+//    Add(): void {
+//        this.a += "a";
+//        Asd.Mabe.setemail(this.a);
+//        //this.qqq = Asd.Mabe.getparams();
+//    }
+//    qqq: ILogin = Asd.Mabe.getparams();
+
+
+//    onSubmit(formData: any) {
+//        this.msg = "";
+
+
+//        //this.info = "Finish";
+//        //Asd.Mabe.setemail("Test");
+//        //console.log(Asd.Mabe.getparams());
+//        //this.msg = "Data successfully updated.";
+
+//        //Asd.Mabe.setemail(formData._value.Email);
+//        //console.log(Asd.Mabe.getparams());
+//        //        Asd.Mabe.setData(formData._value);
+//        Asd.Mabe.setemail(formData._value.Email);
+//        console.log(Asd.Mabe.getparams());
+//        this._userService.post(Global.BASE_LOGIN_ENDPOINT, formData._value).subscribe(
+//            data => {
+//                if (data == 1) //Success
+//                {
+//                    this.msg = "Data successfully added.";
+//                    this.LoadOneUsers();                                                      
+//                }
+//                else {
+//                    this.msg = "There is some issue in saving records, please contact to system administrator!"
+//                }
+
+//            },
+//            error => {
+//                this.msg = error;
+//            }
+//        );
+//    }
+
+//    SetControlsState(isEnable: boolean) {
+//        isEnable ? this.userFrm.enable() : this.userFrm.disable();
+//    }
+//}
 

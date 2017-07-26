@@ -28,6 +28,16 @@ export class loginuser {
         this.log.Email = em;
     }
 
+    public setId(em: number) {
+        this.log.Id = em;
+    }
+    public setName(em: string) {
+        this.log.UserName = em;
+    }
+    public setPassord(em: string) {
+        this.log.Password = em;
+    }
+
     public getparams() {
         return this.log;
     }

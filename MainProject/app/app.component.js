@@ -16,14 +16,14 @@ var AppComponent = (function () {
     AppComponent.prototype.ShowE = function () {
         console.log(this.asd);
     };
-    AppComponent.prototype.Add = function () {
-        this.a += "a";
-        global_1.Asd.Mabe.setemail(this.a);
-        console.log(this.asd);
-        //this.qqq = Asd.Mabe.getparams();
-    };
+    //Add(): void {
+    //    this.a += "a";
+    //    Asd.Mabe.setemail(this.a);
+    //    console.log(this.asd);
+    //    //this.qqq = Asd.Mabe.getparams();
+    //}
     AppComponent.prototype.isUserLoggedIn = function () {
-        if (this.asd.Email != "w") {
+        if (this.asd.Id == 0) {
             return false;
         }
         else

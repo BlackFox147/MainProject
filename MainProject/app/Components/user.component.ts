@@ -36,18 +36,13 @@ export class UserComponent implements OnInit {
             Id: [''],
             UserName: ['', Validators.required],
             Email: [''],
-            Password: ['', Validators.required]
+            Password: ['', Validators.required],
+            ConformPassword: ['']
         });
-        //this.LoadUsers();        
+        this.LoadUsers();        
     }
 
-    //LoadUsers(): void {
-    //    this.indLoading = true;
-    //    this._userService.get(Global.BASE_USER_ENDPOINT)
-    //        .subscribe(users => { this.users = users; this.indLoading = false; },
-    //        error => this.msg = <any>error);
-      
-    //}
+
 
         LoadUsers(): void {
         this.indLoading = true;
@@ -93,69 +88,54 @@ export class UserComponent implements OnInit {
         switch (this.dbops) {
             case DBOperation.create:
 
-                this.info = "Finish";
-                Asd.Mabe.setemail("Test");
-                console.log(Asd.Mabe.getparams());
-                this.msg = "Data successfully updated.";
+                //this.info = "Finish";
+                //Asd.Mabe.setemail("Test");
+                //console.log(Asd.Mabe.getparams());
+                //this.msg = "Data successfully updated.";
 
-                Asd.Mabe.setemail(formData._value.Email);
-                console.log(Asd.Mabe.getparams());
-                Asd.Mabe.setData(formData._value);
-                console.log(Asd.Mabe.getparams());
-                //this._userService.post(Global.BASE_USER_ENDPOINT, formData._value).subscribe(
-                //    data => {
-                //        if (data == 1) //Success
-                //        {
-                //            this.msg = "Data successfully added.";
-                //            this.LoadUsers();                                                      
-                //        }
-                //        else
-                //        {
-                //            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                //        }
+                //Asd.Mabe.setemail(formData._value.Email);
+                //console.log(Asd.Mabe.getparams());
+                //Asd.Mabe.setData(formData._value);
+                //console.log(Asd.Mabe.getparams());
+                this._userService.post(Global.BASE_USER_ENDPOINT, formData._value).subscribe(
+                    data => {
+                        if (data == 1) //Success
+                        {
+                            this.msg = "Data successfully added.";
+                            this.LoadUsers();                                                      
+                        }
+                        else
+                        {
+                            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                        }
                         
-                //        this.modal.dismiss();
-                //    },
-                //    error => {
-                //      this.msg = error;
-                //    }
-                //);
+                        this.modal.dismiss();
+                    },
+                    error => {
+                      this.msg = error;
+                    }
+                );
                 break;
             case DBOperation.update:
-
-                this.info = "Finish";
-                Asd.Mabe.setemail("Test");
-                console.log(Asd.Mabe.getparams());
-                this.msg = "Data successfully updated.";                
-
-                Asd.Mabe.setemail(formData._value.Email);
-                console.log(Asd.Mabe.getparams());
-                //this._userService.put(Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(
-                //    data => {
-                //        if (data == 1) //Success
-                //        {
-                //            this.info = "Finish";
-                //            Asd.Mabe.setemail("Test");
-                //            console.log(Asd.Mabe.getparams());
-                //            this.msg = "Data successfully updated.";
-                //            this.LoadUsers();
-                            
-                //            Asd.Mabe.setemail(formData._value.Email);
-                //            console.log(Asd.Mabe.getparams());
-                //            //LoginUser.Log.Email = "test";
+                
+                this._userService.put(Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(
+                    data => {
+                        if (data == 1) //Success
+                        {                            
+                            this.msg = "Data successfully updated.";
+                            this.LoadUsers();
                            
-                //            //this.info = LoginUser.Log.Email;
-                //        }
-                //        else {
-                //            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                //        }
+                        }
+                        else {
+                            this.msg = "There is some issue in saving records, please contact to system administrator!"
+                        }
 
-                //        this.modal.dismiss();
-                //    },
-                //    error => {
-                //        this.msg = error;
-                //    }
-                //);
+                        this.modal.dismiss();
+                    },
+                    error => {
+                        this.msg = error;
+                    }
+                );
                 break;
             case DBOperation.delete:
                 this._userService.delete(Global.BASE_USER_ENDPOINT, formData._value.Id).subscribe(

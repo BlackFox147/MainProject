@@ -2,5 +2,6 @@
     Id: number,
     UserName: string,
     Email: string,
-    Password: string
+    Password: string,
+    ConformPassword: string
 }

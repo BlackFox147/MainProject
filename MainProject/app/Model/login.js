@@ -19,6 +19,15 @@ var loginuser = (function () {
     loginuser.prototype.setemail = function (em) {
         this.log.Email = em;
     };
+    loginuser.prototype.setId = function (em) {
+        this.log.Id = em;
+    };
+    loginuser.prototype.setName = function (em) {
+        this.log.UserName = em;
+    };
+    loginuser.prototype.setPassord = function (em) {
+        this.log.Password = em;
+    };
     loginuser.prototype.getparams = function () {
         return this.log;
     };
