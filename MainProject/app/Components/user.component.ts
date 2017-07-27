@@ -37,7 +37,8 @@ export class UserComponent implements OnInit {
             UserName: ['', Validators.required],
             Email: [''],
             Password: ['', Validators.required],
-            ConformPassword: ['']
+            ConformPassword: [''],
+            UserProfile: ['']
         });
         this.LoadUsers();        
     }

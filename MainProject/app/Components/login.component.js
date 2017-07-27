@@ -16,6 +16,7 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.Show = function () {
         console.log(global_1.Asd.Mabe.getparams());
+        console.log(global_1.Asd.Mabe.getProfile());
     };
     LoginComponent.prototype.Add = function () {
         this.a += "a";

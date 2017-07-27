@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace MainProject.Models
 {
-    public class UserContext : DbContext
+    public class UserContextNew : DbContext
     {
-        public DbSet<OneUser> AllUsers { get; set; }
+        
+        public DbSet<OneUser> OneUsers { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
     }
 }

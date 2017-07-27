@@ -28,7 +28,8 @@ var RegisterComponent = (function () {
             UserName: [''],
             Email: [''],
             Password: [''],
-            ConformPassword: ['']
+            ConformPassword: [''],
+            Profile: ['']
         });
         //this.LoadUsers();        
     };
@@ -41,6 +42,7 @@ var RegisterComponent = (function () {
             global_1.Asd.Mabe.setemail(user.Email);
             global_1.Asd.Mabe.setName(user.UserName);
             global_1.Asd.Mabe.setPassord(user.Password);
+            global_1.Asd.Mabe.setProfile(user.Profile);
         }, function (error) { return _this.msg = error; });
         //Asd.Mabe.setId(this.user.Id);
     };
@@ -70,7 +72,6 @@ var RegisterComponent = (function () {
         var _this = this;
         this.msg = "";
         this.activeUrl = global_1.Global.BASE_LOGIN_ENDPOINT;
-        global_1.Asd.Mabe.setemail(formData._value.Email);
         this._userService.post(global_1.Global.BASE_LOGIN_ENDPOINT, formData._value).subscribe(function (data) {
             if (data == 1) {
                 _this.msg = "Data successfully added.";

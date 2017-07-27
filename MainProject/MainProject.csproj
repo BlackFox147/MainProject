@@ -185,10 +185,28 @@
     <Compile Include="Controllers\LoginAPIController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RegisterAPIController.cs" />
+    <Compile Include="Controllers\UploadFileAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707261603525_InitialCreate.cs" />
+    <Compile Include="Migrations\201707261603525_InitialCreate.Designer.cs">
+      <DependentUpon>201707261603525_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707262129109_AddNameMigrations.cs" />
+    <Compile Include="Migrations\201707262129109_AddNameMigrations.Designer.cs">
+      <DependentUpon>201707262129109_AddNameMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707262309506_AddImageMigrations.cs" />
+    <Compile Include="Migrations\201707262309506_AddImageMigrations.Designer.cs">
+      <DependentUpon>201707262309506_AddImageMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707270025050_DeleteImageDataMigrations.cs" />
+    <Compile Include="Migrations\201707270025050_DeleteImageDataMigrations.Designer.cs">
+      <DependentUpon>201707270025050_DeleteImageDataMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -279,6 +297,7 @@
     <TypeScriptCompile Include="app\Components\user.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\Model\login.ts" />
+    <TypeScriptCompile Include="app\Model\profile.ts" />
     <TypeScriptCompile Include="app\Model\user.ts" />
     <TypeScriptCompile Include="app\Service\user.service.ts" />
     <TypeScriptCompile Include="app\Shared\enum.ts" />
@@ -295,7 +314,20 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707261603525_InitialCreate.resx">
+      <DependentUpon>201707261603525_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707262129109_AddNameMigrations.resx">
+      <DependentUpon>201707262129109_AddNameMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707262309506_AddImageMigrations.resx">
+      <DependentUpon>201707262309506_AddImageMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707270025050_DeleteImageDataMigrations.resx">
+      <DependentUpon>201707270025050_DeleteImageDataMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

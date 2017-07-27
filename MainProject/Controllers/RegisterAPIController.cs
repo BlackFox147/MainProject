@@ -11,33 +11,38 @@ using WebApplication9.Controllers;
 namespace MainProject.Controllers
 {
     public class RegisterAPIController : BaseAPIController
-    {
-        static OneUser loggin;
+    {        
 
         public HttpResponseMessage Get()
         {
             //return ToJson(UsersDb.AllUsers.AsEnumerable());
-            var list = ToJson(UsersDb.AllUsers.Where(p => p.Email == loggin.Email).AsEnumerable().First());
+
+            var list = ToJson(UsersDb.OneUsers.Where(p => p.Email == loggin.Email).AsEnumerable().First());
             return list;
         }
 
         public HttpResponseMessage Post(OneUser value)
         {
             int aaa = 0;
-            var one = UsersDb.AllUsers.Where(p => p.Email == value.Email).AsEnumerable();
-            if (one.Count()!=0)
+            var one = UsersDb.OneUsers.Where(p => p.Email == value.Email).AsEnumerable();
+            if (one.Count() != 0)
             {
-                return ToJson(2);            
+                return ToJson(2);
             }
 
-            UsersDb.AllUsers.Add(value);
+            UsersDb.OneUsers.Add(value);
             int s = UsersDb.SaveChanges();
             if (s == 1)
             {
-                int size = UsersDb.AllUsers.Count();
-                loggin = UsersDb.AllUsers.AsEnumerable().Last();
+                
+                int size = UsersDb.OneUsers.Count();
+                UserProfile profile1 = new UserProfile { Id = value.Id };
+                UsersDb.UserProfiles.Add(profile1);
+                UsersDb.SaveChanges();
+                loggin = value;
+                //loggin = UsersDb.OneUsers.AsEnumerable().Last();
             }
-            
+
             return ToJson(s);
         }
 

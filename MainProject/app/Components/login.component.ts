@@ -8,6 +8,7 @@ import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
 import { Global, Asd } from '../Shared/global';
 import { loginuser } from '../Model/login';
+import { UserProfile } from '../Model/profile';
 //import { LoginUser } from '../Model/login';
 
 @Component({
@@ -18,12 +19,14 @@ export class LoginComponent {
     a: string = "a";
     Show(): void {
         console.log(Asd.Mabe.getparams());
+        console.log(Asd.Mabe.getProfile());
        
     }
 
     Add(): void {
         this.a += "a";
         Asd.Mabe.setemail(this.a);
+        
         //this.qqq = Asd.Mabe.getparams();
     }
     qqq: ILogin = Asd.Mabe.getparams();

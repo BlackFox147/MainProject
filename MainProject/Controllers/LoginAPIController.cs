@@ -12,15 +12,16 @@ namespace WebApplication9.Controllers
 {
     public class LoginAPIController : BaseAPIController
     {
-        static OneUser loggin;
+        
 
         public HttpResponseMessage Get()
         {
             if (loggin == null)
             {
-                return ToJson(UsersDb.AllUsers.AsEnumerable());
+                return ToJson(UsersDb.OneUsers.AsEnumerable());
             }
-            var list = ToJson(UsersDb.AllUsers.Where(p => p.Email == loggin.Email).AsEnumerable().First());
+            //var list = ToJson(UsersDb.OneUsers.Where(p => p.Email == loggin.Email).AsEnumerable().First());
+            var list = ToJson(loggin);
             return list;
             //var one = UsersDb.AllUsers.Where(p => p.Email == loggin.Email).ToList().First();
             //var list = ToJson(one);
@@ -32,10 +33,10 @@ namespace WebApplication9.Controllers
         {
             int aaa = 0;
 
-            var one = UsersDb.AllUsers.Where(p => p.Email == value.Email).ToList();
-            if (one.Count != 0)
+            var one = UsersDb.OneUsers.Include("Profile").FirstOrDefault(p => p.Email == value.Email);
+            if (one!=null)
             {
-                loggin = one.First();
+                loggin = one;
             }
 
             //UsersDb.AllUsers.Add(value);
@@ -53,7 +54,7 @@ namespace WebApplication9.Controllers
         public HttpResponseMessage Delete(int id)
         {
             int aaa = 0;
-            UsersDb.AllUsers.Remove(UsersDb.AllUsers.FirstOrDefault(x => x.Id == id));
+            UsersDb.OneUsers.Remove(UsersDb.OneUsers.FirstOrDefault(x => x.Id == id));
             return ToJson(UsersDb.SaveChanges());
         }
     }

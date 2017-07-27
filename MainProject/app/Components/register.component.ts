@@ -8,6 +8,7 @@ import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
 import { Global, Asd } from '../Shared/global';
 import { loginuser } from '../Model/login';
+import { UserProfile } from '../Model/profile';
 import { Router } from '@angular/router';       //!!!
 
 @Component({
@@ -38,7 +39,8 @@ export class RegisterComponent {
             UserName: [''],
             Email: [''],
             Password: [''],
-            ConformPassword: ['']
+            ConformPassword: [''],
+            Profile:['']
         });
         //this.LoadUsers();        
     }
@@ -51,6 +53,7 @@ export class RegisterComponent {
                 Asd.Mabe.setemail(user.Email);
                 Asd.Mabe.setName(user.UserName);
                 Asd.Mabe.setPassord(user.Password);
+                Asd.Mabe.setProfile(user.Profile);
             },
             error => this.msg = <any>error);
         //Asd.Mabe.setId(this.user.Id);
@@ -89,7 +92,7 @@ export class RegisterComponent {
 
         this.activeUrl = Global.BASE_LOGIN_ENDPOINT;
 
-        Asd.Mabe.setemail(formData._value.Email);
+       
         this._userService.post(Global.BASE_LOGIN_ENDPOINT, formData._value).subscribe(
             data => {
                 if (data == 1) //Success

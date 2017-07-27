@@ -1,16 +1,19 @@
 ﻿import { IUser } from '../Model/user';
+import { UserProfile } from '../Model/profile';
 
 export class ILogin{
     Id: number;
     UserName: string;
     Email: string;
     Password: string;
+    Profile: UserProfile;
 
-    constructor(id: number, name: string, email: string, pass: string) {
+    constructor(id: number, name: string, email: string, pass: string, prof:number) {
         this.Id = id;
         this.UserName = name;
         this.Email = email;
         this.Password = pass;
+        this.Profile = new UserProfile(prof, prof,"","","");
     }
 
 }
@@ -20,12 +23,20 @@ export class ILogin{
 //@Injectable()
 
 export class loginuser {
-    private log: ILogin = new ILogin(0, "", "Login1", "");
+    private log: ILogin = new ILogin(0, "", "Login1", "", 0);
 
     constructor() { }
 
     public setemail(em:string) {
         this.log.Email = em;
+    }
+
+    public setProfile(em: UserProfile) {
+        this.log.Profile = em;
+    }
+
+    public setProfileAge(em: number) {
+        this.log.Profile.Age = em;
     }
 
     public setId(em: number) {
@@ -47,5 +58,8 @@ export class loginuser {
     }
     public getEmail() {
         return this.log.Email;
+    }
+    public getProfile() {
+        return this.log.Profile;
     }
 }

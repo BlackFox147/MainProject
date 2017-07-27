@@ -30,7 +30,8 @@ var UserComponent = (function () {
             UserName: ['', forms_1.Validators.required],
             Email: [''],
             Password: ['', forms_1.Validators.required],
-            ConformPassword: ['']
+            ConformPassword: [''],
+            UserProfile: ['']
         });
         this.LoadUsers();
     };
