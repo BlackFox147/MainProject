@@ -1,6 +1,7 @@
 ﻿import { Component } from "@angular/core"
 import { Global, LoginUserAccount } from './Shared/global';
 import { ILogin } from './Model/login';
+import { Router } from '@angular/router'; 
 
 @Component({
     selector: "user-app",
@@ -8,6 +9,9 @@ import { ILogin } from './Model/login';
 })
 
 export class AppComponent {
+
+    constructor(private router: Router) {       //!!!
+    }
 
     LoginUserAccountData: ILogin = LoginUserAccount.userData.getparams();
 
@@ -31,5 +35,12 @@ export class AppComponent {
         }
         else
             return true;
+    }
+
+    LogOff(): void {
+        LoginUserAccount.userData.logOff();
+        this.LoginUserAccountData = LoginUserAccount.userData.getparams();
+        this.router.navigate(['/']); 
+        console.log(this.LoginUserAccountData);
     }
 }

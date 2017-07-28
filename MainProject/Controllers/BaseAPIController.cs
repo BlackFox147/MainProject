@@ -14,7 +14,9 @@ namespace WebApplication9.Controllers
     public class BaseAPIController : ApiController
     {
         protected UserContextNew UsersDb = new UserContextNew();
+
         protected static OneUser loggin;
+        
 
         protected HttpResponseMessage ToJson(dynamic obj)
         {

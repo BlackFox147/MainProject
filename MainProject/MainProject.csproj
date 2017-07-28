@@ -185,6 +185,7 @@
     <Compile Include="Controllers\RegisterAPIController.cs" />
     <Compile Include="Controllers\UploadFileAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
+    <Compile Include="Controllers\ChangeUserProfileAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

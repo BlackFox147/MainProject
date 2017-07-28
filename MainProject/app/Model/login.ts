@@ -26,6 +26,10 @@ export class loginUser {
     private userAccount: ILogin = new ILogin(0, "", "Login1", "", 0);
 
     constructor() { }
+    public logOff(): void {
+        delete (this.userAccount);
+        this.userAccount = new ILogin(0, "", "Login1", "", 0);
+    }
 
     public setemail(em:string) {
         this.userAccount.Email = em;

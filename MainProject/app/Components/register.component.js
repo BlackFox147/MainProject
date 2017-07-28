@@ -42,6 +42,9 @@ var RegisterComponent = (function () {
             global_1.LoginUserAccount.userData.setemail(user.Email);
             global_1.LoginUserAccount.userData.setName(user.UserName);
             global_1.LoginUserAccount.userData.setPassord(user.Password);
+            if (user.Profile.Age == 0) {
+                user.Profile.Age = null;
+            }
             global_1.LoginUserAccount.userData.setProfile(user.Profile);
         }, function (error) { return _this.msg = error; });
         //Asd.Mabe.setId(this.user.Id);

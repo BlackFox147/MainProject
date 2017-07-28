@@ -33,7 +33,28 @@ export class AccountComponent {
     LoginUserAccountData: ILogin = LoginUserAccount.userData.getparams();
 
     onChange(): void {
+        this._userService.put(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, this.LoginUserAccountData.Profile.Id, this.LoginUserAccountData.Profile).subscribe(
+            data => {
+                if (data == 1) //Success
+                {
+                    //this.msg = "Data successfully updated.";         
+                    console.log("OK->");        
+
+                }
+                else {
+                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                    console.log("NO->");
+                }
+
+               
+            },
+            error => {
+                console.log(error);
+                //this.msg = error;
+            }
+        );
         console.log("OK->" + LoginUserAccount.userData.getparams());
+
     }
 
     fileChange(event:any) {

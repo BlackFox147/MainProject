@@ -47,6 +47,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a *ngIf="!isUserLoggedIn()" [routerLink]="['register']">Register</a></li>
                     <li *ngIf="isUserLoggedIn()"><a [routerLink]="['account']">{{LoginUserAccountData.UserName}}</a></li>
+                    <li *ngIf="isUserLoggedIn()"><a href="#" (click)="LogOff()">LogOff</a></li>
 
                 </ul>
             </div>

@@ -34,9 +34,10 @@ namespace WebApplication9.Controllers
             int aaa = 0;
 
             var one = UsersDb.OneUsers.Include("Profile").FirstOrDefault(p => p.Email == value.Email);
+           
             if (one!=null)
             {
-                loggin = one;
+                loggin = one;                
             }
 
             //UsersDb.AllUsers.Add(value);

@@ -53,7 +53,11 @@ export class RegisterComponent {
                 LoginUserAccount.userData.setemail(user.Email);
                 LoginUserAccount.userData.setName(user.UserName);
                 LoginUserAccount.userData.setPassord(user.Password);
+                if (user.Profile.Age == 0) {
+                    user.Profile.Age = null;
+                }
                 LoginUserAccount.userData.setProfile(user.Profile);
+                
             },
             error => this.msg = <any>error);
         //Asd.Mabe.setId(this.user.Id);

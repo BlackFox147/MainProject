@@ -31,6 +31,19 @@ var AccountComponent = (function () {
         this.LoginUserAccountData = global_1.LoginUserAccount.userData.getparams();
     }
     AccountComponent.prototype.onChange = function () {
+        this._userService.put(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, this.LoginUserAccountData.Profile.Id, this.LoginUserAccountData.Profile).subscribe(function (data) {
+            if (data == 1) {
+                //this.msg = "Data successfully updated.";         
+                console.log("OK->");
+            }
+            else {
+                //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                console.log("NO->");
+            }
+        }, function (error) {
+            console.log(error);
+            //this.msg = error;
+        });
         console.log("OK->" + global_1.LoginUserAccount.userData.getparams());
     };
     AccountComponent.prototype.fileChange = function (event) {

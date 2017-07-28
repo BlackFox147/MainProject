@@ -18,6 +18,10 @@ var loginUser = (function () {
     function loginUser() {
         this.userAccount = new ILogin(0, "", "Login1", "", 0);
     }
+    loginUser.prototype.logOff = function () {
+        delete (this.userAccount);
+        this.userAccount = new ILogin(0, "", "Login1", "", 0);
+    };
     loginUser.prototype.setemail = function (em) {
         this.userAccount.Email = em;
     };

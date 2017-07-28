@@ -7,6 +7,7 @@ var Global = (function () {
     Global.BASE_USER_ENDPOINT = 'api/userapi/';
     Global.BASE_LOGIN_ENDPOINT = 'api/loginapi/';
     Global.BASE_REGISTER_ENDPOINT = 'api/registerapi/';
+    Global.BASE_CHANGE_USER_PROFILE_ENDPOINT = 'api/changeuserprofileapi/';
     return Global;
 }());
 exports.Global = Global;
