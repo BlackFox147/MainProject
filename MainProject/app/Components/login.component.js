@@ -17,6 +17,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.Show = function () {
         console.log(global_1.LoginUserAccount.userData.getparams());
         console.log(global_1.LoginUserAccount.userData.getProfile());
+        console.log(global_1.LoginUserAccount.userData.getInstructions());
     };
     LoginComponent.prototype.Add = function () {
         this.a += "a";

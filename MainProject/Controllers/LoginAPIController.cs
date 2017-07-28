@@ -37,7 +37,9 @@ namespace WebApplication9.Controllers
            
             if (one!=null)
             {
-                loggin = one;                
+                loggin = one;
+                profile = UsersDb.UserProfiles.Include("Instructions").FirstOrDefault(p => p.Id == loggin.Id);
+                loggin.Profile = profile;
             }
 
             //UsersDb.AllUsers.Add(value);

@@ -7,7 +7,7 @@ var ILogin = (function () {
         this.UserName = name;
         this.Email = email;
         this.Password = pass;
-        this.Profile = new profile_1.UserProfile(prof, prof, "", "", "");
+        this.Profile = new profile_1.UserProfile(prof, prof, "", "", "", null);
     }
     return ILogin;
 }());
@@ -40,8 +40,14 @@ var loginUser = (function () {
     loginUser.prototype.setPassord = function (em) {
         this.userAccount.Password = em;
     };
+    loginUser.prototype.setInstructions = function (em) {
+        this.userAccount.Profile.Instructions = em;
+    };
     loginUser.prototype.getparams = function () {
         return this.userAccount;
+    };
+    loginUser.prototype.getInstructions = function () {
+        return this.userAccount.Profile.Instructions;
     };
     loginUser.prototype.setData = function (data) {
         return this.userAccount = data;

@@ -16,7 +16,7 @@ namespace WebApplication9.Controllers
         protected UserContextNew UsersDb = new UserContextNew();
 
         protected static OneUser loggin;
-        
+        protected static UserProfile profile;
 
         protected HttpResponseMessage ToJson(dynamic obj)
         {

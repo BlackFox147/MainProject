@@ -1,5 +1,6 @@
 ﻿import { IUser } from '../Model/user';
 import { UserProfile } from '../Model/profile';
+import { Instruction } from '../Model/instruction';
 
 export class ILogin{
     Id: number;
@@ -13,7 +14,7 @@ export class ILogin{
         this.UserName = name;
         this.Email = email;
         this.Password = pass;
-        this.Profile = new UserProfile(prof, prof,"","","");
+        this.Profile = new UserProfile(prof, prof,"","","",null);
     }
 
 }
@@ -26,6 +27,7 @@ export class loginUser {
     private userAccount: ILogin = new ILogin(0, "", "Login1", "", 0);
 
     constructor() { }
+    
     public logOff(): void {
         delete (this.userAccount);
         this.userAccount = new ILogin(0, "", "Login1", "", 0);
@@ -53,8 +55,16 @@ export class loginUser {
         this.userAccount.Password = em;
     }
 
+    public setInstructions(em: Instruction[]) {
+        this.userAccount.Profile.Instructions = em;
+    }
+
     public getparams() {
         return this.userAccount;
+    }
+
+    public getInstructions() {
+        return this.userAccount.Profile.Instructions;
     }
 
     public setData(data:any) {

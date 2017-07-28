@@ -9,7 +9,7 @@
 //    qqq: ILogin = Asd.Mabe.getparams();
 //}
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Global, LoginUserAccount } from '../Shared/global';
 import { ILogin } from '../Model/login';
@@ -17,6 +17,8 @@ import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';  
 import { Router } from '@angular/router'; 
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Instruction } from '../Model/instruction';
 
 
 @Component({
@@ -25,6 +27,11 @@ import { Router } from '@angular/router';
 })
 export class AccountComponent {
 
+    @ViewChild('modal') modal: ModalComponent;
+    modalTitle: string;
+    modalBtnTitle: string;
+
+    
     private isUploadBtn: boolean = true;
     constructor(private http: Http, private _userService: UserService, private router: Router) {
     }  
@@ -52,10 +59,60 @@ export class AccountComponent {
                 console.log(error);
                 //this.msg = error;
             }
-        );
-        console.log("OK->" + LoginUserAccount.userData.getparams());
+        );    
 
     }
+
+
+
+    LoadUserInstruction(): void {       
+        this._userService.get(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT)
+            .subscribe(instructions => {                
+                LoginUserAccount.userData.setInstructions(instructions);
+                console.log("OK->Get_Instruction"); 
+                console.log(this.LoginUserAccountData.Profile.Instructions);
+            },
+            error => 
+                console.log(error));                                   
+    }
+
+    addInstruction() {
+        this.modalTitle = "Create new Instruction";
+        this.modalBtnTitle = "Create";
+        this.modal.open();
+    }
+
+    Create(instructionName: string): void {
+        this._userService.post(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new Instruction(0, 0, instructionName)).subscribe(
+            data => {
+                if (data == 1) //Success
+                {
+                    //this.msg = "Data successfully updated.";
+                    console.log("OK->Instruction"); 
+                    this.LoadUserInstruction();                   
+
+                }
+                else {
+                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                    console.log("NO->");
+                }
+
+
+            },
+            error => {
+                console.log(error);
+                //this.msg = error;
+            }
+        );
+       
+
+
+
+        this.modal.dismiss();
+    }
+
+
+
 
     fileChange(event:any) {
         debugger;

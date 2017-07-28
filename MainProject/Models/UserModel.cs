@@ -33,5 +33,11 @@ namespace MainProject.Models
         public OneUser OneUser { get; set; }
         public string UserImageName { get; set; }
 
+        public ICollection<Instruction> Instructions { get; set; }
+        public UserProfile()
+        {
+            Instructions = new List<Instruction>();
+        }
+
     }
 }

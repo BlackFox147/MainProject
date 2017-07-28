@@ -20,7 +20,7 @@ export class LoginComponent {
     Show(): void {
         console.log(LoginUserAccount.userData.getparams());
         console.log(LoginUserAccount.userData.getProfile());
-       
+        console.log(LoginUserAccount.userData.getInstructions());       
     }
 
     Add(): void {

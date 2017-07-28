@@ -22,6 +22,8 @@ var user_service_1 = require("../Service/user.service");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var router_1 = require("@angular/router");
+var ng2_bs3_modal_1 = require("ng2-bs3-modal/ng2-bs3-modal");
+var instruction_1 = require("../Model/instruction");
 var AccountComponent = (function () {
     function AccountComponent(http, _userService, router) {
         this.http = http;
@@ -44,7 +46,40 @@ var AccountComponent = (function () {
             console.log(error);
             //this.msg = error;
         });
-        console.log("OK->" + global_1.LoginUserAccount.userData.getparams());
+    };
+    AccountComponent.prototype.LoadUserInstruction = function () {
+        var _this = this;
+        this._userService.get(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT)
+            .subscribe(function (instructions) {
+            global_1.LoginUserAccount.userData.setInstructions(instructions);
+            console.log("OK->Get_Instruction");
+            console.log(_this.LoginUserAccountData.Profile.Instructions);
+        }, function (error) {
+            return console.log(error);
+        });
+    };
+    AccountComponent.prototype.addInstruction = function () {
+        this.modalTitle = "Create new Instruction";
+        this.modalBtnTitle = "Create";
+        this.modal.open();
+    };
+    AccountComponent.prototype.Create = function (instructionName) {
+        var _this = this;
+        this._userService.post(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new instruction_1.Instruction(0, 0, instructionName)).subscribe(function (data) {
+            if (data == 1) {
+                //this.msg = "Data successfully updated.";
+                console.log("OK->Instruction");
+                _this.LoadUserInstruction();
+            }
+            else {
+                //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                console.log("NO->");
+            }
+        }, function (error) {
+            console.log(error);
+            //this.msg = error;
+        });
+        this.modal.dismiss();
     };
     AccountComponent.prototype.fileChange = function (event) {
         var _this = this;
@@ -85,6 +120,10 @@ var AccountComponent = (function () {
         }
         // window.location.reload();
     };
+    __decorate([
+        core_1.ViewChild('modal'),
+        __metadata("design:type", ng2_bs3_modal_1.ModalComponent)
+    ], AccountComponent.prototype, "modal", void 0);
     AccountComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/Components/account.component.html',

@@ -181,6 +181,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstuctionAPIController.cs" />
     <Compile Include="Controllers\LoginAPIController.cs" />
     <Compile Include="Controllers\RegisterAPIController.cs" />
     <Compile Include="Controllers\UploadFileAPIController.cs" />
@@ -205,7 +206,12 @@
     <Compile Include="Migrations\201707270025050_DeleteImageDataMigrations.Designer.cs">
       <DependentUpon>201707270025050_DeleteImageDataMigrations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707281559416_AddInstractionMigration.cs" />
+    <Compile Include="Migrations\201707281559416_AddInstractionMigration.Designer.cs">
+      <DependentUpon>201707281559416_AddInstractionMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Instruction.cs" />
     <Compile Include="Models\UserContext.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -283,6 +289,7 @@
     <TypeScriptCompile Include="app\Components\register.component.ts" />
     <TypeScriptCompile Include="app\Components\user.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\Model\instruction.ts" />
     <TypeScriptCompile Include="app\Model\login.ts" />
     <TypeScriptCompile Include="app\Model\profile.ts" />
     <TypeScriptCompile Include="app\Model\user.ts" />
@@ -310,6 +317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707270025050_DeleteImageDataMigrations.resx">
       <DependentUpon>201707270025050_DeleteImageDataMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707281559416_AddInstractionMigration.resx">
+      <DependentUpon>201707281559416_AddInstractionMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
