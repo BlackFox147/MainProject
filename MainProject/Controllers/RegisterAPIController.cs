@@ -17,7 +17,7 @@ namespace MainProject.Controllers
         {
             //return ToJson(UsersDb.AllUsers.AsEnumerable());
 
-            var list = ToJson(UsersDb.OneUsers.Where(p => p.Email == loggin.Email).AsEnumerable().First());
+            var list = ToJson(loggin);
             return list;
         }
 
@@ -33,8 +33,7 @@ namespace MainProject.Controllers
             UsersDb.OneUsers.Add(value);
             int s = UsersDb.SaveChanges();
             if (s == 1)
-            {
-                
+            {                
                 int size = UsersDb.OneUsers.Count();
                 UserProfile profile1 = new UserProfile { Id = value.Id };
                 UsersDb.UserProfiles.Add(profile1);

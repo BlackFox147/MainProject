@@ -20,7 +20,8 @@ import { Router } from '@angular/router';
 
 
 @Component({
-    templateUrl: 'app/Components/account.component.html'
+    templateUrl: 'app/Components/account.component.html',
+    styleUrls: ['./app/Components/account.component.css']
 })
 export class AccountComponent {
 

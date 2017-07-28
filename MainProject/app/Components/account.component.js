@@ -74,7 +74,8 @@ var AccountComponent = (function () {
     };
     AccountComponent = __decorate([
         core_1.Component({
-            templateUrl: 'app/Components/account.component.html'
+            templateUrl: 'app/Components/account.component.html',
+            styleUrls: ['./app/Components/account.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router])
     ], AccountComponent);

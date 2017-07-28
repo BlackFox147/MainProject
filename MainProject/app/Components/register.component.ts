@@ -63,7 +63,7 @@ export class RegisterComponent {
 
         this.msg = "";
 
-        var required = /[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/;
+        var required = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$/;
         
         if (!required.test(register_email)) {
             this.msg = "Email isn't correct";
