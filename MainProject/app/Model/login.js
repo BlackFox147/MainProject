@@ -14,41 +14,41 @@ var ILogin = (function () {
 exports.ILogin = ILogin;
 //import { Injectable } from '@angular/core';
 //@Injectable()
-var loginuser = (function () {
-    function loginuser() {
-        this.log = new ILogin(0, "", "Login1", "", 0);
+var loginUser = (function () {
+    function loginUser() {
+        this.userAccount = new ILogin(0, "", "Login1", "", 0);
     }
-    loginuser.prototype.setemail = function (em) {
-        this.log.Email = em;
+    loginUser.prototype.setemail = function (em) {
+        this.userAccount.Email = em;
     };
-    loginuser.prototype.setProfile = function (em) {
-        this.log.Profile = em;
+    loginUser.prototype.setProfile = function (em) {
+        this.userAccount.Profile = em;
     };
-    loginuser.prototype.setProfileAge = function (em) {
-        this.log.Profile.Age = em;
+    loginUser.prototype.setProfileAge = function (em) {
+        this.userAccount.Profile.Age = em;
     };
-    loginuser.prototype.setId = function (em) {
-        this.log.Id = em;
+    loginUser.prototype.setId = function (em) {
+        this.userAccount.Id = em;
     };
-    loginuser.prototype.setName = function (em) {
-        this.log.UserName = em;
+    loginUser.prototype.setName = function (em) {
+        this.userAccount.UserName = em;
     };
-    loginuser.prototype.setPassord = function (em) {
-        this.log.Password = em;
+    loginUser.prototype.setPassord = function (em) {
+        this.userAccount.Password = em;
     };
-    loginuser.prototype.getparams = function () {
-        return this.log;
+    loginUser.prototype.getparams = function () {
+        return this.userAccount;
     };
-    loginuser.prototype.setData = function (data) {
-        return this.log = data;
+    loginUser.prototype.setData = function (data) {
+        return this.userAccount = data;
     };
-    loginuser.prototype.getEmail = function () {
-        return this.log.Email;
+    loginUser.prototype.getEmail = function () {
+        return this.userAccount.Email;
     };
-    loginuser.prototype.getProfile = function () {
-        return this.log.Profile;
+    loginUser.prototype.getProfile = function () {
+        return this.userAccount.Profile;
     };
-    return loginuser;
+    return loginUser;
 }());
-exports.loginuser = loginuser;
+exports.loginUser = loginUser;
 //# sourceMappingURL=login.js.map

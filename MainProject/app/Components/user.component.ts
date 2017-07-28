@@ -5,7 +5,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { IUser } from '../Model/user';
 import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
-import { Global, Asd } from '../Shared/global';
+import { Global, LoginUserAccount } from '../Shared/global';
 //import { loginuser } from '../Model/login';
 //import { LoginUser } from '../Model/login';
 
@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
             UserName: ['', Validators.required],
             Email: [''],
             Password: ['', Validators.required],
-            ConformPassword: [''],
+
             UserProfile: ['']
         });
         this.LoadUsers();        

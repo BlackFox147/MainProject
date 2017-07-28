@@ -6,8 +6,8 @@ import { IUser } from '../Model/user';
 import { ILogin } from '../Model/login';
 import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
-import { Global, Asd } from '../Shared/global';
-import { loginuser } from '../Model/login';
+import { Global, LoginUserAccount } from '../Shared/global';
+import { loginUser } from '../Model/login';
 import { UserProfile } from '../Model/profile';
 //import { LoginUser } from '../Model/login';
 
@@ -18,18 +18,18 @@ import { UserProfile } from '../Model/profile';
 export class LoginComponent {
     a: string = "a";
     Show(): void {
-        console.log(Asd.Mabe.getparams());
-        console.log(Asd.Mabe.getProfile());
+        console.log(LoginUserAccount.userData.getparams());
+        console.log(LoginUserAccount.userData.getProfile());
        
     }
 
     Add(): void {
         this.a += "a";
-        Asd.Mabe.setemail(this.a);
+        LoginUserAccount.userData.setemail(this.a);
         
         //this.qqq = Asd.Mabe.getparams();
     }
-    qqq: ILogin = Asd.Mabe.getparams();
+    qqq: ILogin = LoginUserAccount.userData.getparams();
 }
 
 //export class LoginComponent implements OnInit {

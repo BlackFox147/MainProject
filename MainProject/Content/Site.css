@@ -1,24 +1,35 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/* Styles go here */
+
+
+        body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+ 
+
+#email{
+ color: #fff;
+text-align:center;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+
+#header {
+    background: url(../images/home.jpg) 100% 100% no-repeat;
+    /*background: url(http://belchim.it/images/sliders/full_slider/slide3.jpg) 100% 100% no-repeat;*/
+    -webkit-background-size: cover;
+    
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    /* Высота шапки */
+    max-width: 100%;
+    height: 300px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
-}
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}

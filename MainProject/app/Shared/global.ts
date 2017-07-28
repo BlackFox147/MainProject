@@ -1,4 +1,4 @@
-﻿import { loginuser } from '../Model/login';
+﻿import { loginUser } from '../Model/login';
 import { IUser } from '../Model/user';
 
 export class Global {
@@ -8,8 +8,8 @@ export class Global {
 }
 
 
-export class Asd {
-    public static Mabe: loginuser = new loginuser();
+export class LoginUserAccount {
+    public static userData: loginUser = new loginUser();
 }
 
 

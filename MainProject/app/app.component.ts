@@ -1,5 +1,5 @@
 ﻿import { Component } from "@angular/core"
-import { Global, Asd } from './Shared/global';
+import { Global, LoginUserAccount } from './Shared/global';
 import { ILogin } from './Model/login';
 
 @Component({
@@ -9,10 +9,10 @@ import { ILogin } from './Model/login';
 
 export class AppComponent {
 
-    asd: ILogin = Asd.Mabe.getparams();
+    LoginUserAccountData: ILogin = LoginUserAccount.userData.getparams();
 
     ShowE(): void {
-        console.log(this.asd);
+        console.log(this.LoginUserAccountData);
     }
 
 
@@ -20,13 +20,13 @@ export class AppComponent {
 
     //Add(): void {
     //    this.a += "a";
-    //    Asd.Mabe.setemail(this.a);
-    //    console.log(this.asd);
-    //    //this.qqq = Asd.Mabe.getparams();
+    //    LoginUserAccountData.Mabe.setemail(this.a);
+    //    console.log(this.LoginUserAccountData);
+    //    //this.qqq = LoginUserAccountData.Mabe.getparams();
     //}
 
     isUserLoggedIn(): boolean {
-        if (this.asd.Id == 0) {
+        if (this.LoginUserAccountData.Id == 0) {
             return false;
         }
         else

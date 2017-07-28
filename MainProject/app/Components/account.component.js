@@ -21,23 +21,26 @@ var global_1 = require("../Shared/global");
 var user_service_1 = require("../Service/user.service");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
+var router_1 = require("@angular/router");
 var AccountComponent = (function () {
-    function AccountComponent(http, _userService) {
+    function AccountComponent(http, _userService, router) {
         this.http = http;
         this._userService = _userService;
+        this.router = router;
         this.isUploadBtn = true;
-        this.qqq = global_1.Asd.Mabe.getparams();
+        this.LoginUserAccountData = global_1.LoginUserAccount.userData.getparams();
     }
     AccountComponent.prototype.onChange = function () {
-        console.log("OK->" + global_1.Asd.Mabe.getparams());
+        console.log("OK->" + global_1.LoginUserAccount.userData.getparams());
     };
     AccountComponent.prototype.fileChange = function (event) {
+        var _this = this;
         debugger;
         var fileList = event.target.files;
         if (fileList.length > 0) {
-            var file = fileList[0];
+            var file_1 = fileList[0];
             var formData = new FormData();
-            formData.append('uploadFile', file, file.name);
+            formData.append('uploadFile', file_1, file_1.name);
             var headers = new http_1.Headers();
             //headers.append('Content-Type', 'json');  
             //headers.append('Accept', 'application/json');  
@@ -48,7 +51,7 @@ var AccountComponent = (function () {
             //        if (data == 1) //Success
             //        {
             //            console.log('success');                        
-            //            console.log(Asd.Mabe.getparams());
+            //            console.log(LoginUserAccountData.Mabe.getparams());
             //        }
             //        else {
             //            console.log('error');  
@@ -61,7 +64,11 @@ var AccountComponent = (function () {
             this.http.post(apiUrl1, formData, options)
                 .map(function (res) { return res.json(); })
                 .catch(function (error) { return Rx_1.Observable.throw(error); })
-                .subscribe(function (data) { return console.log('success'); }, function (error) { return console.log(error); });
+                .subscribe(function (data) {
+                console.log('success');
+                _this.LoginUserAccountData.Profile.UserImageName = file_1.name;
+                _this.router.navigate(['account']);
+            }, function (error) { return console.log(error); });
         }
         // window.location.reload();
     };
@@ -69,7 +76,7 @@ var AccountComponent = (function () {
         core_1.Component({
             templateUrl: 'app/Components/account.component.html'
         }),
-        __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService])
+        __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router])
     ], AccountComponent);
     return AccountComponent;
 }());

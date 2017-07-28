@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var user_service_1 = require("../Service/user.service");
 var forms_1 = require("@angular/forms");
+var user_1 = require("../Model/user");
 var global_1 = require("../Shared/global");
 var router_1 = require("@angular/router"); //!!!
 var RegisterComponent = (function () {
@@ -28,7 +29,6 @@ var RegisterComponent = (function () {
             UserName: [''],
             Email: [''],
             Password: [''],
-            ConformPassword: [''],
             Profile: ['']
         });
         //this.LoadUsers();        
@@ -38,28 +38,34 @@ var RegisterComponent = (function () {
         this.indLoading = true;
         this._userService.get(this.activeUrl)
             .subscribe(function (user) {
-            global_1.Asd.Mabe.setId(user.Id);
-            global_1.Asd.Mabe.setemail(user.Email);
-            global_1.Asd.Mabe.setName(user.UserName);
-            global_1.Asd.Mabe.setPassord(user.Password);
-            global_1.Asd.Mabe.setProfile(user.Profile);
+            global_1.LoginUserAccount.userData.setId(user.Id);
+            global_1.LoginUserAccount.userData.setemail(user.Email);
+            global_1.LoginUserAccount.userData.setName(user.UserName);
+            global_1.LoginUserAccount.userData.setPassord(user.Password);
+            global_1.LoginUserAccount.userData.setProfile(user.Profile);
         }, function (error) { return _this.msg = error; });
         //Asd.Mabe.setId(this.user.Id);
     };
-    RegisterComponent.prototype.onSubmit = function (formData) {
+    RegisterComponent.prototype.onSubmit = function (register_username, register_email, register_password, register_cpassword) {
         var _this = this;
         this.msg = "";
-        this.activeUrl = global_1.Global.BASE_REGISTER_ENDPOINT;
-        if (formData._value.Password != formData._value.ConformPassword) {
-            console.log("No");
+        var required = /[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/;
+        if (!required.test(register_email)) {
+            this.msg = "Email isn't correct";
+            console.log("wrong email");
             return;
         }
-        global_1.Asd.Mabe.setemail(formData._value.Email);
-        this._userService.post(this.activeUrl, formData._value).subscribe(function (data) {
+        this.activeUrl = global_1.Global.BASE_REGISTER_ENDPOINT;
+        if (register_password != register_cpassword) {
+            this.msg = "ConformPassword isn't correct";
+            console.log("No ConformPassword");
+            return;
+        }
+        this._userService.post(this.activeUrl, new user_1.IUser(register_username, register_email, register_password)).subscribe(function (data) {
             if (data == 1) {
                 _this.msg = "Data successfully added.";
                 _this.LoadOneUsers();
-                console.log(global_1.Asd.Mabe.getparams());
+                console.log(global_1.LoginUserAccount.userData.getparams());
             }
             else {
                 _this.msg = "There is some issue in saving records, please contact to system administrator!";
@@ -68,15 +74,15 @@ var RegisterComponent = (function () {
             _this.msg = error;
         });
     };
-    RegisterComponent.prototype.onSubmitLogin = function (formData) {
+    RegisterComponent.prototype.onSubmitLogin = function (email, password) {
         var _this = this;
         this.msg = "";
         this.activeUrl = global_1.Global.BASE_LOGIN_ENDPOINT;
-        this._userService.post(global_1.Global.BASE_LOGIN_ENDPOINT, formData._value).subscribe(function (data) {
+        this._userService.post(global_1.Global.BASE_LOGIN_ENDPOINT, new user_1.IUser("", email, password)).subscribe(function (data) {
             if (data == 1) {
                 _this.msg = "Data successfully added.";
                 _this.LoadOneUsers();
-                console.log(global_1.Asd.Mabe.getparams());
+                console.log(global_1.LoginUserAccount.userData.getparams());
                 _this.router.navigate(['/']); //!!!
             }
             if (data == 2) {

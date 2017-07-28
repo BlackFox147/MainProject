@@ -217,7 +217,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.component.html" />
+    <Content Include="app\Components\account.component.css" />
     <Content Include="app\Components\account.component.html" />
+    <Content Include="app\Components\home.component.html" />
     <Content Include="app\Components\login.component.html" />
     <Content Include="app\Components\register.component.css" />
     <Content Include="app\Components\register.component.html" />
@@ -232,7 +234,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\home.jpg" />
     <Content Include="images\loading.gif" />
+    <Content Include="images\no_avatar.png" />
     <Content Include="images\users.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

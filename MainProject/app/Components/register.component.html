@@ -29,66 +29,74 @@
 
 
 <br>
-<div class="row">
-    <div class="container">
-        <div class="login-register-form-section">
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
-                <li><a href="#register" data-toggle="tab">Register</a></li>
-            </ul>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="login">
-                    <form class="form-horizontal"novalidate (ngSubmit)="onSubmitLogin(userFrm)" [formGroup]="userFrm" action="">
-                        <div class="form-group ">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                <input type="text" formControlName="Email" name="login_email" class="form-control" placeholder="Email" required="required" value="">
+<div class="main-login main-center">
+    <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="login-register-form-section">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+                    <li><a href="#register" data-toggle="tab">Register</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="login">
+                        <div action="">
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <input type="text" name="email" [(ngModel)]="email" class="form-control" placeholder="Email" value="" required="required">                                   
+                                </div>                                
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                                <input type="password"formControlName="Password" name="login_password" class="form-control" placeholder="Password" required="required">
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                                    <input type="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" required="required">
+                                </div>
                             </div>
+                            <!--<div class="form-group">
+                                <input type="checkbox" id="rememberMe">
+                                <label for="rememberMe">Remember Me</label>
+                                <a href="#" class="pull-right">Forgot password?</a>
+                            </div>-->
+
+                            <input type="submit" value="Login" (click)="onSubmitLogin(email, password)" class="btn btn-success btn-custom">
                         </div>
-                        <!--<div class="form-group">
-                            <input type="checkbox" id="rememberMe">
-                            <label for="rememberMe">Remember Me</label>
-                            <a href="#" class="pull-right">Forgot password?</a>
-                        </div>-->
-                        
-                        <input type="submit"  value="Login" class="btn btn-success btn-custom">
-                    </form>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="register">
-                    <form class="form-horizontal" novalidate (ngSubmit)="onSubmit(userFrm)" [formGroup]="userFrm"action="">
-                        <div class="form-group ">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                <input type="text" formControlName="UserName" name="register_username" class="form-control" placeholder="Username" required="required" value="">
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="register">
+                        <div action="">
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <input type="text" [(ngModel)]="register_username" name="register_username" class="form-control" placeholder="Username" required="required" value="">
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="form-group ">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                <input type="email" formControlName="Email" name="register_email" class="form-control" placeholder="Email" required="required" value="">
+
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                                    <input type="email"  [(ngModel)]="register_email" name="register_email" class="form-control" placeholder="Email" required="required" value="">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                                <input type="password" formControlName="Password" name="register_password" class="form-control" placeholder="Password" required="required">
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                    <input type="password"  [(ngModel)]="register_password" name="register_password" class="form-control" placeholder="Password" required="required">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                                <input type="password" formControlName="ConformPassword" name="register_cpassword" class="form-control" placeholder="Confirm Password" required="required">
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                    <input type="password" [(ngModel)]="register_cpassword" name="register_cpassword" class="form-control" placeholder="Confirm Password" required="required">
+                                </div>
                             </div>
+                            <input type="submit" value="Register"(click)="onSubmit(register_username,register_email, register_password,register_cpassword)" class="btn btn-success btn-custom">
                         </div>
-                        <input type="submit"  value="Register" class="btn btn-success btn-custom">
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

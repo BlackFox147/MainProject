@@ -6,8 +6,8 @@ import { IUser } from '../Model/user';
 import { ILogin } from '../Model/login';
 import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
-import { Global, Asd } from '../Shared/global';
-import { loginuser } from '../Model/login';
+import { Global, LoginUserAccount } from '../Shared/global';
+import { loginUser } from '../Model/login';
 import { UserProfile } from '../Model/profile';
 import { Router } from '@angular/router';       //!!!
 
@@ -29,6 +29,7 @@ export class RegisterComponent {
     info: string = "Start";
     activeUrl: string; 
 
+
     constructor(private fb: FormBuilder, private _userService: UserService, private router: Router) {       //!!!
     }
 
@@ -39,7 +40,6 @@ export class RegisterComponent {
             UserName: [''],
             Email: [''],
             Password: [''],
-            ConformPassword: [''],
             Profile:['']
         });
         //this.LoadUsers();        
@@ -49,32 +49,42 @@ export class RegisterComponent {
         this.indLoading = true;
         this._userService.get(this.activeUrl)
             .subscribe(user => {
-                Asd.Mabe.setId(user.Id);
-                Asd.Mabe.setemail(user.Email);
-                Asd.Mabe.setName(user.UserName);
-                Asd.Mabe.setPassord(user.Password);
-                Asd.Mabe.setProfile(user.Profile);
+                LoginUserAccount.userData.setId(user.Id);
+                LoginUserAccount.userData.setemail(user.Email);
+                LoginUserAccount.userData.setName(user.UserName);
+                LoginUserAccount.userData.setPassord(user.Password);
+                LoginUserAccount.userData.setProfile(user.Profile);
             },
             error => this.msg = <any>error);
         //Asd.Mabe.setId(this.user.Id);
     }
 
-    onSubmit(formData: any) {
+    onSubmit(register_username: string, register_email: string, register_password: string, register_cpassword: string) {
 
         this.msg = "";
+
+        var required = /[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/;
+        
+        if (!required.test(register_email)) {
+            this.msg = "Email isn't correct";
+            console.log("wrong email");
+            return;            
+        }
+
         this.activeUrl = Global.BASE_REGISTER_ENDPOINT;
-        if (formData._value.Password != formData._value.ConformPassword) {
-            console.log("No");
+        if (register_password != register_cpassword) {
+            this.msg = "ConformPassword isn't correct";
+            console.log("No ConformPassword");
             return;
         }
-        Asd.Mabe.setemail(formData._value.Email);
-        this._userService.post(this.activeUrl, formData._value).subscribe(
+        
+        this._userService.post(this.activeUrl, new IUser(register_username, register_email, register_password)).subscribe(
             data => {
                 if (data == 1) //Success
                 {
                     this.msg = "Data successfully added.";
                     this.LoadOneUsers();
-                    console.log(Asd.Mabe.getparams());
+                    console.log(LoginUserAccount.userData.getparams());
                 }                
                 else {
                     this.msg = "There is some issue in saving records, please contact to system administrator!"
@@ -87,19 +97,18 @@ export class RegisterComponent {
     }
 
 
-    onSubmitLogin(formData: any) {
+    onSubmitLogin(email:string, password:string) {
         this.msg = "";
 
         this.activeUrl = Global.BASE_LOGIN_ENDPOINT;
-
-       
-        this._userService.post(Global.BASE_LOGIN_ENDPOINT, formData._value).subscribe(
+               
+        this._userService.post(Global.BASE_LOGIN_ENDPOINT, new IUser("", email, password)).subscribe(
             data => {
                 if (data == 1) //Success
                 {
                     this.msg = "Data successfully added.";
                     this.LoadOneUsers();
-                    console.log(Asd.Mabe.getparams());
+                    console.log(LoginUserAccount.userData.getparams());
                     this.router.navigate(['/']);       //!!!
                 }
                 if (data == 2) {

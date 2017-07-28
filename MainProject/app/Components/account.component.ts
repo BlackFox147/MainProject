@@ -11,11 +11,12 @@
 
 import { Component } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Global, Asd } from '../Shared/global';
+import { Global, LoginUserAccount } from '../Shared/global';
 import { ILogin } from '../Model/login';
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';  
+import { Router } from '@angular/router'; 
 
 
 @Component({
@@ -24,13 +25,14 @@ import { Observable } from 'rxjs/Rx';
 export class AccountComponent {
 
     private isUploadBtn: boolean = true;
-    constructor(private http: Http, private _userService: UserService) {
+    constructor(private http: Http, private _userService: UserService, private router: Router) {
     }  
+
     
-    qqq: ILogin = Asd.Mabe.getparams();
+    LoginUserAccountData: ILogin = LoginUserAccount.userData.getparams();
 
     onChange(): void {
-        console.log("OK->"+Asd.Mabe.getparams());
+        console.log("OK->" + LoginUserAccount.userData.getparams());
     }
 
     fileChange(event:any) {
@@ -51,7 +53,7 @@ export class AccountComponent {
             //        if (data == 1) //Success
             //        {
             //            console.log('success');                        
-            //            console.log(Asd.Mabe.getparams());
+            //            console.log(LoginUserAccountData.Mabe.getparams());
             //        }
             //        else {
             //            console.log('error');  
@@ -66,7 +68,11 @@ export class AccountComponent {
                 .map(res => res.json())
                 .catch(error => Observable.throw(error))
                 .subscribe(
-                data => console.log('success'),
+                data => {
+                    console.log('success');
+                    this.LoginUserAccountData.Profile.UserImageName = file.name;
+                    this.router.navigate(['account']);
+                },
                 error => console.log(error)
                 )
         }

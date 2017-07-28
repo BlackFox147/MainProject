@@ -12,15 +12,15 @@ var global_1 = require("../Shared/global");
 var LoginComponent = (function () {
     function LoginComponent() {
         this.a = "a";
-        this.qqq = global_1.Asd.Mabe.getparams();
+        this.qqq = global_1.LoginUserAccount.userData.getparams();
     }
     LoginComponent.prototype.Show = function () {
-        console.log(global_1.Asd.Mabe.getparams());
-        console.log(global_1.Asd.Mabe.getProfile());
+        console.log(global_1.LoginUserAccount.userData.getparams());
+        console.log(global_1.LoginUserAccount.userData.getProfile());
     };
     LoginComponent.prototype.Add = function () {
         this.a += "a";
-        global_1.Asd.Mabe.setemail(this.a);
+        global_1.LoginUserAccount.userData.setemail(this.a);
         //this.qqq = Asd.Mabe.getparams();
     };
     LoginComponent = __decorate([

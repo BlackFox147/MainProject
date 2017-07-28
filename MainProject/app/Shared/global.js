@@ -10,13 +10,13 @@ var Global = (function () {
     return Global;
 }());
 exports.Global = Global;
-var Asd = (function () {
-    function Asd() {
+var LoginUserAccount = (function () {
+    function LoginUserAccount() {
     }
-    Asd.Mabe = new login_1.loginuser();
-    return Asd;
+    LoginUserAccount.userData = new login_1.loginUser();
+    return LoginUserAccount;
 }());
-exports.Asd = Asd;
+exports.LoginUserAccount = LoginUserAccount;
 //public static Log: ILogin = new ILogin(0, "", "", "");  
 //export class LoginUser {
 //    private Log: ILogin = new ILogin(0, "", "", "");   

@@ -22,44 +22,44 @@ export class ILogin{
 
 //@Injectable()
 
-export class loginuser {
-    private log: ILogin = new ILogin(0, "", "Login1", "", 0);
+export class loginUser {
+    private userAccount: ILogin = new ILogin(0, "", "Login1", "", 0);
 
     constructor() { }
 
     public setemail(em:string) {
-        this.log.Email = em;
+        this.userAccount.Email = em;
     }
 
     public setProfile(em: UserProfile) {
-        this.log.Profile = em;
+        this.userAccount.Profile = em;
     }
 
     public setProfileAge(em: number) {
-        this.log.Profile.Age = em;
+        this.userAccount.Profile.Age = em;
     }
 
     public setId(em: number) {
-        this.log.Id = em;
+        this.userAccount.Id = em;
     }
     public setName(em: string) {
-        this.log.UserName = em;
+        this.userAccount.UserName = em;
     }
     public setPassord(em: string) {
-        this.log.Password = em;
+        this.userAccount.Password = em;
     }
 
     public getparams() {
-        return this.log;
+        return this.userAccount;
     }
 
     public setData(data:any) {
-        return this.log = data;
+        return this.userAccount = data;
     }
     public getEmail() {
-        return this.log.Email;
+        return this.userAccount.Email;
     }
     public getProfile() {
-        return this.log.Profile;
+        return this.userAccount.Profile;
     }
 }

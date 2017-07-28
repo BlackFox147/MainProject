@@ -10,20 +10,20 @@ var core_1 = require("@angular/core");
 var global_1 = require("./Shared/global");
 var AppComponent = (function () {
     function AppComponent() {
-        this.asd = global_1.Asd.Mabe.getparams();
+        this.LoginUserAccountData = global_1.LoginUserAccount.userData.getparams();
         this.a = "a";
     }
     AppComponent.prototype.ShowE = function () {
-        console.log(this.asd);
+        console.log(this.LoginUserAccountData);
     };
     //Add(): void {
     //    this.a += "a";
-    //    Asd.Mabe.setemail(this.a);
-    //    console.log(this.asd);
-    //    //this.qqq = Asd.Mabe.getparams();
+    //    LoginUserAccountData.Mabe.setemail(this.a);
+    //    console.log(this.LoginUserAccountData);
+    //    //this.qqq = LoginUserAccountData.Mabe.getparams();
     //}
     AppComponent.prototype.isUserLoggedIn = function () {
-        if (this.asd.Id == 0) {
+        if (this.LoginUserAccountData.Id == 0) {
             return false;
         }
         else
