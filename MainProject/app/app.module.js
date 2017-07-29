@@ -20,6 +20,8 @@ var account_component_1 = require("./components/account.component");
 var login_component_1 = require("./components/login.component");
 var register_component_1 = require("./components/register.component");
 var forms_2 = require("@angular/forms");
+var buildInstruction_component_1 = require("./components/buildInstruction.component");
+var ng2_dragula_1 = require("ng2-dragula/ng2-dragula");
 var common_2 = require("@angular/common");
 //import { LoginUser } from './Model/login';
 var user_service_1 = require("./Service/user.service");
@@ -28,9 +30,9 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [common_2.CommonModule, platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule, http_1.HttpModule, app_routing_1.routing, ng2_bs3_modal_1.Ng2Bs3ModalModule, forms_2.FormsModule],
+            imports: [common_2.CommonModule, platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule, http_1.HttpModule, app_routing_1.routing, ng2_bs3_modal_1.Ng2Bs3ModalModule, forms_2.FormsModule, ng2_dragula_1.DragulaModule],
             declarations: [app_component_1.AppComponent, user_component_1.UserComponent, home_component_1.HomeComponent, account_component_1.AccountComponent,
-                login_component_1.LoginComponent, register_component_1.RegisterComponent],
+                login_component_1.LoginComponent, register_component_1.RegisterComponent, buildInstruction_component_1.BuildInstructionComponent],
             providers: [{ provide: common_2.LocationStrategy, useClass: common_2.HashLocationStrategy }, { provide: common_1.APP_BASE_HREF, useValue: '/' }, user_service_1.UserService],
             bootstrap: [app_component_1.AppComponent]
         })

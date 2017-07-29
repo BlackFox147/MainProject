@@ -119,16 +119,16 @@
                 </ul>
             </div>-->
 
-           
+
             <br><br>
             <button (click)="addInstruction()" style="padding-bottom:10px" class="btn btn-success" type="button">
                 <span class="glyphicon glyphicon-plus"></span>
-                Create Instruction                
+                Create Instruction
             </button>
             <br><br><hr>
             <span class="pull-left">
                 <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-book" aria-hidden="true"></i> Instructions <span class="badge">{{LoginUserAccountData.Profile.Instructions.length}}</span></a>
-                
+
             </span>
             <!--<span class="pull-left">
                 <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
@@ -151,16 +151,22 @@
                         <tr>
                             <th>Name</th>
                             <th>UserProfileId</th>
-                            
-                            
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of LoginUserAccountData.Profile.Instructions">
-                            <td>{{user.Name}}</td>
-                            <td>{{user.UserProfileId}}</td>                        
-                            
+                        <tr *ngFor="let instruction of LoginUserAccountData.Profile.Instructions">
+                            <td>{{instruction.Name}}</td>
+                            <td>{{instruction.UserProfileId}}</td>
+                            <td>
+                                <button title="Edit" class="btn btn-primary" (click)="BuildInstruction(instruction.Id)">Edit</button>                                
+                            </td>
+                            <td>
+                                <button title="Delete" class="btn btn-danger">Delete</button>
+                            </td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -189,9 +195,9 @@
             </tr>
         </tbody>
     </table>
-        
+
         glyphicon glyphicon-book
-        
+
         -->
 
     <hr>
@@ -199,23 +205,23 @@
 
 
 <modal #modal>
-            <modal-header [show-close]="true">
-            <h4 class="modal-title">{{modalTitle}}</h4>
-        </modal-header>
-        <modal-body>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">{{modalTitle}}</h4>
+    </modal-header>
+    <modal-body>
 
-            <div class="form-group ">
-                <div class="input-group">                    
-                    <input type="text" name="instructionName" [(ngModel)]="instructionName" class="form-control" placeholder="Name" value="" required="required">
-                </div>
-            </div>
-        </modal-body>
-        <modal-footer>
-            <div>
-                <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
-                <input type="submit" value={{modalBtnTitle}} (click)="Create(instructionName)" class="btn btn-success btn-custom">
-                
-            </div>
-        </modal-footer>
+        <div class="form-group ">
+
+            <input type="text" name="instructionName" [(ngModel)]="instructionName" class="form-control" placeholder="Name" value="" required="required">
+
+        </div>
+    </modal-body>
+    <modal-footer>
+        <div>
+            <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
+            <input type="submit" value={{modalBtnTitle}} (click)="Create(instructionName)" class="btn btn-success btn-custom">
+
+        </div>
+    </modal-footer>
 
 </modal>

@@ -8,5 +8,5 @@
         this.Id = id;
         this.UserProfileId = profId;
         this.Name = name;
-    }
+    }        
 }

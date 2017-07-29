@@ -32,19 +32,23 @@
     "@angular/platform-browser": "~4.0.0",
     "@angular/platform-browser-dynamic": "~4.0.0",
     "@angular/router": "~4.0.0",
-    
+
     "angular2-google-login": "1.0.9",
     "angular-in-memory-web-api": "~0.3.0",
     "systemjs": "0.19.40",
     "core-js": "^2.4.1",
     "rxjs": "5.0.1",
     "zone.js": "^0.8.4"
+    
   },
   "devDependencies": {
     "concurrently": "^3.2.0",
     "lite-server": "^2.2.2",
     "typescript": "2.4.0",
     "ng2-bs3-modal": "0.10.4",
+
+    "ng2-dragula": "1.5.0",
+    "dragula": "3.7.2",
 
     "canonical-path": "0.0.2",
     "tslint": "^3.15.1",

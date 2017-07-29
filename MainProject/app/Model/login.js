@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var profile_1 = require("../Model/profile");
+var instruction_1 = require("../Model/instruction");
+var global_1 = require("../Shared/global");
 var ILogin = (function () {
     function ILogin(id, name, email, pass, prof) {
         this.Id = id;
@@ -39,6 +41,16 @@ var loginUser = (function () {
     };
     loginUser.prototype.setPassord = function (em) {
         this.userAccount.Password = em;
+    };
+    loginUser.prototype.getInstrustion = function () {
+        var temp = new instruction_1.Instruction(0, 0, "");
+        this.userAccount.Profile.Instructions.forEach(function (instructin) {
+            if (instructin.Id == global_1.BuildInstructionNow.buildInstruction) {
+                temp = instructin;
+                return;
+            }
+        });
+        return temp;
     };
     loginUser.prototype.setInstructions = function (em) {
         this.userAccount.Profile.Instructions = em;

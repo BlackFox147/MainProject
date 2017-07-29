@@ -18,6 +18,13 @@ var LoginUserAccount = (function () {
     return LoginUserAccount;
 }());
 exports.LoginUserAccount = LoginUserAccount;
+var BuildInstructionNow = (function () {
+    function BuildInstructionNow() {
+    }
+    BuildInstructionNow.buildInstruction = 0;
+    return BuildInstructionNow;
+}());
+exports.BuildInstructionNow = BuildInstructionNow;
 //public static Log: ILogin = new ILogin(0, "", "", "");  
 //export class LoginUser {
 //    private Log: ILogin = new ILogin(0, "", "", "");   

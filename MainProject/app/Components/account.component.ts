@@ -11,7 +11,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Global, LoginUserAccount } from '../Shared/global';
+import { Global, LoginUserAccount, BuildInstructionNow } from '../Shared/global';
 import { ILogin } from '../Model/login';
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
@@ -104,12 +104,16 @@ export class AccountComponent {
                 //this.msg = error;
             }
         );
-       
-
-
-
         this.modal.dismiss();
     }
+
+    BuildInstruction(instructionId: number): void {
+        BuildInstructionNow.buildInstruction = instructionId;
+        console.log(BuildInstructionNow.buildInstruction);
+        this.router.navigate(['buildInstruction']);
+    }
+
+
 
 
 

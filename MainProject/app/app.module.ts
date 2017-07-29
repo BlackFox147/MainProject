@@ -12,6 +12,10 @@ import { AccountComponent } from './components/account.component';
 import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
 import { FormsModule } from '@angular/forms';
+import { BuildInstructionComponent } from './components/buildInstruction.component';
+import { Instruction } from './Model/instruction';
+
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -22,10 +26,10 @@ import { UserService } from './Service/user.service'
 
 
 @NgModule({
-    imports: [CommonModule,BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule],
+    imports: [CommonModule, BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule, DragulaModule ],
     declarations: [AppComponent, UserComponent, HomeComponent, AccountComponent,
-        LoginComponent, RegisterComponent],
-    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },{ provide: APP_BASE_HREF, useValue: '/' }, UserService],
+        LoginComponent, RegisterComponent, BuildInstructionComponent],
+    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]
 
 })

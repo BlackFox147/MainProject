@@ -81,6 +81,11 @@ var AccountComponent = (function () {
         });
         this.modal.dismiss();
     };
+    AccountComponent.prototype.BuildInstruction = function (instructionId) {
+        global_1.BuildInstructionNow.buildInstruction = instructionId;
+        console.log(global_1.BuildInstructionNow.buildInstruction);
+        this.router.navigate(['buildInstruction']);
+    };
     AccountComponent.prototype.fileChange = function (event) {
         var _this = this;
         debugger;

@@ -1,6 +1,7 @@
 ﻿import { IUser } from '../Model/user';
 import { UserProfile } from '../Model/profile';
 import { Instruction } from '../Model/instruction';
+import { BuildInstructionNow } from '../Shared/global';
 
 export class ILogin{
     Id: number;
@@ -54,6 +55,18 @@ export class loginUser {
     public setPassord(em: string) {
         this.userAccount.Password = em;
     }
+
+    public getInstrustion() {
+        var temp: Instruction = new Instruction(0, 0, "");
+        this.userAccount.Profile.Instructions.forEach(instructin => {           
+            if (instructin.Id == BuildInstructionNow.buildInstruction) {               
+                temp = instructin;    
+                return;            
+            }            
+        })            
+        return temp;
+    }
+
 
     public setInstructions(em: Instruction[]) {
         this.userAccount.Profile.Instructions = em;

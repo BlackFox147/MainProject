@@ -1,5 +1,6 @@
 ﻿import { loginUser } from '../Model/login';
 import { IUser } from '../Model/user';
+import { Instruction } from '../Model/instruction';
 
 export class Global {
     public static BASE_USER_ENDPOINT = 'api/userapi/';
@@ -11,6 +12,10 @@ export class Global {
 
 export class LoginUserAccount {
     public static userData: loginUser = new loginUser();
+}
+
+export class BuildInstructionNow {
+    public static buildInstruction:number = 0;   
 }
 
 

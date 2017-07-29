@@ -1,4 +1,16 @@
 "use strict";
+//import { Component, OnInit, ViewChild } from '@angular/core';
+//import { UserService } from '../Service/user.service';
+//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+//import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+//import { IUser } from '../Model/user';
+//import { ILogin } from '../Model/login';
+//import { DBOperation } from '../Shared/enum';
+//import { Observable } from 'rxjs/Rx';
+//import { Global, LoginUserAccount, BuildInstructionNow } from '../Shared/global';
+//import { loginUser } from '../Model/login';
+//import { UserProfile } from '../Model/profile';
+////import { LoginUser } from '../Model/login';
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6,27 +18,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+//@Component({
+//    templateUrl: 'app/Components/login.component.html'
+//})
+//export class LoginComponent {
+//    a: string = "a";
+//    Show(): void {
+//        console.log(LoginUserAccount.userData.getparams());
+//        console.log(LoginUserAccount.userData.getProfile());
+//        console.log(LoginUserAccount.userData.getInstructions());   
+//        console.log(BuildInstructionNow.buildInstruction);    
+//    }
+//    Add(): void {
+//        this.a += "a";
+//        LoginUserAccount.userData.setemail(this.a);
+//        //this.qqq = Asd.Mabe.getparams();
+//    }
+//    qqq: ILogin = LoginUserAccount.userData.getparams();
+//}
+/////////////////////////////////////////////
 var core_1 = require("@angular/core");
-var global_1 = require("../Shared/global");
-//import { LoginUser } from '../Model/login';
+var ng2_dragula_1 = require("ng2-dragula/ng2-dragula");
 var LoginComponent = (function () {
     function LoginComponent() {
-        this.a = "a";
-        this.qqq = global_1.LoginUserAccount.userData.getparams();
+        this.numbers = [1, 2, 3, 4, 5];
     }
-    LoginComponent.prototype.Show = function () {
-        console.log(global_1.LoginUserAccount.userData.getparams());
-        console.log(global_1.LoginUserAccount.userData.getProfile());
-        console.log(global_1.LoginUserAccount.userData.getInstructions());
-    };
-    LoginComponent.prototype.Add = function () {
-        this.a += "a";
-        global_1.LoginUserAccount.userData.setemail(this.a);
-        //this.qqq = Asd.Mabe.getparams();
-    };
     LoginComponent = __decorate([
         core_1.Component({
-            templateUrl: 'app/Components/login.component.html'
+            templateUrl: 'app/Components/login.component.html',
+            viewProviders: [ng2_dragula_1.DragulaService],
+            styleUrls: ['./app/Components/example.css']
         })
     ], LoginComponent);
     return LoginComponent;

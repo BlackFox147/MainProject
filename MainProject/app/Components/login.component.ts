@@ -1,36 +1,66 @@
-﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../Service/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-import { IUser } from '../Model/user';
-import { ILogin } from '../Model/login';
-import { DBOperation } from '../Shared/enum';
-import { Observable } from 'rxjs/Rx';
-import { Global, LoginUserAccount } from '../Shared/global';
-import { loginUser } from '../Model/login';
-import { UserProfile } from '../Model/profile';
-//import { LoginUser } from '../Model/login';
+﻿//import { Component, OnInit, ViewChild } from '@angular/core';
+//import { UserService } from '../Service/user.service';
+//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+//import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+//import { IUser } from '../Model/user';
+//import { ILogin } from '../Model/login';
+//import { DBOperation } from '../Shared/enum';
+//import { Observable } from 'rxjs/Rx';
+//import { Global, LoginUserAccount, BuildInstructionNow } from '../Shared/global';
+//import { loginUser } from '../Model/login';
+//import { UserProfile } from '../Model/profile';
+////import { LoginUser } from '../Model/login';
+
+//@Component({
+//    templateUrl: 'app/Components/login.component.html'
+//})
+
+//export class LoginComponent {
+//    a: string = "a";
+//    Show(): void {
+//        console.log(LoginUserAccount.userData.getparams());
+//        console.log(LoginUserAccount.userData.getProfile());
+//        console.log(LoginUserAccount.userData.getInstructions());   
+//        console.log(BuildInstructionNow.buildInstruction);    
+//    }
+
+//    Add(): void {
+//        this.a += "a";
+//        LoginUserAccount.userData.setemail(this.a);
+
+//        //this.qqq = Asd.Mabe.getparams();
+//    }
+//    qqq: ILogin = LoginUserAccount.userData.getparams();
+//}
+/////////////////////////////////////////////
+
+
+
+import { Component } from '@angular/core';
+
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 @Component({
-    templateUrl: 'app/Components/login.component.html'
+
+
+    templateUrl: 'app/Components/login.component.html',
+    viewProviders: [DragulaService],
+    styleUrls: ['./app/Components/example.css']
 })
 
 export class LoginComponent {
-    a: string = "a";
-    Show(): void {
-        console.log(LoginUserAccount.userData.getparams());
-        console.log(LoginUserAccount.userData.getProfile());
-        console.log(LoginUserAccount.userData.getInstructions());       
-    }
 
-    Add(): void {
-        this.a += "a";
-        LoginUserAccount.userData.setemail(this.a);
-        
-        //this.qqq = Asd.Mabe.getparams();
-    }
-    qqq: ILogin = LoginUserAccount.userData.getparams();
+    numbers: number[] = [1, 2, 3, 4, 5];
+    
 }
+
+
+
+
+
+
+
+
 
 //export class LoginComponent implements OnInit {
 
