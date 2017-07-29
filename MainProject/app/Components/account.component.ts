@@ -83,7 +83,7 @@ export class AccountComponent {
     }
 
     Create(instructionName: string): void {
-        this._userService.post(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new Instruction(0, 0, instructionName)).subscribe(
+        this._userService.post(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new Instruction(0, 0, instructionName,0,null)).subscribe(
             data => {
                 if (data == 1) //Success
                 {

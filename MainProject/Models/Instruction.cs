@@ -8,9 +8,18 @@ namespace MainProject.Models
     public class Instruction
     {
         public int Id { get; set; }
-        public string Name { get; set; }        
+        public string Name { get; set; }
+
+        public int MaxCount { get; set; }
 
         public int? UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
+
+        public ICollection<Step> Steps { get; set; }
+
+        public Instruction()
+        {
+            Steps = new List<Step>();
+        }
     }
 }

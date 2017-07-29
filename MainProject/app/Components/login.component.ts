@@ -51,6 +51,29 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 export class LoginComponent {
 
     numbers: number[] = [1, 2, 3, 4, 5];
+
+    Show(): void {
+        console.log(this.numbers);
+    }
+
+    constructor(private dragulaService: DragulaService) {
+        dragulaService.dropModel.subscribe((value:any) => {
+            this.onDropModel(value.slice(1));
+        });
+        dragulaService.removeModel.subscribe((value: any) => {
+            this.onRemoveModel(value.slice(1));
+        });
+    }
+
+    private onDropModel(args: any) {
+        let [el, target, source] = args;
+        // do something else
+    }
+
+    private onRemoveModel(args: any) {
+        let [el, source] = args;
+        // do something else
+    }
     
 }
 

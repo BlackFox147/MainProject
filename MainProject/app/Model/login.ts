@@ -57,7 +57,7 @@ export class loginUser {
     }
 
     public getInstrustion() {
-        var temp: Instruction = new Instruction(0, 0, "");
+        var temp: Instruction = new Instruction(0, 0, "",0,null);
         this.userAccount.Profile.Instructions.forEach(instructin => {           
             if (instructin.Id == BuildInstructionNow.buildInstruction) {               
                 temp = instructin;    

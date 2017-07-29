@@ -14,11 +14,9 @@ namespace MainProject.Controllers
     {
 
         public HttpResponseMessage Get()
-        {
-                            
+        {                            
             var list = ToJson(UsersDb.UserProfiles.Include("Instructions").FirstOrDefault(p => p.Id == loggin.Id).Instructions);
-            return list;
-            
+            return list;            
         }
 
         public HttpResponseMessage Put(int id, UserProfile value)

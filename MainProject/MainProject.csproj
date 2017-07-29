@@ -210,8 +210,17 @@
     <Compile Include="Migrations\201707281559416_AddInstractionMigration.Designer.cs">
       <DependentUpon>201707281559416_AddInstractionMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707292046303_AddStepMigration.cs" />
+    <Compile Include="Migrations\201707292046303_AddStepMigration.Designer.cs">
+      <DependentUpon>201707292046303_AddStepMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707292154363_ChangeStepMigration.cs" />
+    <Compile Include="Migrations\201707292154363_ChangeStepMigration.Designer.cs">
+      <DependentUpon>201707292154363_ChangeStepMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Instruction.cs" />
+    <Compile Include="Models\Step.cs" />
     <Compile Include="Models\UserContext.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -295,6 +304,7 @@
     <TypeScriptCompile Include="app\Model\instruction.ts" />
     <TypeScriptCompile Include="app\Model\login.ts" />
     <TypeScriptCompile Include="app\Model\profile.ts" />
+    <TypeScriptCompile Include="app\Model\step.ts" />
     <TypeScriptCompile Include="app\Model\user.ts" />
     <TypeScriptCompile Include="app\Service\user.service.ts" />
     <TypeScriptCompile Include="app\Shared\enum.ts" />
@@ -323,6 +333,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707281559416_AddInstractionMigration.resx">
       <DependentUpon>201707281559416_AddInstractionMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707292046303_AddStepMigration.resx">
+      <DependentUpon>201707292046303_AddStepMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707292154363_ChangeStepMigration.resx">
+      <DependentUpon>201707292154363_ChangeStepMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

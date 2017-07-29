@@ -39,6 +39,12 @@ namespace MainProject.Controllers
                 UsersDb.UserProfiles.Add(profile1);
                 UsersDb.SaveChanges();
                 loggin = value;
+               
+                profile = UsersDb.UserProfiles.Include("Instructions").FirstOrDefault(p => p.Id == loggin.Id);
+                loggin.Profile = profile;
+                var instr = UsersDb.Instructions.Include("Steps").Where(p => p.UserProfileId == profile.Id).AsEnumerable();
+
+                loggin.Profile.Instructions = instr.ToList();
                 //loggin = UsersDb.OneUsers.AsEnumerable().Last();
             }
 

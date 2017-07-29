@@ -185,15 +185,14 @@ button:hover {
 
 .wrapper {
       display: table;
+      
     }
     .container {
       display: table-cell;
       background-color: rgba(255, 255, 255, 0.2);
       width: 50%;
     }
-    .container:nth-child(odd) {
-      
-    }
+
     .container div,
     .gu-mirror {
       /*margin: 10px;
@@ -217,7 +216,10 @@ button:hover {
 
     /* Styles go here */
 
-body{background:url(http://bootstraptema.ru/images/bg/bg-5.png)}
+
+.panel-body{
+    background:url(http://bootstraptema.ru/images/bg/bg-5.png);
+}
 
 .serviceBox{
  background: #fff;
@@ -259,6 +261,8 @@ body{background:url(http://bootstraptema.ru/images/bg/bg-5.png)}
 .serviceBox:hover p{
  color:#fff;
 }
+
+
 .serviceBox .btn{
  background: #4acab4;
  color: #fff;
@@ -273,6 +277,9 @@ body{background:url(http://bootstraptema.ru/images/bg/bg-5.png)}
  background: #333;
  color: #fff;
 }
+
+
+
 @media screen and (max-width: 990px){
  .serviceBox{
  margin-bottom: 20px;

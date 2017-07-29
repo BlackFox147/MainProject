@@ -65,7 +65,7 @@ var AccountComponent = (function () {
     };
     AccountComponent.prototype.Create = function (instructionName) {
         var _this = this;
-        this._userService.post(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new instruction_1.Instruction(0, 0, instructionName)).subscribe(function (data) {
+        this._userService.post(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new instruction_1.Instruction(0, 0, instructionName, 0, null)).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";
                 console.log("OK->Instruction");
