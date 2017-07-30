@@ -51,9 +51,19 @@ var loginUser = (function () {
             }
         });
         temp.Steps = temp.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
-        console.log("sort");
-        console.log(temp.Steps);
         return temp;
+    };
+    loginUser.prototype.setInstrustion = function (temp) {
+        //var temp: Instruction = new Instruction(0, 0, "", 0, null);
+        console.log(temp);
+        temp.Steps = temp.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
+        this.userAccount.Profile.Instructions.forEach(function (instructin) {
+            if (instructin.Id == global_1.BuildInstructionNow.buildInstruction) {
+                instructin.MaxCount = temp.MaxCount;
+                instructin.Steps = temp.Steps;
+                return;
+            }
+        });
     };
     loginUser.prototype.setInstructions = function (em) {
         this.userAccount.Profile.Instructions = em;

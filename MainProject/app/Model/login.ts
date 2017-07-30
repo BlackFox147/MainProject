@@ -65,16 +65,31 @@ export class loginUser {
             }            
         }) 
 
-        temp.Steps = temp.Steps.sort((n1, n2) => n1.Number - n2.Number);
-        console.log("sort");
-        console.log(temp.Steps);       
+        temp.Steps = temp.Steps.sort((n1, n2) => n1.Number - n2.Number);         
         return temp;
     }
+
+    public setInstrustion(temp: Instruction) {
+        //var temp: Instruction = new Instruction(0, 0, "", 0, null);
+        console.log(temp);
+        temp.Steps = temp.Steps.sort((n1, n2) => n1.Number - n2.Number);
+        this.userAccount.Profile.Instructions.forEach(instructin => {
+            if (instructin.Id == BuildInstructionNow.buildInstruction) {
+
+                instructin.MaxCount = temp.MaxCount;
+                instructin.Steps = temp.Steps;
+                return;
+            }
+        })       
+    }
+    
 
 
     public setInstructions(em: Instruction[]) {
         this.userAccount.Profile.Instructions = em;
     }
+
+   
 
     public getparams() {
         return this.userAccount;

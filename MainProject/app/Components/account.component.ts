@@ -163,5 +163,25 @@ export class AccountComponent {
     }  
 
 
+    Delete(instructionId: number): void {
+        this._userService.delete(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, instructionId).subscribe(
+            data => {
+                if (data == 1) //Success
+                {
+                    console.log("Good del");
+                    this.LoadUserInstruction();  
+                    
+                }
+                else {
+                    console.log("No del");
+                }
+            
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
 
 }

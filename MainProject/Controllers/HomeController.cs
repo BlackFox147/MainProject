@@ -31,9 +31,9 @@ namespace MainProject.Controllers
 
 
 
-            //    Instruction ins1 = db.UserProfiles.Include("Instructions").FirstOrDefault(p => p.Id == 7).Instructions.FirstOrDefault();
-            //    Step step1 = new Step { Number = 1, Instruction = ins1 };
-            //    Step step2 = new Step { Number = 2, Instruction = ins1 };
+            //    Instruction ins1 = db.UserProfiles.Include("Instructions").FirstOrDefault(p => p.Id == 13).Instructions.FirstOrDefault();
+            //    Step step1 = new Step { Name = "1",Number = 1, Instruction = ins1 };
+            //    Step step2 = new Step { Name = "2", Number = 2, Instruction = ins1 };
             //    ins1.MaxCount = 2;
 
             //    db.Entry(ins1).State = EntityState.Modified;

@@ -81,9 +81,9 @@ export class BuildInstructionComponent {
     LoadUserInstruction(): void {
         this._userService.get(Global.BASE_BUILDINSTRUCTION_ENDPOINT)
             .subscribe(instruction => {
-                this.BuildInstructionData = instruction;
+                LoginUserAccount.userData.setInstrustion(instruction);
                 console.log("OK->Get_step");
-                console.log(this.BuildInstructionData);
+                console.log(LoginUserAccount.userData.getInstrustion());
             },
             error =>
                 console.log(error));
@@ -95,7 +95,9 @@ export class BuildInstructionComponent {
         this.BuildInstructionData.Steps.forEach((step, index) => {
             step.Number = index + 1;
         });
-       
+
+
+
         this._userService.put(Global.BASE_BUILDINSTRUCTION_ENDPOINT, this.BuildInstructionData.Id, this.BuildInstructionData).subscribe(
             data => {
                 if (data == 1) //Success

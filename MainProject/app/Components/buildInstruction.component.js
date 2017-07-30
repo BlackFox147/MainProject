@@ -61,12 +61,11 @@ var BuildInstructionComponent = (function () {
         });
     };
     BuildInstructionComponent.prototype.LoadUserInstruction = function () {
-        var _this = this;
         this._userService.get(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT)
             .subscribe(function (instruction) {
-            _this.BuildInstructionData = instruction;
+            global_1.LoginUserAccount.userData.setInstrustion(instruction);
             console.log("OK->Get_step");
-            console.log(_this.BuildInstructionData);
+            console.log(global_1.LoginUserAccount.userData.getInstrustion());
         }, function (error) {
             return console.log(error);
         });

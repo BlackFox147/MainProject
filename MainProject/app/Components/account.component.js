@@ -125,6 +125,20 @@ var AccountComponent = (function () {
         }
         // window.location.reload();
     };
+    AccountComponent.prototype.Delete = function (instructionId) {
+        var _this = this;
+        this._userService.delete(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, instructionId).subscribe(function (data) {
+            if (data == 1) {
+                console.log("Good del");
+                _this.LoadUserInstruction();
+            }
+            else {
+                console.log("No del");
+            }
+        }, function (error) {
+            console.log(error);
+        });
+    };
     __decorate([
         core_1.ViewChild('modal'),
         __metadata("design:type", ng2_bs3_modal_1.ModalComponent)

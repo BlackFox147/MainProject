@@ -39,5 +39,22 @@ namespace MainProject.Controllers
             return ToJson(s);
         }
 
+
+
+        public HttpResponseMessage Delete(int id)
+        {
+            int aaa = 0;
+            var del = UsersDb.Instructions.Include("Steps").FirstOrDefault(x => x.Id == id);
+            for (var i = del.MaxCount-1; i >=0; i--)
+            {
+                UsersDb.Steps.Remove(del.Steps.ElementAt(i));
+                aaa = UsersDb.SaveChanges();
+            }
+
+            UsersDb.Instructions.Remove(del);
+            var s = UsersDb.SaveChanges();
+            return ToJson(s);
+        }
+
     }
 }
