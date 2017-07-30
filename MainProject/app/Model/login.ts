@@ -63,7 +63,11 @@ export class loginUser {
                 temp = instructin;    
                 return;            
             }            
-        })            
+        }) 
+
+        temp.Steps = temp.Steps.sort((n1, n2) => n1.Number - n2.Number);
+        console.log("sort");
+        console.log(temp.Steps);       
         return temp;
     }
 

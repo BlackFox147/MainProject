@@ -188,9 +188,8 @@ button:hover {
       
     }
     .container {
-      display: table-cell;
-      background-color: rgba(255, 255, 255, 0.2);
-      width: 50%;
+     
+      width: 100%;
     }
 
     .container div,
@@ -224,19 +223,20 @@ button:hover {
 .serviceBox{
  background: #fff;
  text-align: center;
- padding: 20px 0 40px;
+ padding: 20px 0 20px;
  position: relative;
 }
 .serviceBox:hover{
  background:#98d7ce;
 }
 .serviceBox .service-icon{
- width: 100px;
- height: 100px;
- line-height: 95px;
+
+ width: 55%; height: 30%;
+ 
+ /*line-height: 95px;*/
  border-radius: 50%;
  border: 3px solid #b3b3b3;
- font-size: 50px;
+ font-size: 100%;
  color: #b3b3b3;
  margin: 0 auto;
  transition: all 0.5s ease-in-out;
@@ -266,7 +266,7 @@ button:hover {
 .serviceBox .btn{
  background: #4acab4;
  color: #fff;
- padding: 10px 35px;
+ padding: 5px 5px;
  transition: all 0.6s ease-in-out;
  -webkit-transition: all 0.6s ease-in-out;
  -moz-transition: all 0.6s ease-in-out;

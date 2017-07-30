@@ -1,7 +1,7 @@
 ﻿export class Step {
     Id: number;
     InstructionId: number;
-    
+    Name: string;
     Number: number;
 
 

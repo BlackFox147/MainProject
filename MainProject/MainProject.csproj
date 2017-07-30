@@ -180,6 +180,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
+    <Compile Include="Controllers\BuildInstructionAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstuctionAPIController.cs" />
     <Compile Include="Controllers\LoginAPIController.cs" />
@@ -217,6 +218,10 @@
     <Compile Include="Migrations\201707292154363_ChangeStepMigration.cs" />
     <Compile Include="Migrations\201707292154363_ChangeStepMigration.Designer.cs">
       <DependentUpon>201707292154363_ChangeStepMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707302054524_AddStepNameMigration.cs" />
+    <Compile Include="Migrations\201707302054524_AddStepNameMigration.Designer.cs">
+      <DependentUpon>201707302054524_AddStepNameMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Instruction.cs" />
@@ -339,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707292154363_ChangeStepMigration.resx">
       <DependentUpon>201707292154363_ChangeStepMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707302054524_AddStepNameMigration.resx">
+      <DependentUpon>201707302054524_AddStepNameMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,1 +1,63 @@
 ﻿<button title="Test" class="btn btn-primary" (click)="Test()">Test</button>
+
+<div style="padding-top:25px;"> </div>
+
+    <div class="panel panel-default col-sm-12 col-lg-12 col-md-12">
+        <div class="panel-body">
+
+            <h1 class="panel-title pull-left" style="font-size:30px;">{{BuildInstructionData.Name}}</h1>
+
+            <br><br>            
+            <br><br><hr>
+            <span class="pull-left">
+                <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Steps <span class="badge">{{BuildInstructionData.Steps.length}}</span></a>
+               
+                 <button (click)="Create()" style="padding-bottom:10px" class="btn btn-success" type="button">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Create Step
+                </button>
+
+                <button (click)="Save()" style="padding-bottom:10px" class="btn btn-primary" type="button">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Save
+                </button>
+            </span>
+
+        </div>
+    </div>
+
+    
+
+    <div class="wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+
+
+                <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'>
+
+
+                    <div *ngFor="let step of BuildInstructionData.Steps" class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3>Step {{step.Name}}</h3>
+                            </div>
+                            <div class="read">
+                                <a href="#" class="btn btn-default">Change</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                </div>
+
+            </div>
+        </div>
+
+

@@ -11,33 +11,33 @@
 </div>-->
 
 <button title="Show" class="btn btn-primary" (click)="Show()">Show</button>
-<div class="wrapper">
-
+<div class="wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    
     <div class="panel panel-default">
 
-        <div class="panel-body">
+        <div class="panel-body" >
+            
+
+                <div class="container" [dragula]='"another-bag"' [dragulaModel]='numbers'>
 
 
-            <div class="container" [dragula]='"another-bag"' [dragulaModel]='numbers'>
-
-
-                <div *ngFor="let num of numbers" class="col-md-4 col-sm-4 col-xs-6">
-                    <div class="serviceBox">
-                        <div class="service-icon">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </div>
-                        <div class="service-content">
-                            <h3><a href="#">Step {{num}}</a></h3>
-                        </div>
-                        <div class="read">
-                            <a href="#" class="btn btn-default">Read more</a>
+                    <div *ngFor="let num of numbers" class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <div class="serviceBox">
+                            <div class="service-icon">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3>Step {{num}}</h3>
+                            </div>
+                            <div class="read">
+                                <a href="#" class="btn btn-default btn-xs">Change</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+              
+
+
             </div>
-
-
         </div>
-        
     </div>
 </div>

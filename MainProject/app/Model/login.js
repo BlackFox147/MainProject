@@ -50,6 +50,9 @@ var loginUser = (function () {
                 return;
             }
         });
+        temp.Steps = temp.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
+        console.log("sort");
+        console.log(temp.Steps);
         return temp;
     };
     loginUser.prototype.setInstructions = function (em) {
