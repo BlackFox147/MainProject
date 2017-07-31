@@ -9,35 +9,124 @@
     <button title="Add" class="btn btn-primary" (click)="Add()">Add</button>
 
 </div>-->
+<style>
+.card {
+  min-width: 0;
+  margin: 20px 10px;
+  width: 100%;    
+  background: #0C0C0C;
+  color: #696969;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+  border: none;
+  border-radius: 5px;
+  padding: 0;
+  margin-bottom: 30px;
+}
 
+.card .card-img-container .card-img {
+  background-size: cover;
+  background-position: top center;
+  display: block;
+  height: 175px;
+}
+.card .card-img {
+  height: 150px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.card .card-img-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.card .card-content {
+  padding: 20px 20px 40px;
+  text-align: center;
+}
+.card .card-meta {
+  font-size: 12px;
+}
+.card .meta-box {
+  margin-right: 20px;
+}
+.card .card-content h2 {
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.card h2 a {
+  color: #D0D0D0;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}
+a:hover{
+    text-decoration:none;    
+}
+.card:hover h2 a {
+  color: #FFF;
+}
+.card .meta-tags a:hover {
+  color: #FFF;
+}
+.card .meta-tags .tag {
+  background: #DD1B16;
+  color: #f9c7c6;
+}
+.card .meta-tags a:last-child {
+  margin-right: 0;
+  border-bottom-right-radius: 5px;
+}
+.card .meta-tags a:first-child {
+  border-top-left-radius: 5px;
+}
+.card .meta-tags a {
+  display: inline-block;
+  padding: 3px 8px;
+  color: #FFF;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}
+</style>
 <button title="Show" class="btn btn-primary" (click)="Show()">Show</button>
-<div class="wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    
-    <div class="panel panel-default">
 
-        <div class="panel-body" >
-            
+<div class="row">
+    <div class="container" [dragula]='"another-bag"' [dragulaModel]='numbers'>
 
-                <div class="container" [dragula]='"another-bag"' [dragulaModel]='numbers'>
-
-
-                    <div *ngFor="let num of numbers" class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                        <div class="serviceBox">
-                            <div class="service-icon">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </div>
-                            <div class="service-content">
-                                <h3>Step {{num}}</h3>
-                            </div>
-                            <div class="read">
-                                <a href="#" class="btn btn-default btn-xs">Change</a>
-                            </div>
-                        </div>
+        <div class="col-md-4" *ngFor="let num of numbers">
+            <div class="card card-favorite">
+                <div class="card-img-container">
+                    <a href="#" style="background: #0ddeeb" class="card-img"></a>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="meta-date meta-box">
+                            11 Января
+                        </span>
+                        <span class="meta-pulse meta-box">
+                            <a href="#" class="card-share-number sharrre">{{num}}</a>
+                        </span>
                     </div>
-              
-
-
+                    <h2>
+                        <a href="#">
+                            Quaerat voluptatem sequi nesciunt
+                        </a>
+                    </h2>
+                </div>
+                <span class="meta-tags">
+                    <a href="#" title="tags" class="tag">Тег</a>
+                </span>
             </div>
         </div>
+       
+
     </div>
 </div>
+
+
+
+
+
+
+

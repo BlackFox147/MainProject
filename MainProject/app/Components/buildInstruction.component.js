@@ -88,6 +88,15 @@ var BuildInstructionComponent = (function () {
             //this.msg = error;
         });
     };
+    BuildInstructionComponent.prototype.Delete = function (stepId) {
+        var _this = this;
+        this._userService.delete(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, stepId).subscribe(function (data) {
+            console.log("Good del");
+            _this.LoadUserInstruction();
+        }, function (error) {
+            console.log(error);
+        });
+    };
     BuildInstructionComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/Components/buildInstruction.component.html',

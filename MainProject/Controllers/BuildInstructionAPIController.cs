@@ -23,7 +23,7 @@ namespace MainProject.Controllers
         public HttpResponseMessage Put(int id, Instruction value)
         {
             int aaa = 0;
-            for(var i=0;i< value.MaxCount; i++)
+            for(var i=0;i< value.Steps.Count; i++)
             {
                 UsersDb.Entry(value.Steps.ElementAt(i)).State = EntityState.Modified;
             }          
@@ -50,6 +50,25 @@ namespace MainProject.Controllers
                 UsersDb.Entry(instruction).State = EntityState.Modified;
                 UsersDb.SaveChanges();
             }
+            return ToJson(s);
+        }
+
+        public HttpResponseMessage Delete(int id)
+        {
+            int aaa = 0;
+            var del = UsersDb.Steps.FirstOrDefault(x => x.Id == id);
+            instruction = UsersDb.Instructions.Include("Steps").FirstOrDefault(p => p.Id == del.InstructionId);
+
+            for(var i=0;i< instruction.Steps.Count; i++)
+            {
+                if (instruction.Steps.ElementAt(i).Number > del.Number)
+                {
+                    instruction.Steps.ElementAt(i).Number -= 1;
+                }
+            }
+
+            UsersDb.Steps.Remove(del);
+            var s = UsersDb.SaveChanges();
             return ToJson(s);
         }
 

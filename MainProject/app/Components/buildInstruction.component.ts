@@ -120,4 +120,16 @@ export class BuildInstructionComponent {
         ); 
     }
 
+    Delete(stepId: number): void {
+        this._userService.delete(Global.BASE_BUILDINSTRUCTION_ENDPOINT, stepId).subscribe(
+            data => {
+                console.log("Good del");
+                this.LoadUserInstruction();
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
 }

@@ -26,9 +26,45 @@
         </div>
     </div>
 
-    
+    <div class="row">
+        <div class="wrapper">
+            <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'>
 
-    <div class="wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-4" *ngFor="let step of BuildInstructionData.Steps">
+                    <div class="card card-favorite">
+                        <div class="card-img-container">
+                            <a href="#" style="background:url(http://bootstraptema.ru/images/bg/bg-5.png);" class="card-img"></a>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-meta">
+                                <span class="meta-date meta-box">
+                                    11 Января
+                                </span>
+                                <span class="meta-pulse meta-box">
+                                    <a href="#" class="card-share-number sharrre">{{step.Name}}</a>
+                                </span>
+                            </div>
+                            <h2>
+                                <a href="#">
+                                    Quaerat voluptatem sequi nesciunt
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="pull-right">
+                            <button title="Delete" class="btn btn-danger" (click)="Delete(step.Id)">Delete</button>
+                        </div>
+                        <span class="meta-tags">
+                            <a href="#" title="tags" class="tag">Тег</a>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+    <!--<div class="wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
         <div class="panel panel-default">
 
@@ -58,6 +94,6 @@
                 </div>
 
             </div>
-        </div>
+        </div>-->
 
 

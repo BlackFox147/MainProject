@@ -43,9 +43,10 @@ namespace MainProject.Controllers
 
         public HttpResponseMessage Delete(int id)
         {
-            int aaa = 0;
+            
             var del = UsersDb.Instructions.Include("Steps").FirstOrDefault(x => x.Id == id);
-            for (var i = del.MaxCount-1; i >=0; i--)
+            int aaa = del.Steps.Count;
+            for (var i = aaa - 1; i >=0; i--)
             {
                 UsersDb.Steps.Remove(del.Steps.ElementAt(i));
                 aaa = UsersDb.SaveChanges();
