@@ -160,6 +160,59 @@
         </div>
     </div>
 
+
+    <div class="wp-block property list" *ngFor="let instruction of LoginUserAccountData.Profile.Instructions">
+
+        <div class="wp-block-body">
+            <div class="wp-block-img">
+                <a href="#">
+                    <img src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="">
+                </a>
+            </div>
+            <div class="wp-block-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small>
+                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{instruction.DataTimeChange}}
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-danger pull-right" (click)="Delete(instruction.Id)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <button (click)="BuildInstruction(instruction.Id)" type="button" class="btn btn-link"><h4 class="content-title">{{instruction.Name}}</h4></button>
+                
+                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisg elitm Ut tincidunt purus iaculis ipsum dctum non dtum quam.</p>
+                <span class="pull-left">
+                    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>   Bootstrap 3
+                </span>
+                <span class="pull-right">
+                    <span class="capacity">
+                        <i class="fa fa-user"></i> {{LoginUserAccountData.UserName}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="wp-block-footer">
+            <ul class="aux-info">
+                <li><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> {{instruction.Steps.length}} </li>
+                <!--<li><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 5</li>
+                <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 2</li>
+                <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> +5 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></li>
+                <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Тег 1, Тег 2, Тег 3</li>-->
+
+            </ul>
+
+        </div>
+    </div>
+
+
+
+
+
+
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="post-content">
@@ -191,32 +244,7 @@
         </div>
     </div>
 
-    <!--<div *ngIf='users && users.length==0' class="alert alert-info" role="alert">No record found!</div>
-    <table class='table table-striped' *ngIf='users && users.length'>
-        <thead>
-            <tr>
-                <th>UserName</th>
-                <th>Email111</th>
-                <th>Password</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td>{{user.UserName}}</td>
-                <td>{{user.Email}}</td>
-                <td>{{user.Password}}</td>
-                <td>
-                    <button title="Edit" class="btn btn-primary" (click)="editUser(user.Id)">Edit</button>
-                    <button title="Delete" class="btn btn-danger" (click)="deleteUser(user.Id)">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 
-        glyphicon glyphicon-book
-
-        -->
 
     <hr>
 </div>

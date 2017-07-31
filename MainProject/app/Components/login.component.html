@@ -112,7 +112,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <div class="wp-block property list">
+            <div class="wp-block property list" *ngFor="let num of numbers">
+
                 <div class="wp-block-body">
                     <div class="wp-block-img">
                         <a href="#">
@@ -126,7 +127,7 @@
                         <h4 class="content-title">Lorem ipsum</h4>
                         <p class="description">Lorem ipsum dolor sit amet, consectetur adipisg elitm Ut tincidunt purus iaculis ipsum dctum non dtum quam.</p>
                         <span class="pull-left">
-                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>   Bootstrap 3
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>   Bootstrap {{num}}
                         </span>
                         <span class="pull-right">
                             <span class="capacity">
@@ -145,39 +146,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="wp-block property list">
-                <div class="wp-block-body">
-                    <div class="wp-block-img">
-                        <a href="#">
-                            <img src="http://itchief.ru/assets/demo/image/image2-800-530.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="wp-block-content">
-                        <small>
-                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 11.01.2015
-                        </small>
-                        <h4 class="content-title">Lorem ipsum</h4>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisg elitm Ut tincidunt purus iaculis ipsum dctum non dtum quam.</p>
-                        <span class="pull-left">
-                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>   Bootstrap 3
-                        </span>
-                        <span class="pull-right">
-                            <span class="capacity">
-                                <i class="fa fa-user"></i> Имя Фамилия
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="wp-block-footer">
-                    <ul class="aux-info">
-                        <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 365</li>
-                        <li><span class=" glyphicon glyphicon-comment" aria-hidden="true"></span> 5</li>
-                        <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 2</li>
-                        <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> +5 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></li>
-                        <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Тег 1, Тег 2, Тег 3</li>
-                    </ul>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
