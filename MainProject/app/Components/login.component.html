@@ -10,117 +10,175 @@
 
 </div>-->
 <style>
-.card {
-  min-width: 0;
-  margin: 20px 10px;
-  width: 100%;    
-  background: #0C0C0C;
-  color: #696969;
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
-  border: none;
-  border-radius: 5px;
-  padding: 0;
-  margin-bottom: 30px;
-}
+/* Styles go here */
 
-.card .card-img-container .card-img {
-  background-size: cover;
-  background-position: top center;
-  display: block;
-  height: 175px;
+.wp-block.property.list {
+  border: 1px solid #e0eded;
+  margin-bottom: 15px !important;
 }
-.card .card-img {
-  height: 150px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-.card .card-img-container {
+.wp-block {
+  margin: 0 0 15px 0;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
   position: relative;
-  overflow: hidden;
+  cursor: default;
+  border-radius: 2px;
+}
+.wp-block.property.list {
+  padding: 15px 15px 0 15px;
+}
+.wp-block.property.list {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+.wp-block .wp-block-body {
+  padding: 15px;
+}
+.wp-block.property.list .wp-block-img {
+  display: table-cell;
+  width: 250px;
+}
+.wp-block.property.list .wp-block-img img {
   width: 100%;
 }
-.card .card-content {
-  padding: 20px 20px 40px;
-  text-align: center;
+.wp-block.property.list .wp-block-content .content-title {
+  font-size: 20px;
+  color: #3498db;
+  margin-bottom: 5px;
 }
-.card .card-meta {
-  font-size: 12px;
+.wp-block.property.list .wp-block-body .wp-block-content {
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 15px;
 }
-.card .meta-box {
-  margin-right: 20px;
+.wp-block.property.list .wp-block-content .description {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0eded;
 }
-.card .card-content h2 {
-  margin-top: 10px;
-  margin-bottom: 0;
-  font-size: 16px;
-  line-height: 1.4;
+.wp-block.property.list .wp-block-footer ul.aux-info {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  background: #fcfcfc;
+  border-top: 1px solid #e0eded;
 }
-.card h2 a {
-  color: #D0D0D0;
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
+.wp-block.property.list .wp-block-footer ul.aux-info li {
+  display: table-cell;
+  padding: 10px 15px;
+  vertical-align: middle;
+  border-right: 1px solid #e0eded;
 }
-a:hover{
-    text-decoration:none;    
+.ribbon.base {
+  background: #3498db;
+  color: #fff;
+  border-right: 5px solid #8bc4ea;
 }
-.card:hover h2 a {
-  color: #FFF;
+.ribbon {
+  position: absolute;
+  top: 20px;
+  right: -5px;
+  padding: 15px;
 }
-.card .meta-tags a:hover {
-  color: #FFF;
+.base {
+  background: #3498db;
+  color: #fff !important;
 }
-.card .meta-tags .tag {
-  background: #DD1B16;
-  color: #f9c7c6;
+.ribbon:before, .ribbon:after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  border-left: 10px solid transparent;
 }
-.card .meta-tags a:last-child {
-  margin-right: 0;
-  border-bottom-right-radius: 5px;
+.ribbon:before {
+  top: 0;
 }
-.card .meta-tags a:first-child {
-  border-top-left-radius: 5px;
+.ribbon.base:before {
+  border-top: 27px solid #3498db;
 }
-.card .meta-tags a {
-  display: inline-block;
-  padding: 3px 8px;
-  color: #FFF;
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
+.ribbon.base:after {
+  border-bottom: 27px solid #3498db;
+}
+.ribbon:after {
+  bottom: 0;
 }
 </style>
 <button title="Show" class="btn btn-primary" (click)="Show()">Show</button>
 
-<div class="row">
-    <div class="container" [dragula]='"another-bag"' [dragulaModel]='numbers'>
 
-        <div class="col-md-4" *ngFor="let num of numbers">
-            <div class="card card-favorite">
-                <div class="card-img-container">
-                    <a href="#" style="background: #0ddeeb" class="card-img"></a>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="meta-date meta-box">
-                            11 Января
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="wp-block property list">
+                <div class="wp-block-body">
+                    <div class="wp-block-img">
+                        <a href="#">
+                            <img src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="wp-block-content">
+                        <small>
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 11.01.2015
+                        </small>
+                        <h4 class="content-title">Lorem ipsum</h4>
+                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisg elitm Ut tincidunt purus iaculis ipsum dctum non dtum quam.</p>
+                        <span class="pull-left">
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>   Bootstrap 3
                         </span>
-                        <span class="meta-pulse meta-box">
-                            <a href="#" class="card-share-number sharrre">{{num}}</a>
+                        <span class="pull-right">
+                            <span class="capacity">
+                                <i class="fa fa-user"></i> Имя Фамилия
+                            </span>
                         </span>
                     </div>
-                    <h2>
-                        <a href="#">
-                            Quaerat voluptatem sequi nesciunt
-                        </a>
-                    </h2>
                 </div>
-                <span class="meta-tags">
-                    <a href="#" title="tags" class="tag">Тег</a>
-                </span>
+                <div class="wp-block-footer">
+                    <ul class="aux-info">
+                        <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 365</li>
+                        <li><span class=" glyphicon glyphicon-comment" aria-hidden="true"></span> 5</li>
+                        <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 2</li>
+                        <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> +5 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></li>
+                        <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Тег 1, Тег 2, Тег 3</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="wp-block property list">
+                <div class="wp-block-body">
+                    <div class="wp-block-img">
+                        <a href="#">
+                            <img src="http://itchief.ru/assets/demo/image/image2-800-530.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="wp-block-content">
+                        <small>
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 11.01.2015
+                        </small>
+                        <h4 class="content-title">Lorem ipsum</h4>
+                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisg elitm Ut tincidunt purus iaculis ipsum dctum non dtum quam.</p>
+                        <span class="pull-left">
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>   Bootstrap 3
+                        </span>
+                        <span class="pull-right">
+                            <span class="capacity">
+                                <i class="fa fa-user"></i> Имя Фамилия
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="wp-block-footer">
+                    <ul class="aux-info">
+                        <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 365</li>
+                        <li><span class=" glyphicon glyphicon-comment" aria-hidden="true"></span> 5</li>
+                        <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 2</li>
+                        <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> +5 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></li>
+                        <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Тег 1, Тег 2, Тег 3</li>
+                    </ul>
+                </div>
             </div>
         </div>
-       
-
     </div>
 </div>
 

@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201707302054524_AddStepNameMigration.Designer.cs">
       <DependentUpon>201707302054524_AddStepNameMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707310713566_AddDataTimeMigration.cs" />
+    <Compile Include="Migrations\201707310713566_AddDataTimeMigration.Designer.cs">
+      <DependentUpon>201707310713566_AddDataTimeMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Instruction.cs" />
     <Compile Include="Models\Step.cs" />
@@ -347,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707302054524_AddStepNameMigration.resx">
       <DependentUpon>201707302054524_AddStepNameMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707310713566_AddDataTimeMigration.resx">
+      <DependentUpon>201707310713566_AddDataTimeMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -22,7 +22,6 @@ var user_service_1 = require("../Service/user.service");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var router_1 = require("@angular/router");
-var ng2_bs3_modal_1 = require("ng2-bs3-modal/ng2-bs3-modal");
 var instruction_1 = require("../Model/instruction");
 var AccountComponent = (function () {
     function AccountComponent(http, _userService, router) {
@@ -61,11 +60,14 @@ var AccountComponent = (function () {
     AccountComponent.prototype.addInstruction = function () {
         this.modalTitle = "Create new Instruction";
         this.modalBtnTitle = "Create";
-        this.modal.open();
+        this.create = true;
+    };
+    AccountComponent.prototype.Cancel = function () {
+        this.create = false;
     };
     AccountComponent.prototype.Create = function (instructionName) {
         var _this = this;
-        this._userService.post(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new instruction_1.Instruction(0, 0, instructionName, 0, null)).subscribe(function (data) {
+        this._userService.post(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new instruction_1.Instruction(0, 0, instructionName, null)).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";
                 console.log("OK->Instruction");
@@ -79,7 +81,7 @@ var AccountComponent = (function () {
             console.log(error);
             //this.msg = error;
         });
-        this.modal.dismiss();
+        this.create = false;
     };
     AccountComponent.prototype.BuildInstruction = function (instructionId) {
         global_1.BuildInstructionNow.buildInstruction = instructionId;
@@ -139,10 +141,6 @@ var AccountComponent = (function () {
             console.log(error);
         });
     };
-    __decorate([
-        core_1.ViewChild('modal'),
-        __metadata("design:type", ng2_bs3_modal_1.ModalComponent)
-    ], AccountComponent.prototype, "modal", void 0);
     AccountComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/Components/account.component.html',

@@ -43,9 +43,9 @@ var BuildInstructionComponent = (function () {
         var el = args[0], source = args[1];
         // do something else
     };
-    BuildInstructionComponent.prototype.Create = function () {
+    BuildInstructionComponent.prototype.Create = function (stepName) {
         var _this = this;
-        this._userService.post(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, new step_1.Step(0, this.BuildInstructionData.Id, this.BuildInstructionData.MaxCount)).subscribe(function (data) {
+        this._userService.post(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, new step_1.Step(0, this.BuildInstructionData.Id, this.BuildInstructionData.Steps.length, stepName)).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";
                 console.log("OK->Step");
@@ -59,6 +59,7 @@ var BuildInstructionComponent = (function () {
             console.log(error);
             //this.msg = error;
         });
+        this.create = false;
     };
     BuildInstructionComponent.prototype.LoadUserInstruction = function () {
         this._userService.get(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT)
@@ -71,6 +72,7 @@ var BuildInstructionComponent = (function () {
         });
     };
     BuildInstructionComponent.prototype.Save = function () {
+        var _this = this;
         this.BuildInstructionData.Steps.forEach(function (step, index) {
             step.Number = index + 1;
         });
@@ -83,6 +85,7 @@ var BuildInstructionComponent = (function () {
                 //this.msg = "There is some issue in saving records, please contact to system administrator!"
                 console.log("NO->");
             }
+            _this.LoadUserInstruction();
         }, function (error) {
             console.log(error);
             //this.msg = error;
@@ -96,6 +99,14 @@ var BuildInstructionComponent = (function () {
         }, function (error) {
             console.log(error);
         });
+    };
+    BuildInstructionComponent.prototype.addStep = function () {
+        this.modalTitle = "Create new Step";
+        this.modalBtnTitle = "Create";
+        this.create = true;
+    };
+    BuildInstructionComponent.prototype.Cancel = function () {
+        this.create = false;
     };
     BuildInstructionComponent = __decorate([
         core_1.Component({

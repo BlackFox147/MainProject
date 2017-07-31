@@ -11,6 +11,7 @@ namespace MainProject.Models
         public int Number { get; set; }
 
         public string Name { get; set; }
+        public string DataTimeChange { get; set; }
         public int? InstructionId { get; set; }
         public Instruction Instruction { get; set; }
     }

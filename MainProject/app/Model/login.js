@@ -43,7 +43,7 @@ var loginUser = (function () {
         this.userAccount.Password = em;
     };
     loginUser.prototype.getInstrustion = function () {
-        var temp = new instruction_1.Instruction(0, 0, "", 0, null);
+        var temp = new instruction_1.Instruction(0, 0, "", null);
         this.userAccount.Profile.Instructions.forEach(function (instructin) {
             if (instructin.Id == global_1.BuildInstructionNow.buildInstruction) {
                 temp = instructin;
@@ -59,7 +59,7 @@ var loginUser = (function () {
         temp.Steps = temp.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
         this.userAccount.Profile.Instructions.forEach(function (instructin) {
             if (instructin.Id == global_1.BuildInstructionNow.buildInstruction) {
-                instructin.MaxCount = temp.MaxCount;
+                instructin.DataTimeChange = temp.DataTimeChange;
                 instructin.Steps = temp.Steps;
                 return;
             }

@@ -2,98 +2,114 @@
 
 <div style="padding-top:25px;"> </div>
 
-    <div class="panel panel-default col-sm-12 col-lg-12 col-md-12">
-        <div class="panel-body">
+<div class="panel panel-default col-sm-12 col-lg-12 col-md-12">
+    <div class="panel-body">
 
-            <h1 class="panel-title pull-left" style="font-size:30px;">{{BuildInstructionData.Name}}</h1>
+        <h1 class="panel-title pull-left" style="font-size:30px;">{{BuildInstructionData.Name}}</h1>
 
-            <br><br>            
-            <br><br><hr>
-            <span class="pull-left">
-                <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Steps <span class="badge">{{BuildInstructionData.Steps.length}}</span></a>
-               
-                 <button (click)="Create()" style="padding-bottom:10px" class="btn btn-success" type="button">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    Create Step
-                </button>
+        <br><br>
+        <br><br><hr>
+        <span class="pull-left">
+            <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Steps <span class="badge">{{BuildInstructionData.Steps.length}}</span></a>
 
-                <button (click)="Save()" style="padding-bottom:10px" class="btn btn-primary" type="button">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Save
-                </button>
-            </span>
+            <button (click)="addStep()" style="padding-bottom:10px" class="btn btn-success" type="button">
+                <span class="glyphicon glyphicon-plus"></span>
+                Create Step
+            </button>
 
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="wrapper">
-            <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'>
-
-                <div class="col-md-4" *ngFor="let step of BuildInstructionData.Steps">
-                    <div class="card card-favorite">
-                        <div class="card-img-container">
-                            <a href="#" style="background:url(http://bootstraptema.ru/images/bg/bg-5.png);" class="card-img"></a>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-meta">
-                                <span class="meta-date meta-box">
-                                    11 Января
-                                </span>
-                                <span class="meta-pulse meta-box">
-                                    <a href="#" class="card-share-number sharrre">{{step.Name}}</a>
-                                </span>
-                            </div>
-                            <h2>
-                                <a href="#">
-                                    Quaerat voluptatem sequi nesciunt
-                                </a>
-                            </h2>
-                        </div>
-                        <div class="pull-right">
-                            <button title="Delete" class="btn btn-danger" (click)="Delete(step.Id)">Delete</button>
-                        </div>
-                        <span class="meta-tags">
-                            <a href="#" title="tags" class="tag">Тег</a>
-                        </span>
-
-                    </div>
-                </div>
-            </div>
+            <button (click)="Save()" style="padding-bottom:10px" class="btn btn-primary" type="button">
+                <span class="glyphicon glyphicon-ok"></span>
+                Save
+            </button>
+        </span>
 
     </div>
 </div>
 
-    <!--<div class="wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div *ngIf="create" class="panel panel-default">
+    <div class="panel-body">
+        <div class="post-content">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+            <hr />
+            <div class="form-group ">
+                <input type="text" name="stepName" [(ngModel)]="stepName" class="form-control" placeholder="Name" value="" required="required">
+            </div>
+            <hr />
+            <div class="pull-left">
+         
+                <a class="btn btn-default" (click)="Cancel()">Cancel</a>
+                <input type="submit" value={{modalBtnTitle}} (click)="Create(stepName)" class="btn btn-success btn-custom">
+            </div>
+        </div>
+    </div>
+</div>
 
-        <div class="panel panel-default">
+<div class="row">
 
-            <div class="panel-body">
+    <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'>
+
+        <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let step of BuildInstructionData.Steps">
+            <div class="card card-favorite">
+                <div class="card-img-container">
+                    <div style="background:url(http://bootstraptema.ru/images/bg/bg-5.png);" class="card-img"></div>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <!--<span class="meta-date meta-box">
+                            {{step.DataTimeChange}}
+                        </span>-->
+                        <span class="meta-pulse meta-box">
+                            <a href="#" class="card-share-number sharrre"><span class="glyphicon glyphicon-align-left"></span></a>
+                        </span>
+                    </div>
+                    <h2 class="box-text">
+                        <a href="#">
+                            {{step.Name}}
+                        </a>
+                    </h2>
+                </div>
+                <div class="pull-right">
+                    <button title="Delete" class="btn btn-danger" (click)="Delete(step.Id)">Delete</button>
+                </div>
+                <span class="meta-tags">
+                    <a href="#" title="tags" class="tag">{{step.DataTimeChange}}</a>
+                </span>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--<div class="wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+    <div class="panel panel-default">
+
+        <div class="panel-body">
 
 
 
-                <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'>
+            <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'>
 
 
-                    <div *ngFor="let step of BuildInstructionData.Steps" class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
-                        <div class="serviceBox">
-                            <div class="service-icon">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </div>
-                            <div class="service-content">
-                                <h3>Step {{step.Name}}</h3>
-                            </div>
-                            <div class="read">
-                                <a href="#" class="btn btn-default">Change</a>
-                            </div>
+                <div *ngFor="let step of BuildInstructionData.Steps" class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+                    <div class="serviceBox">
+                        <div class="service-icon">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Step {{step.Name}}</h3>
+                        </div>
+                        <div class="read">
+                            <a href="#" class="btn btn-default">Change</a>
                         </div>
                     </div>
-
-                </div>
-
                 </div>
 
             </div>
-        </div>-->
 
+            </div>
 
+        </div>
+    </div>-->

@@ -183,10 +183,7 @@ button:hover {
   line-height: 16px;
 }*/
 
-.wrapper {
-      display: table;
-      
-    }
+
     .container {
      
       width: 100%;
@@ -295,7 +292,7 @@ button:hover {
 
 .card {
   min-width: 0;
-  margin: 20px 10px;
+
   width: 100%;    
   background: #0C0C0C;
   color: #696969;
@@ -370,4 +367,11 @@ a:hover{
   color: #FFF;
   -webkit-transition: .3s ease all;
   transition: .3s ease all;
+}
+
+.box-text {
+  text-overflow: ellipsis; 
+  overflow: hidden; 
+  width: 100%; 
+  white-space: nowrap; 
 }

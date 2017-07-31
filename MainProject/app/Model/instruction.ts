@@ -4,15 +4,15 @@ export class Instruction {
     Id: number;
     UserProfileId: number;
     Name: string;
-    MaxCount: number;
+    DataTimeChange: string;
     Steps: Step[];
 
 
-    constructor(id: number, profId: number, name: string, maxC: number, steps: Step[]) {
+    constructor(id: number, profId: number, name: string, steps: Step[]) {
         this.Id = id;
         this.UserProfileId = profId;
         this.Name = name;
-        this.MaxCount = maxC;
+
         this.Steps = steps;
     }        
 }

@@ -57,7 +57,7 @@ export class loginUser {
     }
 
     public getInstrustion() {
-        var temp: Instruction = new Instruction(0, 0, "",0,null);
+        var temp: Instruction = new Instruction(0, 0, "",null);
         this.userAccount.Profile.Instructions.forEach(instructin => {           
             if (instructin.Id == BuildInstructionNow.buildInstruction) {               
                 temp = instructin;    
@@ -76,7 +76,7 @@ export class loginUser {
         this.userAccount.Profile.Instructions.forEach(instructin => {
             if (instructin.Id == BuildInstructionNow.buildInstruction) {
 
-                instructin.MaxCount = temp.MaxCount;
+                instructin.DataTimeChange = temp.DataTimeChange;               
                 instructin.Steps = temp.Steps;
                 return;
             }

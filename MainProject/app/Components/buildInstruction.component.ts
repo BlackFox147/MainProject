@@ -33,6 +33,9 @@ export class BuildInstructionComponent {
 
     BuildInstructionData = LoginUserAccount.userData.getInstrustion();
 
+    modalTitle: string;
+    modalBtnTitle: string;
+    create: boolean;
 
     Test():void {
         console.log(this.BuildInstructionData);
@@ -50,9 +53,9 @@ export class BuildInstructionComponent {
         // do something else
     }
 
-    Create(): void {
+    Create(stepName: string): void {
 
-        this._userService.post(Global.BASE_BUILDINSTRUCTION_ENDPOINT, new Step(0, this.BuildInstructionData.Id, this.BuildInstructionData.MaxCount)).subscribe(
+        this._userService.post(Global.BASE_BUILDINSTRUCTION_ENDPOINT, new Step(0, this.BuildInstructionData.Id, this.BuildInstructionData.Steps.length, stepName)).subscribe(
             data => {
                 if (data == 1) //Success
                 {
@@ -73,7 +76,7 @@ export class BuildInstructionComponent {
                 //this.msg = error;
             }
         );
-        
+        this.create = false;
     }
 
 
@@ -111,13 +114,14 @@ export class BuildInstructionComponent {
                     console.log("NO->");
                 }
 
-
+                this.LoadUserInstruction();
             },
             error => {
                 console.log(error);
                 //this.msg = error;
             }
         ); 
+
     }
 
     Delete(stepId: number): void {
@@ -130,6 +134,17 @@ export class BuildInstructionComponent {
                 console.log(error);
             }
         );
+    }
+
+
+    addStep() {
+        this.modalTitle = "Create new Step";
+        this.modalBtnTitle = "Create";
+        this.create = true;
+    }
+
+    Cancel(): void {
+        this.create = false;
     }
 
 }

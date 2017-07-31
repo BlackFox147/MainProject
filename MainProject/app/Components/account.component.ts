@@ -17,7 +17,7 @@ import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';  
 import { Router } from '@angular/router'; 
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+
 import { Instruction } from '../Model/instruction';
 
 
@@ -27,10 +27,10 @@ import { Instruction } from '../Model/instruction';
 })
 export class AccountComponent {
 
-    @ViewChild('modal') modal: ModalComponent;
+
     modalTitle: string;
     modalBtnTitle: string;
-
+    create: boolean;
     
     private isUploadBtn: boolean = true;
     constructor(private http: Http, private _userService: UserService, private router: Router) {
@@ -79,11 +79,15 @@ export class AccountComponent {
     addInstruction() {
         this.modalTitle = "Create new Instruction";
         this.modalBtnTitle = "Create";
-        this.modal.open();
+        this.create = true;
+    }
+
+    Cancel(): void {
+        this.create = false;
     }
 
     Create(instructionName: string): void {
-        this._userService.post(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new Instruction(0, 0, instructionName,0,null)).subscribe(
+        this._userService.post(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new Instruction(0, 0, instructionName,null)).subscribe(
             data => {
                 if (data == 1) //Success
                 {
@@ -104,7 +108,7 @@ export class AccountComponent {
                 //this.msg = error;
             }
         );
-        this.modal.dismiss();
+        this.create = false;
     }
 
     BuildInstruction(instructionId: number): void {

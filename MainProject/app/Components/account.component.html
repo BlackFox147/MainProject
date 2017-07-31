@@ -142,6 +142,24 @@
             </span>-->
         </div>
     </div>
+
+    <div *ngIf="create" class="panel panel-default">
+        <div class="panel-body">
+            <div class="post-content">
+                <h4 class="modal-title">{{modalTitle}}</h4>
+                <hr />
+                <div class="form-group ">
+                    <input type="text" name="instructionName" [(ngModel)]="instructionName" class="form-control" placeholder="Name" value="" required="required">
+                </div>
+                <hr />
+                <div class="pull-left">
+                    <a class="btn btn-default" (click)="Cancel()">Cancel</a>
+                    <input type="submit" value={{modalBtnTitle}} (click)="Create(instructionName)" class="btn btn-success btn-custom">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="post-content">
@@ -160,10 +178,10 @@
                             <td>{{instruction.Name}}</td>
                             <td>{{instruction.UserProfileId}}</td>
                             <td>
-                                <button title="Edit" class="btn btn-primary" (click)="BuildInstruction(instruction.Id)">Edit</button>                                
+                                <button title="Edit" class="btn btn-primary" (click)="BuildInstruction(instruction.Id)">Edit</button>
                             </td>
                             <td>
-                                <button title="Delete" class="btn btn-danger"  (click)="Delete(instruction.Id)">Delete</button>
+                                <button title="Delete" class="btn btn-danger" (click)="Delete(instruction.Id)">Delete</button>
                             </td>
                         </tr>
 
@@ -203,25 +221,3 @@
     <hr>
 </div>
 
-
-<modal #modal>
-    <modal-header [show-close]="true">
-        <h4 class="modal-title">{{modalTitle}}</h4>
-    </modal-header>
-    <modal-body>
-
-        <div class="form-group ">
-
-            <input type="text" name="instructionName" [(ngModel)]="instructionName" class="form-control" placeholder="Name" value="" required="required">
-
-        </div>
-    </modal-body>
-    <modal-footer>
-        <div>
-            <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
-            <input type="submit" value={{modalBtnTitle}} (click)="Create(instructionName)" class="btn btn-success btn-custom">
-
-        </div>
-    </modal-footer>
-
-</modal>

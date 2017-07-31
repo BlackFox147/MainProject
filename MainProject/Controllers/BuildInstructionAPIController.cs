@@ -29,6 +29,14 @@ namespace MainProject.Controllers
             }          
             //UsersDb.Entry(value).State = EntityState.Modified;
             int s = UsersDb.SaveChanges();
+            DateTime date1 = DateTime.Today;
+            var time = date1.ToShortDateString();
+
+
+            value.DataTimeChange = DateTime.Now.ToString();
+            UsersDb.Entry(value).State = EntityState.Modified;
+            s = UsersDb.SaveChanges();
+            instruction = value;
             return ToJson(s);
         }
 
@@ -37,18 +45,21 @@ namespace MainProject.Controllers
         {
             int aaa = 0;
 
+            DateTime date1 = DateTime.Today;
+            var time = date1.ToShortDateString();
+
             instruction = UsersDb.Instructions.Include("Steps").FirstOrDefault(p => p.Id == value.InstructionId);
 
-            Step step = new Step { Name = ("" + value.Number + 1), Number = (value.Number+1), Instruction = UsersDb.Instructions.FirstOrDefault(p => p.Id == value.InstructionId)};
+            Step step = new Step { DataTimeChange = DateTime.Now.ToString(), Name = value.Name, Number = (value.Number), Instruction = UsersDb.Instructions.FirstOrDefault(p => p.Id == value.InstructionId)};
 
             UsersDb.Steps.Add(step);
 
             int s = UsersDb.SaveChanges();
             if (s == 1)
-            {                
-                instruction.MaxCount += 1;
+            {        
+                instruction.DataTimeChange = DateTime.Now.ToString();
                 UsersDb.Entry(instruction).State = EntityState.Modified;
-                UsersDb.SaveChanges();
+                s = UsersDb.SaveChanges();
             }
             return ToJson(s);
         }
@@ -69,6 +80,15 @@ namespace MainProject.Controllers
 
             UsersDb.Steps.Remove(del);
             var s = UsersDb.SaveChanges();
+
+
+            DateTime date1 = DateTime.Today;
+            var time = date1.ToShortDateString();
+
+            instruction.DataTimeChange = DateTime.Now.ToString();
+            UsersDb.Entry(instruction).State = EntityState.Modified;
+            s = UsersDb.SaveChanges();
+
             return ToJson(s);
         }
 

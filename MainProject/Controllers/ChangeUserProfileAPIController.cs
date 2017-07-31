@@ -31,11 +31,17 @@ namespace MainProject.Controllers
         public HttpResponseMessage Post(Instruction value)
         {
             int aaa = 0;
-            Instruction ins1 = new Instruction { Name = value.Name, UserProfile = UsersDb.UserProfiles.FirstOrDefault(p => p.Id == loggin.Id) };
+            DateTime date1 = DateTime.Now;
+            var time = date1.ToLocalTime();          
+
+            Instruction ins1 = new Instruction { DataTimeChange = DateTime.Now.ToString(), Name = value.Name, UserProfile = UsersDb.UserProfiles.FirstOrDefault(p => p.Id == loggin.Id) };
                   
             UsersDb.Instructions.Add(ins1);
                         
             int s = UsersDb.SaveChanges();
+
+
+
             return ToJson(s);
         }
 
