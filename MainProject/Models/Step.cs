@@ -14,5 +14,12 @@ namespace MainProject.Models
         public string DataTimeChange { get; set; }
         public int? InstructionId { get; set; }
         public Instruction Instruction { get; set; }
+
+        public ICollection<Element> Elements { get; set; }
+
+        public Step()
+        {
+            Elements = new List<Element>();
+        }
     }
 }

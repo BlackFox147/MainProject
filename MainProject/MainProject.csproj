@@ -227,7 +227,17 @@
     <Compile Include="Migrations\201707310713566_AddDataTimeMigration.Designer.cs">
       <DependentUpon>201707310713566_AddDataTimeMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708010129311_AddElementMigration.cs" />
+    <Compile Include="Migrations\201708010129311_AddElementMigration.Designer.cs">
+      <DependentUpon>201708010129311_AddElementMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708010139083_AddMaterialMigration.cs" />
+    <Compile Include="Migrations\201708010139083_AddMaterialMigration.Designer.cs">
+      <DependentUpon>201708010139083_AddMaterialMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Material.cs" />
+    <Compile Include="Models\Element.cs" />
     <Compile Include="Models\Instruction.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="Models\UserContext.cs" />
@@ -355,6 +365,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707310713566_AddDataTimeMigration.resx">
       <DependentUpon>201707310713566_AddDataTimeMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708010129311_AddElementMigration.resx">
+      <DependentUpon>201708010129311_AddElementMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708010139083_AddMaterialMigration.resx">
+      <DependentUpon>201708010139083_AddMaterialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

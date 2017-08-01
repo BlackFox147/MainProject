@@ -14,5 +14,7 @@ namespace MainProject.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Instruction> Instructions { get; set; }
         public DbSet<Step> Steps { get; set; }
+        public DbSet<Element> Elements { get; set; }
+
     }
 }

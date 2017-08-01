@@ -33,6 +33,9 @@ export class BuildInstructionComponent {
 
     BuildInstructionData = LoginUserAccount.userData.getInstrustion();
 
+    
+
+
     modalTitle: string;
     modalBtnTitle: string;
     create: boolean;
