@@ -180,6 +180,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
+    <Compile Include="Controllers\BuildElementAPIController.cs" />
     <Compile Include="Controllers\BuildInstructionAPIController.cs" />
     <Compile Include="Controllers\BuildStepAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -256,6 +257,7 @@
     <Content Include="app\Components\login.component.html" />
     <Content Include="app\Components\register.component.css" />
     <Content Include="app\Components\register.component.html" />
+    <Content Include="app\Components\step.component.css" />
     <Content Include="app\Components\step.component.html" />
     <Content Include="app\Components\user.component.html" />
     <Content Include="App_Data\UserDB.mdf" />

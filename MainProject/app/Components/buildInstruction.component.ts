@@ -77,6 +77,7 @@ export class BuildInstructionComponent {
 
     private onRemoveModel(args: any) {
         let [el, source] = args;
+        console.log("remove");
         // do something else
     }
 
@@ -178,7 +179,7 @@ export class BuildInstructionComponent {
     Open(id: number): void {
         BuildStepNow.buildStep = id;
         console.log(BuildStepNow.buildStep);
-        this.GetStep();
+        //this.GetStep();
         
         this.router.navigate(['step']);
     }

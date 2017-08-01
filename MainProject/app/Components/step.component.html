@@ -1,1 +1,114 @@
-﻿
+﻿<button title="Test" class="btn btn-primary" (click)="Test()">Test</button>
+
+<div style="padding-top:25px;"> </div>
+
+<div class="panel panel-default col-sm-12 col-lg-12 col-md-12">
+    <div class="panel-body">
+
+        <!--<h1 class="panel-title pull-left" style="font-size:30px;">{{BuildStepData.Name}}</h1>-->
+        
+
+        <input class="form-control pull-left" style="width:40%;" (change)="onChangeName()" type="text" name="Name"
+               [(ngModel)]="BuildStepData.Name" #Name="ngModel" />
+
+        <br><br>
+        <br><br><hr>
+        <span class="pull-left">
+            <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Elements <span class="badge">{{BuildStepData.Elements.length}}</span></a>
+
+            <button (click)="addElement()" style="padding-bottom:10px" class="btn btn-success" type="button">
+                <span class="glyphicon glyphicon-plus"></span>
+                Create Element
+            </button>
+
+            <button (click)="Save()" style="padding-bottom:10px" class="btn btn-primary" type="button">
+                <span class="glyphicon glyphicon-ok"></span>
+                Save
+            </button>
+        </span>
+
+    </div>
+</div>
+
+<div *ngIf="create" class="panel panel-default">
+    <div class="panel-body">
+        <div class="post-content">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+            <hr />
+            <div class="form-group ">
+                <input type="text" name="elementName" [(ngModel)]="elementName" class="form-control" placeholder="Name" value="" required="required">
+            </div>
+            <hr />
+            <div class="pull-left">
+
+                <a class="btn btn-default" (click)="Cancel()">Cancel</a>
+                <input type="submit" value={{modalBtnTitle}} (click)="Create(elementName)" class="btn btn-success btn-custom">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btn-group" >    
+        <button type="button" (click)="Develop()" class="btn btn-primary">Develop</button>
+        <button type="button" (click)="View()" class="btn btn-primary">View</button>     
+
+</div>
+
+
+
+<div *ngIf="develop">
+    <div class="container" [dragula]='"another-bag"' [dragulaModel]='this.BuildStepData.Elements'>
+        <div class="row" *ngFor="let step of this.BuildStepData.Elements;let i = index">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3 class="panel-title">Markdown</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-danger pull-right" (click)="Delete(step.Id)">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    <div class="panel-body">
+                        <textarea #newStudentElem name="name" (change)="onChange(newStudentElem.value,i)" id="textbox" class="form-control">{{step.Materials[0].Data}}</textarea>
+                        <!--<textarea name="name" id="textbox" class="form-control">{{step.Materials[0].Data}}</textarea>-->
+
+                    </div>
+                   
+                </div>
+            </div>
+            <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">HTML</h3>
+                    </div>
+                    <div class="panel-body">
+                        <markdown>{{step.Materials[0].Data}}</markdown>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!develop">
+    <div class="row" *ngFor="let step of this.BuildStepData.Elements">
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">HTML</h3>
+                </div>
+                <div class="panel-body">
+                    <markdown>{{step.Materials[0].Data}}</markdown>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

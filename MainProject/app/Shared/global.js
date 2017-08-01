@@ -12,6 +12,7 @@ var Global = (function () {
     Global.BASE_CHANGE_USER_PROFILE_ENDPOINT = 'api/changeuserprofileapi/';
     Global.BASE_BUILDINSTRUCTION_ENDPOINT = 'api/buildinstructionapi/';
     Global.BASE_BUILDSTEP_ENDPOINT = 'api/buildstepapi/';
+    Global.BASE_BUILDELEMENT_ENDPOINT = 'api/buildelementapi/';
     return Global;
 }());
 exports.Global = Global;

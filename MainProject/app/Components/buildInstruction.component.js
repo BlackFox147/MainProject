@@ -57,6 +57,7 @@ var BuildInstructionComponent = (function () {
     };
     BuildInstructionComponent.prototype.onRemoveModel = function (args) {
         var el = args[0], source = args[1];
+        console.log("remove");
         // do something else
     };
     BuildInstructionComponent.prototype.Create = function (stepName) {
@@ -128,7 +129,7 @@ var BuildInstructionComponent = (function () {
     BuildInstructionComponent.prototype.Open = function (id) {
         global_1.BuildStepNow.buildStep = id;
         console.log(global_1.BuildStepNow.buildStep);
-        this.GetStep();
+        //this.GetStep();
         this.router.navigate(['step']);
     };
     BuildInstructionComponent.prototype.setStep = function (value) {

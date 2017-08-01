@@ -10,6 +10,7 @@ export class Global {
     public static BASE_CHANGE_USER_PROFILE_ENDPOINT = 'api/changeuserprofileapi/';
     public static BASE_BUILDINSTRUCTION_ENDPOINT = 'api/buildinstructionapi/';
     public static BASE_BUILDSTEP_ENDPOINT = 'api/buildstepapi/';
+    public static BASE_BUILDELEMENT_ENDPOINT = 'api/buildelementapi/';
 }
 
 
