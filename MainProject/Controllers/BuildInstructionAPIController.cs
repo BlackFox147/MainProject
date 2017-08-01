@@ -50,7 +50,7 @@ namespace MainProject.Controllers
 
             instruction = UsersDb.Instructions.Include("Steps").FirstOrDefault(p => p.Id == value.InstructionId);
 
-            Step step = new Step { DataTimeChange = DateTime.Now.ToString(), Name = value.Name, Number = (value.Number), Instruction = UsersDb.Instructions.FirstOrDefault(p => p.Id == value.InstructionId)};
+            Step step = new Step { DataTimeChange = DateTime.Now.ToString(), Name = value.Name, Number = (value.Number+1), Instruction = UsersDb.Instructions.FirstOrDefault(p => p.Id == value.InstructionId)};
 
             UsersDb.Steps.Add(step);
 

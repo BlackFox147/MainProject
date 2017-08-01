@@ -45,8 +45,8 @@ namespace MainProject.Controllers
             //    //            user.UserName, user.Profile.Age, user.Email, user.Password);
             //}
 
-            DateTime date1 = DateTime.Today;
-            var time = date1.ToShortDateString();
+            //DateTime date1 = DateTime.Today;
+            //var time = date1.ToShortDateString();
 
             return View();
         }

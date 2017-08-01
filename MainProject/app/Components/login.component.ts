@@ -35,16 +35,17 @@
 /////////////////////////////////////////////
 
 
-
+import { NgModel } from '@angular/forms';
 import { Component } from '@angular/core';
-
+import { Global, LoginUserAccount, BuildInstructionNow } from '../Shared/global';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
+import { MarkdownModule } from 'angular2-markdown';
 
 @Component({
 
-
     templateUrl: 'app/Components/login.component.html',
-    viewProviders: [DragulaService],
+
     styleUrls: ['./app/Components/example.css']
 })
 
@@ -52,29 +53,11 @@ export class LoginComponent {
 
     numbers: number[] = [1, 2, 3, 4, 5];
 
-    Show(): void {
-        console.log(this.numbers);
+    Show(): void {        
+        console.log(LoginUserAccount.userData.getparams());
     }
 
-    constructor(private dragulaService: DragulaService) {
-        dragulaService.dropModel.subscribe((value:any) => {
-            this.onDropModel(value.slice(1));
-        });
-        dragulaService.removeModel.subscribe((value: any) => {
-            this.onRemoveModel(value.slice(1));
-        });
-    }
-
-    private onDropModel(args: any) {
-        let [el, target, source] = args;
-        // do something else
-    }
-
-    private onRemoveModel(args: any) {
-        let [el, source] = args;
-        // do something else
-    }
-    
+    public textData = `## Markdown content data`;
 }
 
 

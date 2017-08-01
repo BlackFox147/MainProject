@@ -16,7 +16,7 @@ import { BuildInstructionComponent } from './components/buildInstruction.compone
 import { Instruction } from './Model/instruction';
 
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-
+import { MarkdownModule } from 'angular2-markdown';
 
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
 
@@ -26,7 +26,8 @@ import { UserService } from './Service/user.service'
 
 
 @NgModule({
-    imports: [CommonModule, BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule, DragulaModule ],
+    imports: [CommonModule, BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule, DragulaModule,
+        MarkdownModule.forRoot()],
     declarations: [AppComponent, UserComponent, HomeComponent, AccountComponent,
         LoginComponent, RegisterComponent, BuildInstructionComponent],
     providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: APP_BASE_HREF, useValue: '/' }, UserService],

@@ -24,7 +24,9 @@
 
 
             'dragula': 'node_modules/dragula/dist/dragula.js',
-            'ng2-dragula': 'node_modules/ng2-dragula'
+            'ng2-dragula': 'node_modules/ng2-dragula',
+
+            'angular2-markdown': 'npm:angular2-markdown/bundles/angular2-markdown.umd.min.js'
         },
         // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
         packages: {
