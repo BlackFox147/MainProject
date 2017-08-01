@@ -23,7 +23,7 @@ var BuildInstructionComponent = (function () {
         this._userService = _userService;
         this.router = router;
         this.dragulaService = dragulaService;
-        this.BuildInstructionData = global_1.LoginUserAccount.userData.getInstrustion();
+        this.BuildInstructionData = global_1.BuildInstructionNow.BuildInstruction;
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
         });
@@ -31,9 +31,25 @@ var BuildInstructionComponent = (function () {
             _this.onRemoveModel(value.slice(1));
         });
     }
+    BuildInstructionComponent.prototype.setInstruction = function (value) {
+        value.Steps = value.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
+        global_1.BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
+        global_1.BuildInstructionNow.BuildInstruction.Steps = value.Steps;
+    };
+    BuildInstructionComponent.prototype.GetInstruction = function () {
+        var _this = this;
+        this._userService.getItem(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, global_1.BuildInstructionNow.buildInstruction)
+            .subscribe(function (instruction) {
+            _this.setInstruction(instruction);
+            console.log("OK->Get_step");
+            console.log(_this.BuildInstructionData);
+        }, function (error) {
+            return console.log(error);
+        });
+        return true;
+    };
     BuildInstructionComponent.prototype.Test = function () {
         console.log(this.BuildInstructionData);
-        console.log(this.BuildInstructionData.Steps);
     };
     BuildInstructionComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
@@ -62,11 +78,12 @@ var BuildInstructionComponent = (function () {
         this.create = false;
     };
     BuildInstructionComponent.prototype.LoadUserInstruction = function () {
+        var _this = this;
         this._userService.get(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT)
             .subscribe(function (instruction) {
-            global_1.LoginUserAccount.userData.setInstrustion(instruction);
+            _this.setInstruction(instruction);
             console.log("OK->Get_step");
-            console.log(global_1.LoginUserAccount.userData.getInstrustion());
+            console.log(_this.BuildInstructionData);
         }, function (error) {
             return console.log(error);
         });
@@ -107,6 +124,32 @@ var BuildInstructionComponent = (function () {
     };
     BuildInstructionComponent.prototype.Cancel = function () {
         this.create = false;
+    };
+    BuildInstructionComponent.prototype.Open = function (id) {
+        global_1.BuildStepNow.buildStep = id;
+        console.log(global_1.BuildStepNow.buildStep);
+        this.GetStep();
+        this.router.navigate(['step']);
+    };
+    BuildInstructionComponent.prototype.setStep = function (value) {
+        console.log(value);
+        global_1.BuildStepNow.BuildStep.Id = value.Id;
+        global_1.BuildStepNow.BuildStep.Elements = value.Elements;
+        global_1.BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
+        global_1.BuildStepNow.BuildStep.InstructionId = value.InstructionId;
+        global_1.BuildStepNow.BuildStep.Name = value.Name;
+        global_1.BuildStepNow.BuildStep.Number = value.Number;
+    };
+    BuildInstructionComponent.prototype.GetStep = function () {
+        var _this = this;
+        this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, global_1.BuildStepNow.buildStep)
+            .subscribe(function (stepT) {
+            _this.setStep(stepT);
+            console.log("OK->Get_step");
+            console.log(global_1.BuildStepNow.BuildStep);
+        }, function (error) {
+            return console.log(error);
+        });
     };
     BuildInstructionComponent = __decorate([
         core_1.Component({

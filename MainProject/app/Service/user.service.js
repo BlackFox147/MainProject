@@ -24,8 +24,10 @@ var UserService = (function () {
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    UserService.prototype.home = function (url) {
-        return this._http.get(url);
+    UserService.prototype.getItem = function (url, id) {
+        return this._http.get(url + id)
+            .map(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     UserService.prototype.post = function (url, model) {
         var body = JSON.stringify(model);

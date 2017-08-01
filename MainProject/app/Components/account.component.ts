@@ -87,7 +87,7 @@ export class AccountComponent {
     }
 
     Create(instructionName: string): void {
-        this._userService.post(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new Instruction(0, 0, instructionName,null)).subscribe(
+        this._userService.post(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new Instruction(0, 0, instructionName)).subscribe(
             data => {
                 if (data == 1) //Success
                 {
@@ -114,12 +114,32 @@ export class AccountComponent {
     BuildInstruction(instructionId: number): void {
         BuildInstructionNow.buildInstruction = instructionId;
         console.log(BuildInstructionNow.buildInstruction);
+        this.GetInstruction();
         this.router.navigate(['buildInstruction']);
     }
 
 
 
+    setInstruction(value: Instruction): void {
+        value.Steps = value.Steps.sort((n1, n2) => n1.Number - n2.Number);
+        BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
+        BuildInstructionNow.BuildInstruction.Steps = value.Steps;
+        BuildInstructionNow.BuildInstruction.Id = value.Id;
+        BuildInstructionNow.BuildInstruction.Name = value.Name;
+        BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
+    }
 
+    GetInstruction(): void {
+        this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, BuildInstructionNow.buildInstruction)
+            .subscribe(instruction => {
+
+                this.setInstruction(instruction);
+                console.log("OK->Get_step");
+                console.log(BuildInstructionNow.BuildInstruction);
+            },
+            error =>
+                console.log(error));      
+    }
 
 
     fileChange(event:any) {

@@ -43,7 +43,7 @@ var loginUser = (function () {
         this.userAccount.Password = em;
     };
     loginUser.prototype.getInstrustion = function () {
-        var temp = new instruction_1.Instruction(0, 0, "", null);
+        var temp = new instruction_1.Instruction(0, 0, "");
         this.userAccount.Profile.Instructions.forEach(function (instructin) {
             if (instructin.Id == global_1.BuildInstructionNow.buildInstruction) {
                 temp = instructin;

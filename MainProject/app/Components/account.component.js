@@ -67,7 +67,7 @@ var AccountComponent = (function () {
     };
     AccountComponent.prototype.Create = function (instructionName) {
         var _this = this;
-        this._userService.post(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new instruction_1.Instruction(0, 0, instructionName, null)).subscribe(function (data) {
+        this._userService.post(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new instruction_1.Instruction(0, 0, instructionName)).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";
                 console.log("OK->Instruction");
@@ -86,7 +86,27 @@ var AccountComponent = (function () {
     AccountComponent.prototype.BuildInstruction = function (instructionId) {
         global_1.BuildInstructionNow.buildInstruction = instructionId;
         console.log(global_1.BuildInstructionNow.buildInstruction);
+        this.GetInstruction();
         this.router.navigate(['buildInstruction']);
+    };
+    AccountComponent.prototype.setInstruction = function (value) {
+        value.Steps = value.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
+        global_1.BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
+        global_1.BuildInstructionNow.BuildInstruction.Steps = value.Steps;
+        global_1.BuildInstructionNow.BuildInstruction.Id = value.Id;
+        global_1.BuildInstructionNow.BuildInstruction.Name = value.Name;
+        global_1.BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
+    };
+    AccountComponent.prototype.GetInstruction = function () {
+        var _this = this;
+        this._userService.getItem(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, global_1.BuildInstructionNow.buildInstruction)
+            .subscribe(function (instruction) {
+            _this.setInstruction(instruction);
+            console.log("OK->Get_step");
+            console.log(global_1.BuildInstructionNow.BuildInstruction);
+        }, function (error) {
+            return console.log(error);
+        });
     };
     AccountComponent.prototype.fileChange = function (event) {
         var _this = this;

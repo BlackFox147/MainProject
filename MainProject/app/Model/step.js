@@ -6,6 +6,7 @@ var Step = (function () {
         this.InstructionId = instrId;
         this.Name = name;
         this.Number = num;
+        this.Elements = new Array();
     }
     return Step;
 }());

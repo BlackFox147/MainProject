@@ -20,6 +20,14 @@ namespace MainProject.Controllers
             return list;
         }
 
+        public HttpResponseMessage Get(int id)
+        {
+
+            Instruction inst = UsersDb.Instructions.Include("Steps").FirstOrDefault(p => p.Id == id);
+            var list = ToJson(inst);
+            return list;
+        }
+
         public HttpResponseMessage Put(int id, Instruction value)
         {
             int aaa = 0;

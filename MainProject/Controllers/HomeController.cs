@@ -12,38 +12,48 @@ namespace MainProject.Controllers
     {
         public ActionResult Index()
         {
-            //using (UserContextNew db = new UserContextNew())
-            //{
-            //    //OneUser user1 = new OneUser { UserName = "login6", Email = "email6", Password = "pass7654" };
-            //    //OneUser user2 = new OneUser { UserName = "login7", Email = "email7", Password = "5678word09" };
+            using (UserContextNew db = new UserContextNew())
+            {
+                //OneUser user1 = new OneUser { UserName = "login6", Email = "email6", Password = "pass7654" };
+                //OneUser user2 = new OneUser { UserName = "login7", Email = "email7", Password = "5678word09" };
 
 
-            //    //db.OneUsers.Add(user1);
-            //    //db.SaveChanges();
-            //    //db.OneUsers.Add(user2);
-            //    //db.SaveChanges();
-            //    //UserProfile profile1 = new UserProfile { Id = user1.Id };
-            //    //UserProfile profile2 = new UserProfile { Id = user2.Id };
-            //    //db.UserProfiles.Add(profile1);
-            //    //db.SaveChanges();
-            //    //db.UserProfiles.Add(profile2);
-            //    //db.SaveChanges();
+                //db.OneUsers.Add(user1);
+                //db.SaveChanges();
+                //db.OneUsers.Add(user2);
+                //db.SaveChanges();
+                //UserProfile profile1 = new UserProfile { Id = user1.Id };
+                //UserProfile profile2 = new UserProfile { Id = user2.Id };
+                //db.UserProfiles.Add(profile1);
+                //db.SaveChanges();
+                //db.UserProfiles.Add(profile2);
+                //db.SaveChanges();
 
 
 
-            //    Instruction ins1 = db.UserProfiles.Include("Instructions").FirstOrDefault(p => p.Id == 13).Instructions.FirstOrDefault();
-            //    Step step1 = new Step { Name = "1",Number = 1, Instruction = ins1 };
-            //    Step step2 = new Step { Name = "2", Number = 2, Instruction = ins1 };
-            //    ins1.MaxCount = 2;
+                //Step ins1 = db.Steps.FirstOrDefault(p => p.Id == 53);
+                //Element step1 = new Element { BlockType = 1, Step = ins1 };
+                //Element step2 = new Element { BlockType = 1, Step = ins1 };
 
-            //    db.Entry(ins1).State = EntityState.Modified;
-            //    db.Steps.AddRange(new List<Step> { step1, step2 });
-            //    db.SaveChanges();
 
-            //    //foreach (OneUser user in db.OneUsers.Include("Profile").ToList())
-            //    //    Console.WriteLine("Name: {0}  Age: {1}  Login: {2}  Password: {3}",
-            //    //            user.UserName, user.Profile.Age, user.Email, user.Password);
-            //}
+                //db.Entry(ins1).State = EntityState.Modified;
+                //db.Elements.AddRange(new List<Element> { step1, step2 });
+                //db.SaveChanges();
+
+                //Material mat1 = new Material { Data= "Material_1", Element = step1 };
+                //Material mat2 = new Material { Data = "Material_2", Element = step2 };
+
+                //db.Entry(step1).State = EntityState.Modified;
+                //db.Entry(step2).State = EntityState.Modified;
+                //db.Materials.AddRange(new List<Material> { mat1, mat2 });
+                //db.SaveChanges();
+
+
+
+                //foreach (OneUser user in db.OneUsers.Include("Profile").ToList())
+                //    Console.WriteLine("Name: {0}  Age: {1}  Login: {2}  Password: {3}",
+                //            user.UserName, user.Profile.Age, user.Email, user.Password);
+            }
 
             //DateTime date1 = DateTime.Today;
             //var time = date1.ToShortDateString();

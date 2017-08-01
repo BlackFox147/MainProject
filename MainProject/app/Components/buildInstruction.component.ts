@@ -1,6 +1,6 @@
 ﻿import { Component, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Global, LoginUserAccount, BuildInstructionNow } from '../Shared/global';
+import { Global, LoginUserAccount, BuildInstructionNow, BuildStepNow } from '../Shared/global';
 import { ILogin } from '../Model/login';
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
@@ -10,6 +10,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Instruction } from '../Model/instruction';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Step } from '../Model/step';
+import { Element } from '../Model/element';
 
 @Component({
     templateUrl: 'app/Components/buildInstruction.component.html',
@@ -29,11 +30,35 @@ export class BuildInstructionComponent {
         dragulaService.removeModel.subscribe((value: any) => {
             this.onRemoveModel(value.slice(1));
         });      
+
     }
 
-    BuildInstructionData = LoginUserAccount.userData.getInstrustion();
+    BuildInstructionData: Instruction = BuildInstructionNow.BuildInstruction;
 
-    
+    setInstruction(value: Instruction): void {
+        value.Steps = value.Steps.sort((n1, n2) => n1.Number - n2.Number); 
+        BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
+        BuildInstructionNow.BuildInstruction.Steps = value.Steps;
+    }
+
+    GetInstruction(): boolean {
+        this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, BuildInstructionNow.buildInstruction)
+            .subscribe(instruction => {
+
+                this.setInstruction(instruction);
+                console.log("OK->Get_step");
+                console.log(this.BuildInstructionData);
+            },
+            error =>
+                console.log(error));
+        return true;
+    }
+    //getItem: boolean = this.GetInstruction();
+
+     
+    //BuildInstructionData:Instruction = LoginUserAccount.userData.getInstrustion();
+
+
 
 
     modalTitle: string;
@@ -41,8 +66,7 @@ export class BuildInstructionComponent {
     create: boolean;
 
     Test():void {
-        console.log(this.BuildInstructionData);
-        console.log(this.BuildInstructionData.Steps);
+        console.log(this.BuildInstructionData);       
     }
 
 
@@ -87,9 +111,9 @@ export class BuildInstructionComponent {
     LoadUserInstruction(): void {
         this._userService.get(Global.BASE_BUILDINSTRUCTION_ENDPOINT)
             .subscribe(instruction => {
-                LoginUserAccount.userData.setInstrustion(instruction);
+                this.setInstruction(instruction);
                 console.log("OK->Get_step");
-                console.log(LoginUserAccount.userData.getInstrustion());
+                console.log(this.BuildInstructionData);
             },
             error =>
                 console.log(error));
@@ -150,4 +174,38 @@ export class BuildInstructionComponent {
         this.create = false;
     }
 
+
+    Open(id: number): void {
+        BuildStepNow.buildStep = id;
+        console.log(BuildStepNow.buildStep);
+        this.GetStep();
+        
+        this.router.navigate(['step']);
+    }
+
+    setStep(value: Step): void {
+        console.log(value);
+        BuildStepNow.BuildStep.Id = value.Id;
+        BuildStepNow.BuildStep.Elements = value.Elements;
+        BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
+        BuildStepNow.BuildStep.InstructionId = value.InstructionId;
+        BuildStepNow.BuildStep.Name = value.Name;
+        BuildStepNow.BuildStep.Number = value.Number; 
+    }
+
+    GetStep(): void {
+        this._userService.getItem(Global.BASE_BUILDSTEP_ENDPOINT, BuildStepNow.buildStep)
+            .subscribe(stepT => {
+
+                this.setStep(stepT);
+                console.log("OK->Get_step");   
+                console.log(BuildStepNow.BuildStep);             
+            },
+            error =>
+                console.log(error));
+
+    }
+
+
+    
 }

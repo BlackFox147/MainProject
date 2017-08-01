@@ -7,7 +7,7 @@ import { AccountComponent } from './components/account.component';
 import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
 import { BuildInstructionComponent } from './components/buildInstruction.component';
-
+import { StepComponent } from './components/step.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,7 +16,8 @@ const appRoutes: Routes = [
     { path: 'account', component: AccountComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'buildInstruction', component: BuildInstructionComponent}
+    { path: 'buildInstruction', component: BuildInstructionComponent },
+    { path: 'step', component: StepComponent}
 ];
 
 export const routing: ModuleWithProviders =

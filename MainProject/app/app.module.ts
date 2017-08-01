@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home.component';
 import { AccountComponent } from './components/account.component';
 import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
+import { StepComponent } from './components/step.component';
 import { FormsModule } from '@angular/forms';
 import { BuildInstructionComponent } from './components/buildInstruction.component';
 import { Instruction } from './Model/instruction';
@@ -29,7 +30,7 @@ import { UserService } from './Service/user.service'
     imports: [CommonModule, BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule, DragulaModule,
         MarkdownModule.forRoot()],
     declarations: [AppComponent, UserComponent, HomeComponent, AccountComponent,
-        LoginComponent, RegisterComponent, BuildInstructionComponent],
+        LoginComponent, RegisterComponent, BuildInstructionComponent, StepComponent],
     providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]
 

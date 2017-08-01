@@ -16,8 +16,11 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    home(url: string): Observable<any> {
-        return this._http.get(url);           
+    getItem(url: string,id:number): Observable<any> {
+        return this._http.get(url + id)
+            .map((response: Response) => <any>response.json())
+            // .do(data => console.log("All: " + JSON.stringify(data)))
+            .catch(this.handleError);          
     }
 
 

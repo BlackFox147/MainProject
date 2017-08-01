@@ -181,6 +181,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BuildInstructionAPIController.cs" />
+    <Compile Include="Controllers\BuildStepAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstuctionAPIController.cs" />
     <Compile Include="Controllers\LoginAPIController.cs" />
@@ -255,6 +256,7 @@
     <Content Include="app\Components\login.component.html" />
     <Content Include="app\Components\register.component.css" />
     <Content Include="app\Components\register.component.html" />
+    <Content Include="app\Components\step.component.html" />
     <Content Include="app\Components\user.component.html" />
     <Content Include="App_Data\UserDB.mdf" />
     <Content Include="App_Data\UserDB_log.ldf">
@@ -319,10 +321,13 @@
     <TypeScriptCompile Include="app\Components\home.component.ts" />
     <TypeScriptCompile Include="app\Components\login.component.ts" />
     <TypeScriptCompile Include="app\Components\register.component.ts" />
+    <TypeScriptCompile Include="app\Components\step.component.ts" />
     <TypeScriptCompile Include="app\Components\user.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\Model\element.ts" />
     <TypeScriptCompile Include="app\Model\instruction.ts" />
     <TypeScriptCompile Include="app\Model\login.ts" />
+    <TypeScriptCompile Include="app\Model\material.ts" />
     <TypeScriptCompile Include="app\Model\profile.ts" />
     <TypeScriptCompile Include="app\Model\step.ts" />
     <TypeScriptCompile Include="app\Model\user.ts" />
