@@ -29,6 +29,7 @@ var LoginComponent = (function () {
         var _this = this;
         this.dragulaService = dragulaService;
         this.numbers = ["## hello", "## Markdown content data"];
+        this.img = [1, 2];
         this.develop = true;
         this.Content = "## Markdown content data";
         dragulaService.dropModel.subscribe(function (value) {
@@ -49,7 +50,7 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.Show = function () {
         console.log(global_1.LoginUserAccount.userData.getparams());
-        this.develop = !this.develop;
+        //this.develop = !this.develop;
     };
     LoginComponent.prototype.onChange = function (text, i) {
         console.log(text);

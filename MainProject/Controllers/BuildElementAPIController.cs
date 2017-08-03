@@ -15,6 +15,8 @@ namespace MainProject.Controllers
         public HttpResponseMessage Put(int id, Material value)
         {
             int aaa = 0;
+
+
             UsersDb.Entry(value).State = EntityState.Modified;
             int s = UsersDb.SaveChanges();
             return ToJson(s);

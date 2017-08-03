@@ -237,6 +237,10 @@
     <Compile Include="Migrations\201708010139083_AddMaterialMigration.Designer.cs">
       <DependentUpon>201708010139083_AddMaterialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708022322586_AddNumberMigration.cs" />
+    <Compile Include="Migrations\201708022322586_AddNumberMigration.Designer.cs">
+      <DependentUpon>201708022322586_AddNumberMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\Element.cs" />
@@ -273,6 +277,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\3.jpg" />
+    <Content Include="images\1.jpg" />
+    <Content Include="images\2.jpg" />
     <Content Include="images\home.jpg" />
     <Content Include="images\loading.gif" />
     <Content Include="images\no_avatar.png" />
@@ -281,6 +288,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -336,6 +344,7 @@
     <TypeScriptCompile Include="app\Service\user.service.ts" />
     <TypeScriptCompile Include="app\Shared\enum.ts" />
     <TypeScriptCompile Include="app\Shared\global.ts" />
+    <TypeScriptCompile Include="Scripts\typings\react-textarea-autosize\react-textarea-autosize.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -378,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708010139083_AddMaterialMigration.resx">
       <DependentUpon>201708010139083_AddMaterialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708022322586_AddNumberMigration.resx">
+      <DependentUpon>201708022322586_AddNumberMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

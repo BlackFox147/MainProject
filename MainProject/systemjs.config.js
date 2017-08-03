@@ -24,8 +24,10 @@
 
 
             'dragula': 'node_modules/dragula/dist/dragula.js',
+            'angular2-autosize': 'npm:angular2-autosize',
             'ng2-dragula': 'node_modules/ng2-dragula',
-
+            
+            //'ng2-image-gallery': 'node_modules/ng2-image-gallery/dist/ng2-image-gallery.js',
             'angular2-markdown': 'npm:angular2-markdown/bundles/angular2-markdown.umd.min.js'
         },
         // пакеты, которые указывают загрузчику System, как загружать файлы без имени и расширения
@@ -38,8 +40,10 @@
                 defaultExtension: 'js'
             },
 
-            'dragula': {defaultExtension: 'js' },
-            'ng2-dragula': {defaultExtension: 'js'},
+            'dragula': { defaultExtension: 'js' },
+            'ng2-dragula': { defaultExtension: 'js' },
+            'angular2-autosize': { defaultExtension: 'js' },
+            //'ng2-image-gallery': { defaultExtension: 'js' },
 
             'ng2-bs3-modal':
           { main: '/bundles/ng2-bs3-modal.js', defaultExtension: 'js' }

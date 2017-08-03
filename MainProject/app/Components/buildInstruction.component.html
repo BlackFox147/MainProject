@@ -5,10 +5,24 @@
 <div class="panel panel-default col-sm-12 col-lg-12 col-md-12">
     <div class="panel-body">
 
-        <h1 class="panel-title pull-left" style="font-size:30px;">{{BuildInstructionData.Name}}</h1>
-
-        <br><br>
-        <br><br><hr>
+        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <a>
+                        <img src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="" style="width: 100%;">
+                    </a>
+                </div>
+                <div class="col-md-9">
+                    <!--<div> <h1 class="panel-title pull-left" style="font-size:30px;">{{BuildInstructionData.Name}}</h1></div>-->
+                    <div>
+                        <input class="form-control pull-left" style="width:50%;" (change)="onChangeName()" type="text" name="Name"
+                               [(ngModel)]="BuildInstructionData.Name" #Name="ngModel" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
         <span class="pull-left">
             <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Steps <span class="badge">{{BuildInstructionData.Steps.length}}</span></a>
 
@@ -46,7 +60,8 @@
 
 <div class="row">
 
-    <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'>
+    <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'
+          (change)="onChangeDrag()">
 
         <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let step of BuildInstructionData.Steps">
             <div class="card card-favorite">

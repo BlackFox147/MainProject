@@ -9,7 +9,7 @@ namespace MainProject.Models
     {
         public int Id { get; set; }
         public int Number { get; set; }
-
+        public string ImageName { get; set; }
         public string Name { get; set; }
         public string DataTimeChange { get; set; }
         public int? InstructionId { get; set; }

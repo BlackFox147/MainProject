@@ -6,13 +6,29 @@
     <div class="panel-body">
 
         <!--<h1 class="panel-title pull-left" style="font-size:30px;">{{BuildStepData.Name}}</h1>-->
-        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <a>
+                        <img src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="" style="width: 100%;">
+                    </a>
+                </div>
+                <div class="col-md-9">
+                    <input class="form-control pull-left" style="width:50%;" (change)="onChangeName()" type="text" name="Name"
+                           [(ngModel)]="BuildStepData.Name" #Name="ngModel" />
+                </div>
+                <div>
+                    <button (click)="Create(1)" style="padding-top:10px" class="btn btn-success" type="button">
+                        <span class="glyphicon glyphicon-font" aria-hidden="true"></span>
+                    </button>
 
-        <input class="form-control pull-left" style="width:40%;" (change)="onChangeName()" type="text" name="Name"
-               [(ngModel)]="BuildStepData.Name" #Name="ngModel" />
-
-        <br><br>
-        <br><br><hr>
+                    <button (click)="Create(2)" style="padding-top:10px" class="btn btn-success" type="button">
+                        <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
         <span class="pull-left">
             <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Elements <span class="badge">{{BuildStepData.Elements.length}}</span></a>
 
@@ -30,7 +46,7 @@
     </div>
 </div>
 
-<div *ngIf="create" class="panel panel-default">
+<!--<div *ngIf="create" class="panel panel-default">
     <div class="panel-body">
         <div class="post-content">
             <h4 class="modal-title">{{modalTitle}}</h4>
@@ -46,22 +62,68 @@
             </div>
         </div>
     </div>
+</div>-->
+
+<div style="padding-top:10px;"> </div>
+<div class="btn-group">
+    <button type="button" (click)="Develop()" class="btn btn-primary">Develop</button>
+    <button type="button" (click)="View()" class="btn btn-primary">View</button>
+
 </div>
 
-<div class="btn-group" >    
-        <button type="button" (click)="Develop()" class="btn btn-primary">Develop</button>
-        <button type="button" (click)="View()" class="btn btn-primary">View</button>     
+<!--<div class="wp-block property list">
 
-</div>
+    <div class="wp-block-body">
+        <div class="wp-block-img">
+            <a>
+                <img src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="">
+            </a>
+        </div>
+        <div class="wp-block-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <small>
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{BuildStepData.DataTimeChange}}
+                        </small>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-danger pull-right" (click)="Delete(instruction.Id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <button  type="button" class="btn btn-link"><h4 class="content-title">{{BuildStepData.Name}}</h4></button>
 
+            <p class="description"><input class="form-control pull-left" style="width:40%;" (change)="onChangeName()" type="text" name="Name"
+       [(ngModel)]="BuildStepData.Name" #Name="ngModel" /></p>
+            <button (click)="addElement()" style="padding-bottom:10px" class="btn btn-success pull-left" type="button">
+                <span class="glyphicon glyphicon-plus"></span>
+                Create Element
+            </button>
+            <span class="pull-right">
 
+            </span>
+        </div>
+    </div>
+    <div class="wp-block-footer">
+        <ul class="aux-info">
+            <li><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> {{BuildStepData.Elements.length}} </li>
+
+        </ul>
+
+    </div>
+</div>-->
 
 <div *ngIf="develop">
-    <div class="container" [dragula]='"another-bag"' [dragulaModel]='this.BuildStepData.Elements'>
-        <div class="row" *ngFor="let step of this.BuildStepData.Elements;let i = index">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+    <div class="container">
+        <div class="timeline">
+            <div class="line text-muted"></div>
+            <div [dragula]='"another-bag"' [dragulaModel]='this.BuildStepData.Elements'>
+
+                <div *ngFor="let step of this.BuildStepData.Elements;let i = index">
+
+                    <!--<div *ngIf="step.BlockType==1">-->
+                    <!--<div class="panel-heading">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
@@ -73,42 +135,125 @@
                             </div>
                         </div>
 
-                        
-                    </div>
-                    <div class="panel-body">
-                        <textarea #newStudentElem name="name" (change)="onChange(newStudentElem.value,i)" id="textbox" class="form-control">{{step.Materials[0].Data}}</textarea>
-                        <!--<textarea name="name" id="textbox" class="form-control">{{step.Materials[0].Data}}</textarea>-->
 
-                    </div>
-                   
+                    </div>-->
+                    <!--<div *ngIf="step.BlockType==1">
+                        <textarea autosize="" style="width: 100%;" #newStudentElem name="name" (change)="onChange(newStudentElem.value,i)" id="textbox" class="form-control">{{step.Materials[0].Data}}</textarea>
+
+                    </div>-->
+
+                    <article *ngIf="step.BlockType==1" class="panel panel-primary">
+
+                        <!-- Icon -->
+                        <div class="panel-heading icon">
+                            <i class="glyphicon glyphicon-plus"></i>                        
+                        
+                            <button (click)="Delete(step.Id)" class="btn-danger cursor-pointer"><i class="glyphicon glyphicon-remove"></i></button>
+                        </div>
+                        <!-- /Icon -->
+                        <!-- Heading -->
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Text</h2>
+                        </div>
+                        <!-- /Heading -->
+                        <!-- Body -->
+                        <div class="panel-body">
+                            <textarea autosize="" style="width: 100%;" #newStudentElem name="name" (change)="onChange(newStudentElem.value,i)" id="textbox" class="form-control">{{step.Materials[0].Data}}</textarea>
+
+                        </div>
+                        <!-- /Body -->
+                        <!-- Footer -->
+                        <!-- /Footer -->
+
+                    </article>
+
+
+                    <article *ngIf="step.BlockType==2" class="panel panel-default panel-outline">
+
+                        <!-- Icon -->
+                        <div class="panel-heading icon">
+                            <i class="glyphicon glyphicon-picture"></i>
+                            <button (click)="ImageChange(step.Id)" class="btn-info cursor-pointer"><i class="glyphicon glyphicon-cog"></i></button>
+                            <button (click)="Delete(step.Id)" class="btn-danger cursor-pointer"><i class="glyphicon glyphicon-remove"></i></button>
+
+                        </div>
+                        <!-- /Icon -->
+                        <!-- Body -->
+                        <div class="panel-body">
+                            <img style="max-height:250px" class="img-responsive img-rounded" src="../../images/{{step.Materials[0].Data}}" />
+                        </div>
+                        <!-- /Body -->
+
+                    </article>
+
+
+
+                    <!--<div *ngIf="step.BlockType==2">
+                    <div class="gallery">-->
+                    <!--<div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3 class="panel-title">Image</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-danger pull-right">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--<div *ngIf="step.BlockType==2" class="col-sm-4 col-md-4 col-lg-4">
+                        <figure>
+                            <img src="../../images/{{step.Materials[0].Data}}" alt="" />
+                        </figure>
+
+
+
+                    </div>-->
                 </div>
             </div>
-            <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">HTML</h3>
-                    </div>
-                    <div class="panel-body">
-                        <markdown>{{step.Materials[0].Data}}</markdown>
-                    </div>
+
+            <article class="panel panel-info panel-outline">
+
+                <!-- Icon -->
+                <div class="panel-heading icon">
+                  
+                    <i class="glyphicon glyphicon-info-sign"></i>
                 </div>
-            </div>-->
+                <!-- /Icon -->
+                <!-- Body -->
+                <div class="panel-body">
+                    That is all.
+                </div>
+                <!-- /Body -->
+
+            </article>
         </div>
     </div>
 </div>
 
+
+<!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">HTML</h3>
+        </div>
+        <div class="panel-body">
+            <markdown>{{step.Materials[0].Data}}</markdown>
+        </div>
+    </div>
+</div>-->
+
+
+
 <div *ngIf="!develop">
+
     <div class="row" *ngFor="let step of this.BuildStepData.Elements">
 
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">HTML</h3>
-                </div>
-                <div class="panel-body">
-                    <markdown>{{step.Materials[0].Data}}</markdown>
-                </div>
-            </div>
+        <div *ngIf="step.BlockType==1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <markdown>{{step.Materials[0].Data}}</markdown>
         </div>
     </div>
 </div>

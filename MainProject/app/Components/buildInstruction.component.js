@@ -152,6 +152,24 @@ var BuildInstructionComponent = (function () {
             return console.log(error);
         });
     };
+    BuildInstructionComponent.prototype.onChangeName = function () {
+        var _this = this;
+        console.log(this.BuildInstructionData.Name);
+        this._userService.put(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, this.BuildInstructionData.Id, this.BuildInstructionData).subscribe(function (data) {
+            if (data == 1) {
+                //this.msg = "Data successfully updated.";         
+                console.log("OK->N");
+            }
+            else {
+                //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                console.log("NO->N");
+            }
+            _this.LoadUserInstruction();
+        }, function (error) {
+            console.log(error);
+            //this.msg = error;
+        });
+    };
     BuildInstructionComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/Components/buildInstruction.component.html',

@@ -33,6 +33,7 @@ export class StepComponent {
     }
 
     setStep(value: Step): void {
+        value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number); 
 
         BuildStepNow.BuildStep.Id = value.Id;
         BuildStepNow.BuildStep.Elements = value.Elements;
@@ -161,9 +162,9 @@ export class StepComponent {
         this.create = false;
     }
 
-    Create(elementName: string): void {
+    Create(type: number): void {
 
-        this._userService.post(Global.BASE_BUILDSTEP_ENDPOINT, new Element(0, this.BuildStepData.Id, 1)).subscribe(
+        this._userService.post(Global.BASE_BUILDSTEP_ENDPOINT, new Element(0, this.BuildStepData.Id, type , this.BuildStepData.Elements.length)).subscribe(
             data => {
                 if (data == 1) //Success
                 {
@@ -191,11 +192,47 @@ export class StepComponent {
         this._userService.delete(Global.BASE_BUILDSTEP_ENDPOINT, elementId).subscribe(
             data => {
                 console.log("Good del");
-                this.BuildStepData = this.GetStep();
+                this.BuildStepData= this.GetStep();
             },
             error => {
                 console.log(error);
             }
         );
+    }
+
+    Save(): void {
+
+        this.BuildStepData.Elements.forEach((step, index) => {
+            step.Number = index + 1;
+        });
+
+
+
+        this._userService.put(Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(
+            data => {
+                if (data == 1) //Success
+                {
+                    //this.msg = "Data successfully updated.";         
+                    console.log("OK->S");
+
+                }
+                else {
+                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                    console.log("NO->S");
+                }
+
+
+            },
+            error => {
+                console.log(error);
+                //this.msg = error;
+            }
+        );    
+       
+
+    }
+
+    ImageChange(elementId: number): void {
+        console.log("image");
     }
 }

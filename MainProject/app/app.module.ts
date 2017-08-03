@@ -18,19 +18,24 @@ import { Instruction } from './Model/instruction';
 
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { MarkdownModule } from 'angular2-markdown';
+//import { AutosizeModule } from 'angular2-autosize/src/autosize.directive';
+
+//import { AutosizeModule } from 'angular2-autosize';
+//import { Ng2ImageGalleryModule} from 'ng2-image-gallery';
 
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+import { Autosize } from 'angular2-autosize/angular2-autosize';
 
-//import { LoginUser } from './Model/login';
-import { UserService } from './Service/user.service'
+
+import { UserService } from './Service/user.service';
 
 
 @NgModule({
     imports: [CommonModule, BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule, DragulaModule,
         MarkdownModule.forRoot()],
     declarations: [AppComponent, UserComponent, HomeComponent, AccountComponent,
-        LoginComponent, RegisterComponent, BuildInstructionComponent, StepComponent],
+        LoginComponent, RegisterComponent, BuildInstructionComponent, StepComponent, Autosize],
     providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]
 

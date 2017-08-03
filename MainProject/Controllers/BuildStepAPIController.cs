@@ -32,9 +32,19 @@ namespace MainProject.Controllers
 
         public HttpResponseMessage Put(int id, Step value)
         {
+
             int aaa = 0;
+            for (var i = 0; i < value.Elements.Count; i++)
+            {
+                UsersDb.Entry(value.Elements.ElementAt(i)).State = EntityState.Modified;
+            }
             UsersDb.Entry(value).State = EntityState.Modified;
             int s = UsersDb.SaveChanges();
+
+            value.DataTimeChange = DateTime.Now.ToString();
+            UsersDb.Entry(value).State = EntityState.Modified;
+            s = UsersDb.SaveChanges();
+
             return ToJson(s);
         }
 
@@ -46,13 +56,13 @@ namespace MainProject.Controllers
 
             Step step = UsersDb.Steps.Include("Elements").FirstOrDefault(p => p.Id == value.StepId);
 
-            Element elem = new Element { BlockType = value.BlockType, Step = UsersDb.Steps.FirstOrDefault(p => p.Id == value.StepId) };
+            Element elem = new Element { Number=value.Number+1, BlockType = value.BlockType, Step = UsersDb.Steps.FirstOrDefault(p => p.Id == value.StepId) };
 
 
             UsersDb.Elements.Add(elem);
             int s = UsersDb.SaveChanges();
 
-            Material mat2 = new Material { Data = null, Element = elem };
+            Material mat2 = new Material { Number = 1, Data = null, Element = elem };
             UsersDb.Entry(elem).State = EntityState.Modified;
             UsersDb.Materials.Add(mat2);
 
@@ -71,13 +81,13 @@ namespace MainProject.Controllers
 
             step = UsersDb.Steps.Include("Elements").FirstOrDefault(p => p.Id == del.StepId);
 
-            //for (var i = 0; i < instruction.Steps.Count; i++)
-            //{
-            //    if (instruction.Steps.ElementAt(i).Number > del.Number)
-            //    {
-            //        instruction.Steps.ElementAt(i).Number -= 1;
-            //    }
-            //}
+            for (var i = 0; i < step.Elements.Count; i++)
+            {
+                if (step.Elements.ElementAt(i).Number > del.Number)
+                {
+                    step.Elements.ElementAt(i).Number -= 1;
+                }
+            }
 
             int aaa = del.Materials.Count;
             for (var i = aaa - 1; i >= 0; i--)

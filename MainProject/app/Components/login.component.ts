@@ -135,6 +135,7 @@ import { MarkdownModule } from 'angular2-markdown';
 export class LoginComponent {
 
     numbers: string[] = ["## hello", "## Markdown content data"];
+    img: number[] = [1, 2];
 
     constructor(private dragulaService: DragulaService) {
 
@@ -162,7 +163,7 @@ export class LoginComponent {
 
     Show(): void {        
         console.log(LoginUserAccount.userData.getparams());
-        this.develop = !this.develop;
+        //this.develop = !this.develop;
     }
 
     public Content = `## Markdown content data`;
@@ -172,6 +173,8 @@ export class LoginComponent {
         this.numbers[i] = text;
         console.log(this.numbers);
     }
+
+  
 }
 
 

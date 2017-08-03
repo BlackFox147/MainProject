@@ -208,5 +208,29 @@ export class BuildInstructionComponent {
     }
 
 
+    onChangeName() {
+        console.log(this.BuildInstructionData.Name);
+        this._userService.put(Global.BASE_BUILDINSTRUCTION_ENDPOINT, this.BuildInstructionData.Id, this.BuildInstructionData).subscribe(
+            data => {
+                if (data == 1) //Success
+                {
+                    //this.msg = "Data successfully updated.";         
+                    console.log("OK->N");
+
+                }
+                else {
+                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                    console.log("NO->N");
+                }
+
+                this.LoadUserInstruction();
+            },
+            error => {
+                console.log(error);
+                //this.msg = error;
+            }
+        ); 
+    }
+
     
 }

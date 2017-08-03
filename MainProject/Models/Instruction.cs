@@ -11,7 +11,7 @@ namespace MainProject.Models
         public string Name { get; set; }
 
         public string DataTimeChange { get; set; }
-
+        public string UserImageName { get; set; }
         public int? UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
 

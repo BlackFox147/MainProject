@@ -1,81 +1,95 @@
-﻿#textbox {
-      width: 100%;
-      height: 150px;
-    }
-    table.table2 {
-      font-size: 14px;
-      color: #212121;
-      margin: 0 auto;
-      border-collapse: collapse;
-    }
-    table.table2 thead th {
-      font-size: 20px;
-      color: #212121;
-      height: 40px;
-      border: 1px solid #e6e6e6;
-      border-top: 0;
-      border-right: 0;
-      border-left: 0;
-    }
-    table.table2 tbody tr:nth-child(odd) {
-      background-color: #f6f6f6;
-    }
-    table.table2 td {
-      height: 40px;
-      width: 230px;
-      border-bottom: 1px solid #e6e6e6;
-      border-right: 1px solid #e6e6e6;
-    }
-    table.table2 td:last-of-type {
-      border-right: 0;
-    }
-    /* From https://codepen.io/maxds/pen/DcveB */
-    blockquote.king-quote {
-      display:block;
-      background: #fff;
-      padding: 15px 20px 15px 45px;
-      margin: 0 0 20px;
-      position: relative;
-      /*Font*/
-      font-family: Georgia, serif;
-      font-size: 16px;
-      line-height: 1.2;
-      color: #666;
-      text-align: justify;
-      /*Borders - (Optional)*/
-      border-left: 15px solid #c76c0c;
-      border-right: 2px solid #c76c0c;
-      /*Box Shadow - (Optional)*/
-      -moz-box-shadow: 2px 2px 15px #ccc;
-      -webkit-box-shadow: 2px 2px 15px #ccc;
-      box-shadow: 2px 2px 15px #ccc;
-    }
-    blockquote.king-quote::before {
-      content: "\\201C"; /*Unicode for Left Double Quote*/
-      /*Font*/
-      font-family: Georgia, serif;
-      font-size: 60px;
-      font-weight: bold;
-      color: #999;
-      /*Positioning*/
-      position: absolute;
-      left: 10px;
-      top:5px;
-    }
-    blockquote.king-quote::after{
-      /*Reset to make sure*/
-      content: "";
-    }
-    blockquote.king-quote a{
-      text-decoration: none;
-      background: #eee;
-      cursor: pointer;
-      padding: 0 3px;
-      color: #c76c0c;
-    }
-    blockquote.king-quote a:hover{
-      color: #666;
-    }
-    blockquote.king-quote em{
-      font-style: italic;
-    }
+﻿/* Styles go here */
+
+.timeline {
+    position: relative;
+    padding: 21px 0px 10px;
+    margin-top: 4px;
+    margin-bottom: 30px;
+}
+
+.timeline .line {
+    position: absolute;
+    width: 4px;
+    display: block;
+    background: currentColor;
+    top: 0px;
+    bottom: 0px;
+    margin-left: 30px;
+}
+
+.timeline .separator {
+    border-top: 1px solid currentColor;
+    padding: 5px;
+    padding-left: 40px;
+    font-style: italic;
+    font-size: .9em;
+    margin-left: 30px;
+}
+
+.timeline .line::before { top: -4px; }
+.timeline .line::after { bottom: -4px; }
+.timeline .line::before,
+.timeline .line::after {
+    content: '';
+    position: absolute;
+    left: -4px;
+    width: 12px;
+    height: 12px;
+    display: block;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.timeline .panel {
+    position: relative;
+    margin: 10px 0px 21px 70px;
+    clear: both;
+}
+
+.timeline .panel::before {
+    position: absolute;
+    display: block;
+    top: 8px;
+    left: -24px;
+    content: '';
+    width: 0px;
+    height: 0px;
+    border: inherit;
+    border-width: 12px;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+
+.timeline .panel .panel-heading.icon * { font-size: 20px; vertical-align: middle; line-height: 40px; }
+.timeline .panel .panel-heading.icon {
+    position: absolute;
+    left: -59px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+    border-radius: 50%;
+    text-align: center;
+    float: left;
+}
+.timeline .panel .panel-heading.icon button{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.timeline .panel-outline {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+}
+
+.timeline .panel-outline .panel-body {
+    padding: 10px 0px;
+}
+
+.timeline .panel-outline .panel-heading:not(.icon),
+.timeline .panel-outline .panel-footer {
+    display: none;
+}

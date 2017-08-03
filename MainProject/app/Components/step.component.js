@@ -46,6 +46,7 @@ var StepComponent = (function () {
         // do something else
     };
     StepComponent.prototype.setStep = function (value) {
+        value.Elements = value.Elements.sort(function (n1, n2) { return n1.Number - n2.Number; });
         global_1.BuildStepNow.BuildStep.Id = value.Id;
         global_1.BuildStepNow.BuildStep.Elements = value.Elements;
         global_1.BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
@@ -118,9 +119,9 @@ var StepComponent = (function () {
     StepComponent.prototype.Cancel = function () {
         this.create = false;
     };
-    StepComponent.prototype.Create = function (elementName) {
+    StepComponent.prototype.Create = function (type) {
         var _this = this;
-        this._userService.post(global_1.Global.BASE_BUILDSTEP_ENDPOINT, new element_1.Element(0, this.BuildStepData.Id, 1)).subscribe(function (data) {
+        this._userService.post(global_1.Global.BASE_BUILDSTEP_ENDPOINT, new element_1.Element(0, this.BuildStepData.Id, type, this.BuildStepData.Elements.length)).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";
                 console.log("OK->Step");
@@ -144,6 +145,27 @@ var StepComponent = (function () {
         }, function (error) {
             console.log(error);
         });
+    };
+    StepComponent.prototype.Save = function () {
+        this.BuildStepData.Elements.forEach(function (step, index) {
+            step.Number = index + 1;
+        });
+        this._userService.put(global_1.Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(function (data) {
+            if (data == 1) {
+                //this.msg = "Data successfully updated.";         
+                console.log("OK->S");
+            }
+            else {
+                //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                console.log("NO->S");
+            }
+        }, function (error) {
+            console.log(error);
+            //this.msg = error;
+        });
+    };
+    StepComponent.prototype.ImageChange = function (elementId) {
+        console.log("image");
     };
     StepComponent = __decorate([
         core_1.Component({

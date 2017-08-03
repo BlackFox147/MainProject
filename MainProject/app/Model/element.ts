@@ -5,11 +5,13 @@ export class Element {
     StepId: number;
     Materials: Material[];
     BlockType: number;
+    Number: number;
 
-    constructor(id: number, stepId: number, blocT: number) {
+    constructor(id: number, stepId: number, blocT: number,num:number) {
         this.Id = id;
         this.StepId = stepId;
         this.BlockType = blocT;
+        this.Number = num;
         this.Materials = new Array<Material>();
     }
 }
