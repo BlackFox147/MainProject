@@ -10,7 +10,8 @@
             <div class="row">
                 <div class="col-md-3">
                     <a>
-                        <img src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="" style="width: 100%;">
+                        <img *ngIf="BuildStepData.ImageName==null" src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="" style="width: 100%;">
+                        <img *ngIf="BuildStepData.ImageName!=null" src="../../images/{{BuildStepData.ImageName}}" alt="" style="width: 100%;">
                     </a>
                 </div>
                 <div class="col-md-9">
@@ -158,7 +159,8 @@
                         <!-- /Heading -->
                         <!-- Body -->
                         <div class="panel-body">
-                            <textarea autosize="" style="width: 100%;" #newStudentElem name="name" (change)="onChange(newStudentElem.value,i)" id="textbox" class="form-control">{{step.Materials[0].Data}}</textarea>
+                            <textarea autosize="" style="width: 100%;" #newStudentElem name="name" (change)="onChange(newStudentElem.value,i)" 
+                                      id="textbox" class="form-control">{{step.Data}}</textarea>
 
                         </div>
                         <!-- /Body -->
@@ -173,14 +175,14 @@
                         <!-- Icon -->
                         <div class="panel-heading icon">
                             <i class="glyphicon glyphicon-picture"></i>
-                            <button (click)="ImageChange(step.Id)" class="btn-info cursor-pointer"><i class="glyphicon glyphicon-cog"></i></button>
+                            <button (click)="ImageChange(step.Materials[0].Data)" class="btn-info cursor-pointer"><i class="glyphicon glyphicon-cog"></i></button>
                             <button (click)="Delete(step.Id)" class="btn-danger cursor-pointer"><i class="glyphicon glyphicon-remove"></i></button>
 
                         </div>
                         <!-- /Icon -->
                         <!-- Body -->
                         <div class="panel-body">
-                            <img style="max-height:250px" class="img-responsive img-rounded" src="../../images/{{step.Materials[0].Data}}" />
+                            <img style="max-height:250px" class="img-responsive img-rounded" src="../../images/{{step.Data}}" />
                         </div>
                         <!-- /Body -->
 
@@ -253,7 +255,7 @@
 
         <div *ngIf="step.BlockType==1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-            <markdown>{{step.Materials[0].Data}}</markdown>
+            <markdown>{{step.Data}}</markdown>
         </div>
     </div>
 </div>

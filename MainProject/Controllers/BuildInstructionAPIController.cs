@@ -75,27 +75,25 @@ namespace MainProject.Controllers
         public HttpResponseMessage Delete(int id)
         {
             int aaa = 0;
-            var del = UsersDb.Steps.FirstOrDefault(x => x.Id == id);
+            var del = UsersDb.Steps.Include("Elements").FirstOrDefault(x => x.Id == id);
             instruction = UsersDb.Instructions.Include("Steps").FirstOrDefault(p => p.Id == del.InstructionId);
 
-            for(var i=0;i< instruction.Steps.Count; i++)
-            {
-                if (instruction.Steps.ElementAt(i).Number > del.Number)
-                {
-                    instruction.Steps.ElementAt(i).Number -= 1;
-                }
-            }
+            //for(var i=0;i< instruction.Steps.Count; i++)
+            //{
+            //    if (instruction.Steps.ElementAt(i).Number > del.Number)
+            //    {
+            //        instruction.Steps.ElementAt(i).Number -= 1;
+            //    }
+            //}
 
-            UsersDb.Steps.Remove(del);
-            var s = UsersDb.SaveChanges();
+            //UsersDb.Steps.Remove(del);
+            //var s = UsersDb.SaveChanges();
+            DeleteStep(del, instruction);
 
-
-            DateTime date1 = DateTime.Today;
-            var time = date1.ToShortDateString();
 
             instruction.DataTimeChange = DateTime.Now.ToString();
             UsersDb.Entry(instruction).State = EntityState.Modified;
-            s = UsersDb.SaveChanges();
+            var s = UsersDb.SaveChanges();
 
             return ToJson(s);
         }

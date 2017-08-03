@@ -3,7 +3,7 @@
 export class Element {
     Id: number;
     StepId: number;
-    Materials: Material[];
+    Data: string;
     BlockType: number;
     Number: number;
 
@@ -12,6 +12,6 @@ export class Element {
         this.StepId = stepId;
         this.BlockType = blocT;
         this.Number = num;
-        this.Materials = new Array<Material>();
+       
     }
 }

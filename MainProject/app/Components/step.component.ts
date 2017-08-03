@@ -36,6 +36,7 @@ export class StepComponent {
         value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number); 
 
         BuildStepNow.BuildStep.Id = value.Id;
+        BuildStepNow.BuildStep.ImageName = value.ImageName;
         BuildStepNow.BuildStep.Elements = value.Elements;
         BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
         BuildStepNow.BuildStep.InstructionId = value.InstructionId;
@@ -86,18 +87,18 @@ export class StepComponent {
 
     onChange(text: string, i: number) {
         console.log(text);
-        this.BuildStepData.Elements[i].Materials[0].Data = text;
-        this._userService.put(Global.BASE_BUILDELEMENT_ENDPOINT, this.BuildStepData.Elements[i].Materials[0].Id, this.BuildStepData.Elements[i].Materials[0]).subscribe(
+        this.BuildStepData.Elements[i].Data = text;
+        this._userService.put(Global.BASE_BUILDELEMENT_ENDPOINT, this.BuildStepData.Elements[i].Id, this.BuildStepData.Elements[i]).subscribe(
             data => {
                 if (data == 1) //Success
                 {
                     //this.msg = "Data successfully updated.";         
-                    console.log("OK->M");
+                    console.log("OK->textCange");
 
                 }
                 else {
                     //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                    console.log("NO->M");
+                    console.log("NO->textCange");
                 }
 
 
@@ -107,12 +108,9 @@ export class StepComponent {
                 //this.msg = error;
             }
         );
-
-
-        console.log(this.BuildStepData.Elements[i].Materials[0]);
-
-
+        console.log(this.BuildStepData.Elements[i]);
     }
+
 
     Develop(): void {
         this.develop = true;
@@ -232,7 +230,28 @@ export class StepComponent {
 
     }
 
-    ImageChange(elementId: number): void {
+    ImageChange(ImageName: string): void {
+        this.BuildStepData.ImageName = ImageName;       
+        this._userService.put(Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(
+            data => {
+                if (data == 1) //Success
+                {
+                    //this.msg = "Data successfully updated.";         
+                    console.log("OK->S");
+
+                }
+                else {
+                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                    console.log("NO->S");
+                }
+
+
+            },
+            error => {
+                console.log(error);
+                //this.msg = error;
+            }
+        );    
         console.log("image");
     }
 }

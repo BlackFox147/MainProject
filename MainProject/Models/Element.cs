@@ -10,12 +10,9 @@ namespace MainProject.Models
         public int Id { get; set; }
         public int BlockType { get; set; }
         public int Number { get; set; }
-        public ICollection<Material> Materials { get; set; }
+        public string Data { get; set; }
         public int? StepId { get; set; }
         public Step Step { get; set; }
-        public Element()
-        {
-            Materials = new List<Material>();
-        }
+
     }
 }

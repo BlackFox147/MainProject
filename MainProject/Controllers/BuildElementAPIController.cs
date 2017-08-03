@@ -12,10 +12,9 @@ namespace MainProject.Controllers
 {
     public class BuildElementAPIController : BaseAPIController
     {
-        public HttpResponseMessage Put(int id, Material value)
+        public HttpResponseMessage Put(int id, Element value)
         {
             int aaa = 0;
-
 
             UsersDb.Entry(value).State = EntityState.Modified;
             int s = UsersDb.SaveChanges();

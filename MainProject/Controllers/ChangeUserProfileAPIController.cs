@@ -19,6 +19,7 @@ namespace MainProject.Controllers
             return list;            
         }
 
+
         public HttpResponseMessage Put(int id, UserProfile value)
         {
             int aaa = 0;
@@ -31,8 +32,7 @@ namespace MainProject.Controllers
         public HttpResponseMessage Post(Instruction value)
         {
             int aaa = 0;
-            DateTime date1 = DateTime.Now;
-            var time = date1.ToLocalTime();          
+       
 
             Instruction ins1 = new Instruction { DataTimeChange = DateTime.Now.ToString(), Name = value.Name, UserProfile = UsersDb.UserProfiles.FirstOrDefault(p => p.Id == loggin.Id) };
                   
@@ -52,15 +52,16 @@ namespace MainProject.Controllers
             
             var del = UsersDb.Instructions.Include("Steps").FirstOrDefault(x => x.Id == id);
             int aaa = del.Steps.Count;
-            for (var i = aaa - 1; i >=0; i--)
-            {
-                UsersDb.Steps.Remove(del.Steps.ElementAt(i));
-                aaa = UsersDb.SaveChanges();
-            }
+            //for (var i = aaa - 1; i >=0; i--)
+            //{
+            //    UsersDb.Steps.Remove(del.Steps.ElementAt(i));
+            //    aaa = UsersDb.SaveChanges();
+            //}
 
-            UsersDb.Instructions.Remove(del);
-            var s = UsersDb.SaveChanges();
-            return ToJson(s);
+            //UsersDb.Instructions.Remove(del);
+            //var s = UsersDb.SaveChanges();
+            DeleteInstruction(del);
+            return ToJson(1);
         }
 
     }

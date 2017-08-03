@@ -6,7 +6,6 @@ var Element = (function () {
         this.StepId = stepId;
         this.BlockType = blocT;
         this.Number = num;
-        this.Materials = new Array();
     }
     return Element;
 }());

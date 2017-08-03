@@ -15,7 +15,7 @@ namespace MainProject.Models
         public DbSet<Instruction> Instructions { get; set; }
         public DbSet<Step> Steps { get; set; }
         public DbSet<Element> Elements { get; set; }
-        public DbSet<Material> Materials { get; set; }
+        
 
     }
 }

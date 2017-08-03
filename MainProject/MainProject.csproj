@@ -241,6 +241,10 @@
     <Compile Include="Migrations\201708022322586_AddNumberMigration.Designer.cs">
       <DependentUpon>201708022322586_AddNumberMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708032100093_DeleteMaterialsMigration.cs" />
+    <Compile Include="Migrations\201708032100093_DeleteMaterialsMigration.Designer.cs">
+      <DependentUpon>201708032100093_DeleteMaterialsMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\Element.cs" />
@@ -390,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708022322586_AddNumberMigration.resx">
       <DependentUpon>201708022322586_AddNumberMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708032100093_DeleteMaterialsMigration.resx">
+      <DependentUpon>201708032100093_DeleteMaterialsMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

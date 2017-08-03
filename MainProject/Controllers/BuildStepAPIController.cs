@@ -22,10 +22,8 @@ namespace MainProject.Controllers
 
         public HttpResponseMessage Get(int id)
         {
-            Step stepTemp = UsersDb.Steps.Include("Elements").FirstOrDefault(p => p.Id == id);
-            var instr = UsersDb.Elements.Include("Materials").Where(p => p.StepId == stepTemp.Id).AsEnumerable();
-
-            stepTemp.Elements = instr.ToList();
+            Step stepTemp = UsersDb.Steps.Include("Elements").FirstOrDefault(p => p.Id == id);        
+        
             var list = ToJson(stepTemp);
             return list;
         }
@@ -56,15 +54,10 @@ namespace MainProject.Controllers
 
             Step step = UsersDb.Steps.Include("Elements").FirstOrDefault(p => p.Id == value.StepId);
 
-            Element elem = new Element { Number=value.Number+1, BlockType = value.BlockType, Step = UsersDb.Steps.FirstOrDefault(p => p.Id == value.StepId) };
-
+            Element elem = new Element { Number = value.Number + 1, BlockType = value.BlockType, Step = UsersDb.Steps.FirstOrDefault(p => p.Id == value.StepId) };
 
             UsersDb.Elements.Add(elem);
             int s = UsersDb.SaveChanges();
-
-            Material mat2 = new Material { Number = 1, Data = null, Element = elem };
-            UsersDb.Entry(elem).State = EntityState.Modified;
-            UsersDb.Materials.Add(mat2);
 
             step.DataTimeChange = DateTime.Now.ToString();
             UsersDb.Entry(step).State = EntityState.Modified;
@@ -77,32 +70,33 @@ namespace MainProject.Controllers
         public HttpResponseMessage Delete(int id)
         {
         
-            var del = UsersDb.Elements.Include("Materials").FirstOrDefault(x => x.Id == id);
+            var del = UsersDb.Elements.FirstOrDefault(x => x.Id == id);
 
             step = UsersDb.Steps.Include("Elements").FirstOrDefault(p => p.Id == del.StepId);
 
-            for (var i = 0; i < step.Elements.Count; i++)
-            {
-                if (step.Elements.ElementAt(i).Number > del.Number)
-                {
-                    step.Elements.ElementAt(i).Number -= 1;
-                }
-            }
+            //for (var i = 0; i < step.Elements.Count; i++)
+            //{
+            //    if (step.Elements.ElementAt(i).Number > del.Number)
+            //    {
+            //        step.Elements.ElementAt(i).Number -= 1;
+            //    }
+            //}
 
-            int aaa = del.Materials.Count;
-            for (var i = aaa - 1; i >= 0; i--)
-            {
-                UsersDb.Materials.Remove(del.Materials.ElementAt(i));
-                UsersDb.SaveChanges();
-            }
+            //int aaa = del.Materials.Count;
+            //for (var i = aaa - 1; i >= 0; i--)
+            //{
+            //    UsersDb.Materials.Remove(del.Materials.ElementAt(i));
+            //    UsersDb.SaveChanges();
+            //}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            UsersDb.Elements.Remove(del);
-            var s = UsersDb.SaveChanges();
+            //UsersDb.Elements.Remove(del);
+            //var s = UsersDb.SaveChanges();
 
+            DeleteElement(del,step);
 
             step.DataTimeChange = DateTime.Now.ToString();
             UsersDb.Entry(step).State = EntityState.Modified;
-            s = UsersDb.SaveChanges();
+            var s = UsersDb.SaveChanges();
 
             return ToJson(s);
         }
