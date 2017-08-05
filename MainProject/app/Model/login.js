@@ -61,6 +61,7 @@ var loginUser = (function () {
             if (instructin.Id == global_1.BuildInstructionNow.buildInstruction) {
                 instructin.DataTimeChange = temp.DataTimeChange;
                 instructin.Steps = temp.Steps;
+                instructin.ImageName = temp.ImageName;
                 return;
             }
         });

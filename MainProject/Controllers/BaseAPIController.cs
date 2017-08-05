@@ -17,6 +17,8 @@ namespace WebApplication9.Controllers
 
         protected static OneUser loggin;
         protected static UserProfile profile;
+        protected static int workStepId;
+
 
         protected HttpResponseMessage ToJson(dynamic obj)
         {
@@ -57,8 +59,6 @@ namespace WebApplication9.Controllers
             for (var i = countEements - 1; i >= 0; i--)
             {
                 DeleteElement(value.Elements.ElementAt(i),value);
-                //UsersDb.Steps.Remove(del.Steps.ElementAt(i));
-                //aaa = UsersDb.SaveChanges();
             }
             UsersDb.Steps.Remove(value);
             var s = UsersDb.SaveChanges();            
@@ -71,9 +71,7 @@ namespace WebApplication9.Controllers
             
             for (var i = countEements - 1; i >= 0; i--)
             {
-                DeleteStep(value.Steps.ElementAt(i),value);
-                //UsersDb.Steps.Remove(value.Steps.ElementAt(i));
-                //aaa = UsersDb.SaveChanges();
+                DeleteStep(value.Steps.ElementAt(i),value);                
             }
 
             UsersDb.Instructions.Remove(value);

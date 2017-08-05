@@ -19,6 +19,7 @@ namespace MainProject.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
             var httpRequest = HttpContext.Current.Request;
+
             if (httpRequest.Files.Count > 0)
             {
                 foreach (string file in httpRequest.Files)

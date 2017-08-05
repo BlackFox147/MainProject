@@ -37,7 +37,8 @@ export class AccountComponent {
     }  
 
     
-    LoginUserAccountData: ILogin = LoginUserAccount.userData.getparams();
+    LoginUserAccountData: ILogin = this.Stert();
+
 
     onChange(): void {
         this._userService.put(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, this.LoginUserAccountData.Profile.Id, this.LoginUserAccountData.Profile).subscribe(
@@ -62,10 +63,16 @@ export class AccountComponent {
         );    
 
     }
+    Stert(): ILogin{
+        this.LoadUserInstruction();
+        return LoginUserAccount.userData.getparams();
+    }
 
 
+    
+    
 
-    LoadUserInstruction(): void {       
+    LoadUserInstruction():void {       
         this._userService.get(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT)
             .subscribe(instructions => {                
                 LoginUserAccount.userData.setInstructions(instructions);
@@ -73,7 +80,7 @@ export class AccountComponent {
                 console.log(this.LoginUserAccountData.Profile.Instructions);
             },
             error => 
-                console.log(error));                                   
+                console.log(error));                             
     }
 
     addInstruction() {
@@ -127,6 +134,7 @@ export class AccountComponent {
         BuildInstructionNow.BuildInstruction.Id = value.Id;
         BuildInstructionNow.BuildInstruction.Name = value.Name;
         BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
+        BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
     }
 
     GetInstruction(): void {
@@ -143,7 +151,7 @@ export class AccountComponent {
 
 
     fileChange(event:any) {
-        debugger;
+
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             let file: File = fileList[0];

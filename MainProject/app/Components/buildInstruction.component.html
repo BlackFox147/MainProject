@@ -8,17 +8,20 @@
         
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
-                    <a>
-                        <img src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="" style="width: 100%;">
-                    </a>
-                </div>
+                <!--<div class="col-md-3">
+                    <p class="crop">
+                        <a>
+                            <img *ngIf="BuildInstructionData.ImageName==null" src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="" style="width: 100%;">
+                            <img class="img-responsive center-block" *ngIf="BuildInstructionData.ImageName!=null" src="../../images/{{BuildInstructionData.ImageName}}" alt="">
+                        </a>
+                    </p>
+                </div>-->
                 <div class="col-md-9">
                     <!--<div> <h1 class="panel-title pull-left" style="font-size:30px;">{{BuildInstructionData.Name}}</h1></div>-->
-                    <div>
+                    <!--<div>
                         <input class="form-control pull-left" style="width:50%;" (change)="onChangeName()" type="text" name="Name"
                                [(ngModel)]="BuildInstructionData.Name" #Name="ngModel" />
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -65,16 +68,18 @@
 
         <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let step of BuildInstructionData.Steps">
             <div class="card card-favorite">
-                <div class="card-img-container">
-                    <div style="background:url(http://bootstraptema.ru/images/bg/bg-5.png);" class="card-img"></div>
-                </div>
+                <!--<div class="card-img-container">
+                    <div *ngIf="step.ImageName==null" style="background:url(http://bootstraptema.ru/images/bg/bg-5.png);" class="card-img"></div>
+                    <img *ngIf="step.ImageName!=null" style="background:url(../../images/step.ImageName);" class="card-img">
+                    
+                </div>-->
                 <div class="card-content">
                     <div class="card-meta">
                         <!--<span class="meta-date meta-box">
                             {{step.DataTimeChange}}
                         </span>-->
-                        <span class="meta-pulse meta-box">
-                            <a href="#" class="card-share-number sharrre"><span class="glyphicon glyphicon-align-left"></span></a>
+                        <span class="meta-pulse meta-box">                           
+                            <a  class="card-share-number sharrre"><span class="glyphicon glyphicon-align-left"></span></a>
                         </span>
                     </div>
                     <h2 class="box-text btn-link">
@@ -87,7 +92,8 @@
                     <button title="Delete" class="btn btn-danger" (click)="Delete(step.Id)">Delete</button>
                 </div>
                 <span class="meta-tags">
-                    <a href="#" title="tags" class="tag">{{step.DataTimeChange}}</a>
+                    <a title="tags" class="tag">{{step.DataTimeChange}}</a>
+                    <button (click)="ImageChange(step.ImageName)" class="btn-info cursor-pointer"><i class="glyphicon glyphicon-cog"></i></button>
                 </span>
 
             </div>
@@ -97,34 +103,3 @@
 </div>
 
 
-<!--<div class="wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-    <div class="panel panel-default">
-
-        <div class="panel-body">
-
-
-
-            <div class="container" [dragula]='"another-bag"' [dragulaModel]='BuildInstructionData.Steps'>
-
-
-                <div *ngFor="let step of BuildInstructionData.Steps" class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
-                    <div class="serviceBox">
-                        <div class="service-icon">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </div>
-                        <div class="service-content">
-                            <h3>Step {{step.Name}}</h3>
-                        </div>
-                        <div class="read">
-                            <a href="#" class="btn btn-default">Change</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            </div>
-
-        </div>
-    </div>-->

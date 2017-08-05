@@ -11,6 +11,7 @@ import { Instruction } from '../Model/instruction';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Step } from '../Model/step';
 import { Element } from '../Model/element';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     templateUrl: 'app/Components/step.component.html',
@@ -60,7 +61,7 @@ export class StepComponent {
 
 
     constructor(private http: Http, private _userService: UserService, private router: Router,
-        private dragulaService: DragulaService) {
+        private dragulaService: DragulaService, private sanit: DomSanitizer) {
 
         dragulaService.dropModel.subscribe((value: any) => {
             this.onDropModel(value.slice(1));
@@ -69,6 +70,7 @@ export class StepComponent {
             this.onRemoveModel(value.slice(1));
         });
         //this.BuildStepData.Elements[0].Materials[0].Data
+        this.sanit = sanit;    
     }
 
    
@@ -244,8 +246,6 @@ export class StepComponent {
                     //this.msg = "There is some issue in saving records, please contact to system administrator!"
                     console.log("NO->S");
                 }
-
-
             },
             error => {
                 console.log(error);
@@ -253,5 +253,41 @@ export class StepComponent {
             }
         );    
         console.log("image");
+    }
+
+    
+    AddImage(event: any) {
+
+        let fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            let file: File = fileList[0];
+            let formData: FormData = new FormData();
+            formData.append('uploadFile', file, file.name);
+            let headers = new Headers()
+            //headers.append('Content-Type', 'json');  
+            //headers.append('Accept', 'application/json');  
+            let options = new RequestOptions({ headers: headers });
+           // let apiUrl1 = "api/uploadfileapi/";
+
+
+            this.http.post(Global.BASE_BUILDELEMENT_ENDPOINT, formData, options)
+                .map(res => res.json())
+                .catch(error => Observable.throw(error))
+                .subscribe(
+                data => {
+                    console.log('success');
+                    this.setStep(data);
+                    //this.router.navigate(['account']);
+                },
+                error => console.log(error)
+                )
+        }
+        
+    }  
+
+
+    videoURL(elem: Element) {
+        //return elem.Data
+        return this.sanit.bypassSecurityTrustResourceUrl(elem.Data);
     }
 }

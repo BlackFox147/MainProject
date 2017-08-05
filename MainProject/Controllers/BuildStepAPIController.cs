@@ -22,6 +22,7 @@ namespace MainProject.Controllers
 
         public HttpResponseMessage Get(int id)
         {
+            workStepId = id;
             Step stepTemp = UsersDb.Steps.Include("Elements").FirstOrDefault(p => p.Id == id);        
         
             var list = ToJson(stepTemp);

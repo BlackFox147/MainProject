@@ -164,11 +164,12 @@
     <div class="wp-block property list" *ngFor="let instruction of LoginUserAccountData.Profile.Instructions">
 
         <div class="wp-block-body">
-            <div class="wp-block-img">
-                <a href="#">
-                    <img src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="">
+            <!--<div class="wp-block-img">
+                <a>
+                    <img  *ngIf="instruction.ImageName==null"src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="">
+                    <img *ngIf="instruction.ImageName!=null" src="../../images/{{instruction.ImageName}}" alt="" style="width: 100%;">
                 </a>
-            </div>
+            </div>-->
             <div class="wp-block-content">
                 <div class="container-fluid">
                     <div class="row">

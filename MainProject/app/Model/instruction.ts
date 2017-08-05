@@ -6,7 +6,7 @@ export class Instruction {
     Name: string;
     DataTimeChange: string;
     Steps: Step[];
-
+    ImageName: string;
 
     constructor(id: number, profId: number, name: string) {
         this.Id = id;

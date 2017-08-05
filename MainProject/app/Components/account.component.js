@@ -29,7 +29,7 @@ var AccountComponent = (function () {
         this._userService = _userService;
         this.router = router;
         this.isUploadBtn = true;
-        this.LoginUserAccountData = global_1.LoginUserAccount.userData.getparams();
+        this.LoginUserAccountData = this.Stert();
     }
     AccountComponent.prototype.onChange = function () {
         this._userService.put(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, this.LoginUserAccountData.Profile.Id, this.LoginUserAccountData.Profile).subscribe(function (data) {
@@ -45,6 +45,10 @@ var AccountComponent = (function () {
             console.log(error);
             //this.msg = error;
         });
+    };
+    AccountComponent.prototype.Stert = function () {
+        this.LoadUserInstruction();
+        return global_1.LoginUserAccount.userData.getparams();
     };
     AccountComponent.prototype.LoadUserInstruction = function () {
         var _this = this;
@@ -96,6 +100,7 @@ var AccountComponent = (function () {
         global_1.BuildInstructionNow.BuildInstruction.Id = value.Id;
         global_1.BuildInstructionNow.BuildInstruction.Name = value.Name;
         global_1.BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
+        global_1.BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
     };
     AccountComponent.prototype.GetInstruction = function () {
         var _this = this;
@@ -110,7 +115,6 @@ var AccountComponent = (function () {
     };
     AccountComponent.prototype.fileChange = function (event) {
         var _this = this;
-        debugger;
         var fileList = event.target.files;
         if (fileList.length > 0) {
             var file_1 = fileList[0];

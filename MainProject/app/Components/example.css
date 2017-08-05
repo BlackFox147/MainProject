@@ -375,3 +375,16 @@ a:hover{
   width: 100%; 
   white-space: nowrap; 
 }
+
+
+
+.crop{
+
+
+	overflow:hidden; /* this is important */
+	position:relative; /* this is important too */
+
+	}
+.crop img{
+	
+	}

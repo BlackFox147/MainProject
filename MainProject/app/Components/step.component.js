@@ -13,16 +13,19 @@ var core_1 = require("@angular/core");
 var global_1 = require("../Shared/global");
 var user_service_1 = require("../Service/user.service");
 var http_1 = require("@angular/http");
+var Rx_1 = require("rxjs/Rx");
 var router_1 = require("@angular/router");
 var ng2_dragula_1 = require("ng2-dragula/ng2-dragula");
 var element_1 = require("../Model/element");
+var platform_browser_1 = require("@angular/platform-browser");
 var StepComponent = (function () {
-    function StepComponent(http, _userService, router, dragulaService) {
+    function StepComponent(http, _userService, router, dragulaService, sanit) {
         var _this = this;
         this.http = http;
         this._userService = _userService;
         this.router = router;
         this.dragulaService = dragulaService;
+        this.sanit = sanit;
         this.BuildStepData = this.GetStep();
         this.markdownContent = "## Markdown content data";
         //trackByIndex(index: number, value: number) {
@@ -36,6 +39,7 @@ var StepComponent = (function () {
             _this.onRemoveModel(value.slice(1));
         });
         //this.BuildStepData.Elements[0].Materials[0].Data
+        this.sanit = sanit;
     }
     StepComponent.prototype.onDropModel = function (args) {
         var el = args[0], target = args[1], source = args[2];
@@ -182,6 +186,32 @@ var StepComponent = (function () {
         });
         console.log("image");
     };
+    StepComponent.prototype.AddImage = function (event) {
+        var _this = this;
+        var fileList = event.target.files;
+        if (fileList.length > 0) {
+            var file = fileList[0];
+            var formData = new FormData();
+            formData.append('uploadFile', file, file.name);
+            var headers = new http_1.Headers();
+            //headers.append('Content-Type', 'json');  
+            //headers.append('Accept', 'application/json');  
+            var options = new http_1.RequestOptions({ headers: headers });
+            // let apiUrl1 = "api/uploadfileapi/";
+            this.http.post(global_1.Global.BASE_BUILDELEMENT_ENDPOINT, formData, options)
+                .map(function (res) { return res.json(); })
+                .catch(function (error) { return Rx_1.Observable.throw(error); })
+                .subscribe(function (data) {
+                console.log('success');
+                _this.setStep(data);
+                //this.router.navigate(['account']);
+            }, function (error) { return console.log(error); });
+        }
+    };
+    StepComponent.prototype.videoURL = function (elem) {
+        //return elem.Data
+        return this.sanit.bypassSecurityTrustResourceUrl(elem.Data);
+    };
     StepComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/Components/step.component.html',
@@ -189,7 +219,7 @@ var StepComponent = (function () {
             styleUrls: ['./app/Components/step.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            ng2_dragula_1.DragulaService])
+            ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer])
     ], StepComponent);
     return StepComponent;
 }());

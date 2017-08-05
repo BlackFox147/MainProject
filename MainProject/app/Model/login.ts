@@ -78,6 +78,8 @@ export class loginUser {
 
                 instructin.DataTimeChange = temp.DataTimeChange;               
                 instructin.Steps = temp.Steps;
+                instructin.ImageName = temp.ImageName;
+
                 return;
             }
         })       
