@@ -3,10 +3,11 @@
 export class Instruction {
     Id: number;
     UserProfileId: number;
+    //UserProfile: number;
     Name: string;
     DataTimeChange: string;
     Steps: Step[];
-    ImageName: string;
+    UserName: string;
 
     constructor(id: number, profId: number, name: string) {
         this.Id = id;

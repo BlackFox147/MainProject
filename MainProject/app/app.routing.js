@@ -8,6 +8,7 @@ var login_component_1 = require("./components/login.component");
 var register_component_1 = require("./components/register.component");
 var buildInstruction_component_1 = require("./components/buildInstruction.component");
 var step_component_1 = require("./components/step.component");
+var viewStep_component_1 = require("./components/viewStep.component");
 var appRoutes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: home_component_1.HomeComponent },
@@ -16,7 +17,8 @@ var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'register', component: register_component_1.RegisterComponent },
     { path: 'buildInstruction', component: buildInstruction_component_1.BuildInstructionComponent },
-    { path: 'step', component: step_component_1.StepComponent }
+    { path: 'step', component: step_component_1.StepComponent },
+    { path: 'viewStep', component: viewStep_component_1.ViewStepComponent }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routing.js.map

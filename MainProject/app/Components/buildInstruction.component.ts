@@ -39,8 +39,10 @@ export class BuildInstructionComponent {
         value.Steps = value.Steps.sort((n1, n2) => n1.Number - n2.Number); 
         BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
         BuildInstructionNow.BuildInstruction.Steps = value.Steps;
-        BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
+        //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
     }
+
+
 
     GetInstruction(): boolean {
         this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, BuildInstructionNow.buildInstruction)
@@ -233,27 +235,27 @@ export class BuildInstructionComponent {
         ); 
     }
 
-    ImageChange(ImageName: string): void {
-        this.BuildInstructionData.ImageName = ImageName;
-        this._userService.put(Global.BASE_BUILDINSTRUCTION_ENDPOINT, this.BuildInstructionData.Id, this.BuildInstructionData).subscribe(
-            data => {
-                if (data == 1) //Success
-                {
-                    //this.msg = "Data successfully updated.";         
-                    console.log("OK->Im");
+    //ImageChange(ImageName: string): void {
+    //    this.BuildInstructionData.ImageName = ImageName;
+    //    this._userService.put(Global.BASE_BUILDINSTRUCTION_ENDPOINT, this.BuildInstructionData.Id, this.BuildInstructionData).subscribe(
+    //        data => {
+    //            if (data == 1) //Success
+    //            {
+    //                //this.msg = "Data successfully updated.";         
+    //                console.log("OK->Im");
 
-                }
-                else {
-                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                    console.log("NO->Im");
-                }
-            },
-            error => {
-                console.log(error);
-                //this.msg = error;
-            }
-        );
-        console.log("image");
-    }
+    //            }
+    //            else {
+    //                //this.msg = "There is some issue in saving records, please contact to system administrator!"
+    //                console.log("NO->Im");
+    //            }
+    //        },
+    //        error => {
+    //            console.log(error);
+    //            //this.msg = error;
+    //        }
+    //    );
+    //    console.log("image");
+    //}
     
 }

@@ -12,7 +12,7 @@ namespace MainProject.Models
     public class OneUser
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
+       // public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
@@ -29,7 +29,7 @@ namespace MainProject.Models
         public int Age { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public string UserName { get; set; }
         public OneUser OneUser { get; set; }
         public string UserImageName { get; set; }
 

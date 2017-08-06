@@ -294,7 +294,7 @@ button:hover {
   min-width: 0;
 
   width: 100%;    
-  background: #0C0C0C;
+  background: #BEEFA1;
   color: #696969;
   -webkit-transition: .3s ease all;
   transition: .3s ease all;
@@ -321,7 +321,7 @@ button:hover {
   width: 100%;
 }
 .card .card-content {
-  padding: 20px 20px 40px;
+  padding: 10px 10px 20px;
   text-align: center;
 }
 .card .card-meta {
@@ -337,22 +337,25 @@ button:hover {
   line-height: 1.4;
 }
 .card h2 a {
-  color: #D0D0D0;
+  color: #075413;
   -webkit-transition: .3s ease all;
   transition: .3s ease all;
 }
 a:hover{
     text-decoration:none;    
 }
-.card:hover h2 a {
+.card:hover{
+    background:#9BF268;
+}
+/*.card:hover h2 a {
   color: #FFF;
 }
 .card .meta-tags a:hover {
   color: #FFF;
-}
+}*/
 .card .meta-tags .tag {
-  background: #DD1B16;
-  color: #f9c7c6;
+  background: #1C8D10;
+  color: #FFF;
 }
 .card .meta-tags a:last-child {
   margin-right: 0;
@@ -376,7 +379,10 @@ a:hover{
   white-space: nowrap; 
 }
 
-
+.btn-danger{
+    background-color: #1C8D10;
+    border-color: #1C8D10;
+}
 
 .crop{
 

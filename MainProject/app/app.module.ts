@@ -15,6 +15,7 @@ import { StepComponent } from './components/step.component';
 import { FormsModule } from '@angular/forms';
 import { BuildInstructionComponent } from './components/buildInstruction.component';
 import { Instruction } from './Model/instruction';
+import { ViewStepComponent } from './components/viewStep.component';
 
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { MarkdownModule } from 'angular2-markdown';
@@ -35,7 +36,7 @@ import { UserService } from './Service/user.service';
     imports: [CommonModule, BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule, DragulaModule,
         MarkdownModule.forRoot()],
     declarations: [AppComponent, UserComponent, HomeComponent, AccountComponent,
-        LoginComponent, RegisterComponent, BuildInstructionComponent, StepComponent, Autosize],
+        LoginComponent, RegisterComponent, BuildInstructionComponent, StepComponent, Autosize, ViewStepComponent],
     providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]
 

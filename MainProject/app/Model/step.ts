@@ -5,7 +5,7 @@ export class Step {
     InstructionId: number;
     Name: string;
     Number: number;
-    ImageName: string;
+    //ImageName: string;
     DataTimeChange: string;
     Elements:Element[];
 

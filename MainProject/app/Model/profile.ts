@@ -7,7 +7,7 @@ export class UserProfile {
     LastName: string;
     UserImageName: string;
     Instructions: Instruction[];
-
+    UserName: string;
 
     constructor(id: number, age: number, fname: string, lname: string, userImageName: string, instr: Instruction[]) {
         this.Id = id;

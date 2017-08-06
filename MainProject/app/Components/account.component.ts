@@ -11,7 +11,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Global, LoginUserAccount, BuildInstructionNow } from '../Shared/global';
+import { Global, LoginUserAccount, BuildInstructionNow, BuildStepNow } from '../Shared/global';
 import { ILogin } from '../Model/login';
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
@@ -19,6 +19,7 @@ import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router'; 
 
 import { Instruction } from '../Model/instruction';
+import { Step } from '../Model/step';
 
 
 @Component({
@@ -43,18 +44,18 @@ export class AccountComponent {
     onChange(): void {
         this._userService.put(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, this.LoginUserAccountData.Profile.Id, this.LoginUserAccountData.Profile).subscribe(
             data => {
-                if (data == 1) //Success
-                {
-                    //this.msg = "Data successfully updated.";         
-                    console.log("OK->");        
+                //if (data == 1) //Success
+                //{
+                //    //this.msg = "Data successfully updated.";         
+                //    console.log("OK->");        
 
-                }
-                else {
-                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                    console.log("NO->");
-                }
-
-               
+                //}
+                //else {
+                //    //this.msg = "There is some issue in saving records, please contact to system administrator!"
+                //    console.log("NO->");
+                //}
+                console.log("OK->");    
+                //this.LoginUserAccountData.Profile = data;
             },
             error => {
                 console.log(error);
@@ -64,6 +65,7 @@ export class AccountComponent {
 
     }
     Stert(): ILogin{
+        this.LoginUserAccountData = LoginUserAccount.userData.getparams();
         this.LoadUserInstruction();
         return LoginUserAccount.userData.getparams();
     }
@@ -73,14 +75,23 @@ export class AccountComponent {
     
 
     LoadUserInstruction():void {       
-        this._userService.get(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT)
-            .subscribe(instructions => {                
+        //this._userService.get(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT)
+        //    .subscribe(instructions => {                
+        //        LoginUserAccount.userData.setInstructions(instructions);
+        //        console.log("OK->Get_Instruction"); 
+        //        console.log(this.LoginUserAccountData.Profile.Instructions);
+        //    },
+        //    error => 
+        //        console.log(error));       
+
+        this._userService.getItem(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, LoginUserAccount.userData.getProfile().Id)
+            .subscribe(instructions => {
                 LoginUserAccount.userData.setInstructions(instructions);
-                console.log("OK->Get_Instruction"); 
+                console.log("OK->Get_Instruction");
                 console.log(this.LoginUserAccountData.Profile.Instructions);
             },
-            error => 
-                console.log(error));                             
+            error =>
+                console.log(error));                            
     }
 
     addInstruction() {
@@ -134,7 +145,7 @@ export class AccountComponent {
         BuildInstructionNow.BuildInstruction.Id = value.Id;
         BuildInstructionNow.BuildInstruction.Name = value.Name;
         BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
-        BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
+        //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
     }
 
     GetInstruction(): void {
@@ -215,5 +226,41 @@ export class AccountComponent {
         );
     }
 
+    Open(id: number): void {
+        BuildStepNow.buildStep = id;
+        console.log(BuildStepNow.buildStep);
+        //this.GetStep();
 
+        this.router.navigate(['step']);
+    }
+
+    setStep(value: Step): void {
+        console.log(value);
+        BuildStepNow.BuildStep.Id = value.Id;
+        BuildStepNow.BuildStep.Elements = value.Elements;
+        BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
+        BuildStepNow.BuildStep.InstructionId = value.InstructionId;
+        BuildStepNow.BuildStep.Name = value.Name;
+        BuildStepNow.BuildStep.Number = value.Number;
+    }
+
+    GetStep(): void {
+        this._userService.getItem(Global.BASE_BUILDSTEP_ENDPOINT, BuildStepNow.buildStep)
+            .subscribe(stepT => {
+
+                this.setStep(stepT);
+                console.log("OK->Get_step");
+                console.log(BuildStepNow.BuildStep);
+            },
+            error =>
+                console.log(error));
+
+    }
+
+    onChangeUserName(): void {
+        this.LoginUserAccountData.Profile.Instructions.forEach(instruction => {
+            instruction.UserName = this.LoginUserAccountData.Profile.UserName;
+        });
+        this.onChange();
+    }
 }

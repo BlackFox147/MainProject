@@ -4,9 +4,9 @@ var profile_1 = require("../Model/profile");
 var instruction_1 = require("../Model/instruction");
 var global_1 = require("../Shared/global");
 var ILogin = (function () {
-    function ILogin(id, name, email, pass, prof) {
+    function ILogin(id, email, pass, prof) {
         this.Id = id;
-        this.UserName = name;
+        //this.UserName = name;
         this.Email = email;
         this.Password = pass;
         this.Profile = new profile_1.UserProfile(prof, prof, "", "", "", null);
@@ -18,11 +18,11 @@ exports.ILogin = ILogin;
 //@Injectable()
 var loginUser = (function () {
     function loginUser() {
-        this.userAccount = new ILogin(0, "", "Login1", "", 0);
+        this.userAccount = new ILogin(0, "", "", 0);
     }
     loginUser.prototype.logOff = function () {
         delete (this.userAccount);
-        this.userAccount = new ILogin(0, "", "Login1", "", 0);
+        this.userAccount = new ILogin(0, "", "", 0);
     };
     loginUser.prototype.setemail = function (em) {
         this.userAccount.Email = em;
@@ -36,9 +36,9 @@ var loginUser = (function () {
     loginUser.prototype.setId = function (em) {
         this.userAccount.Id = em;
     };
-    loginUser.prototype.setName = function (em) {
-        this.userAccount.UserName = em;
-    };
+    //public setName(em: string) {
+    //    this.userAccount.UserName = em;
+    //}
     loginUser.prototype.setPassord = function (em) {
         this.userAccount.Password = em;
     };
@@ -61,13 +61,15 @@ var loginUser = (function () {
             if (instructin.Id == global_1.BuildInstructionNow.buildInstruction) {
                 instructin.DataTimeChange = temp.DataTimeChange;
                 instructin.Steps = temp.Steps;
-                instructin.ImageName = temp.ImageName;
+                //instructin.ImageName = temp.ImageName;
                 return;
             }
         });
     };
     loginUser.prototype.setInstructions = function (em) {
         this.userAccount.Profile.Instructions = em;
+        //console.log(em);
+        //console.log(this.userAccount.Profile.Instructions);
     };
     loginUser.prototype.getparams = function () {
         return this.userAccount;

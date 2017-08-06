@@ -51,7 +51,7 @@ export class RegisterComponent {
             .subscribe(user => {
                 LoginUserAccount.userData.setId(user.Id);
                 LoginUserAccount.userData.setemail(user.Email);
-                LoginUserAccount.userData.setName(user.UserName);
+                //LoginUserAccount.userData.setName(user.UserName);
                 LoginUserAccount.userData.setPassord(user.Password);
                 if (user.Profile.Age == 0) {
                     user.Profile.Age = null;
@@ -63,7 +63,7 @@ export class RegisterComponent {
         //Asd.Mabe.setId(this.user.Id);
     }
 
-    onSubmit(register_username: string, register_email: string, register_password: string, register_cpassword: string) {
+    onSubmit(register_email: string, register_password: string, register_cpassword: string) {
 
         this.msg = "";
 
@@ -82,7 +82,7 @@ export class RegisterComponent {
             return;
         }
         
-        this._userService.post(this.activeUrl, new IUser(register_username, register_email, register_password)).subscribe(
+        this._userService.post(this.activeUrl, new IUser(register_email, register_password)).subscribe(
             data => {
                 if (data == 1) //Success
                 {
@@ -106,7 +106,7 @@ export class RegisterComponent {
 
         this.activeUrl = Global.BASE_LOGIN_ENDPOINT;
                
-        this._userService.post(Global.BASE_LOGIN_ENDPOINT, new IUser("", email, password)).subscribe(
+        this._userService.post(Global.BASE_LOGIN_ENDPOINT, new IUser(email, password)).subscribe(
             data => {
                 if (data == 1) //Success
                 {

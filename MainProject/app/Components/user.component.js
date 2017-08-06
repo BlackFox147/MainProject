@@ -13,17 +13,25 @@ var core_1 = require("@angular/core");
 var user_service_1 = require("../Service/user.service");
 var forms_1 = require("@angular/forms");
 var ng2_bs3_modal_1 = require("ng2-bs3-modal/ng2-bs3-modal");
-var enum_1 = require("../Shared/enum");
+var router_1 = require("@angular/router");
 var global_1 = require("../Shared/global");
 //import { loginuser } from '../Model/login';
 //import { LoginUser } from '../Model/login';
 var UserComponent = (function () {
-    function UserComponent(fb, _userService) {
+    function UserComponent(fb, _userService, router) {
         this.fb = fb;
         this._userService = _userService;
+        this.router = router;
+        this.instructions = null;
         this.indLoading = false;
         this.info = "Start";
     }
+    UserComponent.prototype.OpenStep = function (id) {
+        global_1.BuildStepNow.buildStep = id;
+        console.log(global_1.BuildStepNow.buildStep);
+        //this.GetStep();
+        this.router.navigate(['viewStep']);
+    };
     UserComponent.prototype.ngOnInit = function () {
         this.userFrm = this.fb.group({
             Id: [''],
@@ -33,94 +41,26 @@ var UserComponent = (function () {
             UserProfile: ['']
         });
         this.LoadUsers();
+        console.log("finish");
+    };
+    UserComponent.prototype.setInstructions = function (em) {
+        this.instructions = em;
+        console.log(em);
+        console.log(this.instructions);
+        console.log("OK");
     };
     UserComponent.prototype.LoadUsers = function () {
         var _this = this;
         this.indLoading = true;
         this._userService.get(global_1.Global.BASE_USER_ENDPOINT)
-            .subscribe(function (users) { _this.users = users; _this.indLoading = false; }, function (error) { return _this.msg = error; });
-    };
-    UserComponent.prototype.addUser = function () {
-        this.dbops = enum_1.DBOperation.create;
-        this.SetControlsState(true);
-        this.modalTitle = "Add New User";
-        this.modalBtnTitle = "Add";
-        this.userFrm.reset();
-        this.modal.open();
-    };
-    UserComponent.prototype.editUser = function (id) {
-        this.dbops = enum_1.DBOperation.update;
-        this.SetControlsState(true);
-        this.modalTitle = "Edit User";
-        this.modalBtnTitle = "Update";
-        this.user = this.users.filter(function (x) { return x.Id == id; })[0];
-        this.userFrm.setValue(this.user);
-        this.modal.open();
-    };
-    UserComponent.prototype.deleteUser = function (id) {
-        this.dbops = enum_1.DBOperation.delete;
-        this.SetControlsState(false);
-        this.modalTitle = "Confirm to Delete?";
-        this.modalBtnTitle = "Delete";
-        this.user = this.users.filter(function (x) { return x.Id == id; })[0];
-        this.userFrm.setValue(this.user);
-        this.modal.open();
-    };
-    UserComponent.prototype.onSubmit = function (formData) {
-        var _this = this;
-        this.msg = "";
-        switch (this.dbops) {
-            case enum_1.DBOperation.create:
-                //this.info = "Finish";
-                //Asd.Mabe.setemail("Test");
-                //console.log(Asd.Mabe.getparams());
-                //this.msg = "Data successfully updated.";
-                //Asd.Mabe.setemail(formData._value.Email);
-                //console.log(Asd.Mabe.getparams());
-                //Asd.Mabe.setData(formData._value);
-                //console.log(Asd.Mabe.getparams());
-                this._userService.post(global_1.Global.BASE_USER_ENDPOINT, formData._value).subscribe(function (data) {
-                    if (data == 1) {
-                        _this.msg = "Data successfully added.";
-                        _this.LoadUsers();
-                    }
-                    else {
-                        _this.msg = "There is some issue in saving records, please contact to system administrator!";
-                    }
-                    _this.modal.dismiss();
-                }, function (error) {
-                    _this.msg = error;
-                });
-                break;
-            case enum_1.DBOperation.update:
-                this._userService.put(global_1.Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(function (data) {
-                    if (data == 1) {
-                        _this.msg = "Data successfully updated.";
-                        _this.LoadUsers();
-                    }
-                    else {
-                        _this.msg = "There is some issue in saving records, please contact to system administrator!";
-                    }
-                    _this.modal.dismiss();
-                }, function (error) {
-                    _this.msg = error;
-                });
-                break;
-            case enum_1.DBOperation.delete:
-                this._userService.delete(global_1.Global.BASE_USER_ENDPOINT, formData._value.Id).subscribe(function (data) {
-                    if (data == 1) {
-                        _this.msg = "Data successfully deleted.";
-                        _this.LoadUsers();
-                    }
-                    else {
-                        _this.msg = "There is some issue in saving records, please contact to system administrator!";
-                    }
-                    _this.modal.dismiss();
-                }, function (error) {
-                    _this.msg = error;
-                });
-                break;
-        }
+            .subscribe(function (instructions) {
+            _this.indLoading = false;
+            //this.instructions = instructions;
+            //console.log(instructions);
+            _this.setInstructions(instructions);
+        }, function (error) { return _this.msg = error; });
+        //this.instructions.push(new Instruction(0, 0, "test1"));
+        //console.log(this.instructions);
     };
     UserComponent.prototype.SetControlsState = function (isEnable) {
         isEnable ? this.userFrm.enable() : this.userFrm.disable();
@@ -131,9 +71,12 @@ var UserComponent = (function () {
     ], UserComponent.prototype, "modal", void 0);
     UserComponent = __decorate([
         core_1.Component({
-            templateUrl: 'app/Components/user.component.html'
+            selector: "instruction-app",
+            templateUrl: 'app/Components/user.component.html',
+            styleUrls: ['./app/Components/user.component.css']
         }),
-        __metadata("design:paramtypes", [forms_1.FormBuilder, user_service_1.UserService])
+        __metadata("design:paramtypes", [forms_1.FormBuilder, user_service_1.UserService,
+            router_1.Router])
     ], UserComponent);
     return UserComponent;
 }());

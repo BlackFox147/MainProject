@@ -35,7 +35,7 @@ var BuildInstructionComponent = (function () {
         value.Steps = value.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
         global_1.BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
         global_1.BuildInstructionNow.BuildInstruction.Steps = value.Steps;
-        global_1.BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
+        //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
     };
     BuildInstructionComponent.prototype.GetInstruction = function () {
         var _this = this;
@@ -170,23 +170,6 @@ var BuildInstructionComponent = (function () {
             console.log(error);
             //this.msg = error;
         });
-    };
-    BuildInstructionComponent.prototype.ImageChange = function (ImageName) {
-        this.BuildInstructionData.ImageName = ImageName;
-        this._userService.put(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, this.BuildInstructionData.Id, this.BuildInstructionData).subscribe(function (data) {
-            if (data == 1) {
-                //this.msg = "Data successfully updated.";         
-                console.log("OK->Im");
-            }
-            else {
-                //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                console.log("NO->Im");
-            }
-        }, function (error) {
-            console.log(error);
-            //this.msg = error;
-        });
-        console.log("image");
     };
     BuildInstructionComponent = __decorate([
         core_1.Component({

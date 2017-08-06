@@ -33,26 +33,38 @@ var AccountComponent = (function () {
     }
     AccountComponent.prototype.onChange = function () {
         this._userService.put(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, this.LoginUserAccountData.Profile.Id, this.LoginUserAccountData.Profile).subscribe(function (data) {
-            if (data == 1) {
-                //this.msg = "Data successfully updated.";         
-                console.log("OK->");
-            }
-            else {
-                //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                console.log("NO->");
-            }
+            //if (data == 1) //Success
+            //{
+            //    //this.msg = "Data successfully updated.";         
+            //    console.log("OK->");        
+            //}
+            //else {
+            //    //this.msg = "There is some issue in saving records, please contact to system administrator!"
+            //    console.log("NO->");
+            //}
+            console.log("OK->");
+            //this.LoginUserAccountData.Profile = data;
         }, function (error) {
             console.log(error);
             //this.msg = error;
         });
     };
     AccountComponent.prototype.Stert = function () {
+        this.LoginUserAccountData = global_1.LoginUserAccount.userData.getparams();
         this.LoadUserInstruction();
         return global_1.LoginUserAccount.userData.getparams();
     };
     AccountComponent.prototype.LoadUserInstruction = function () {
+        //this._userService.get(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT)
+        //    .subscribe(instructions => {                
+        //        LoginUserAccount.userData.setInstructions(instructions);
+        //        console.log("OK->Get_Instruction"); 
+        //        console.log(this.LoginUserAccountData.Profile.Instructions);
+        //    },
+        //    error => 
+        //        console.log(error));       
         var _this = this;
-        this._userService.get(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT)
+        this._userService.getItem(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, global_1.LoginUserAccount.userData.getProfile().Id)
             .subscribe(function (instructions) {
             global_1.LoginUserAccount.userData.setInstructions(instructions);
             console.log("OK->Get_Instruction");
@@ -100,7 +112,7 @@ var AccountComponent = (function () {
         global_1.BuildInstructionNow.BuildInstruction.Id = value.Id;
         global_1.BuildInstructionNow.BuildInstruction.Name = value.Name;
         global_1.BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
-        global_1.BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
+        //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
     };
     AccountComponent.prototype.GetInstruction = function () {
         var _this = this;
@@ -164,6 +176,39 @@ var AccountComponent = (function () {
         }, function (error) {
             console.log(error);
         });
+    };
+    AccountComponent.prototype.Open = function (id) {
+        global_1.BuildStepNow.buildStep = id;
+        console.log(global_1.BuildStepNow.buildStep);
+        //this.GetStep();
+        this.router.navigate(['step']);
+    };
+    AccountComponent.prototype.setStep = function (value) {
+        console.log(value);
+        global_1.BuildStepNow.BuildStep.Id = value.Id;
+        global_1.BuildStepNow.BuildStep.Elements = value.Elements;
+        global_1.BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
+        global_1.BuildStepNow.BuildStep.InstructionId = value.InstructionId;
+        global_1.BuildStepNow.BuildStep.Name = value.Name;
+        global_1.BuildStepNow.BuildStep.Number = value.Number;
+    };
+    AccountComponent.prototype.GetStep = function () {
+        var _this = this;
+        this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, global_1.BuildStepNow.buildStep)
+            .subscribe(function (stepT) {
+            _this.setStep(stepT);
+            console.log("OK->Get_step");
+            console.log(global_1.BuildStepNow.BuildStep);
+        }, function (error) {
+            return console.log(error);
+        });
+    };
+    AccountComponent.prototype.onChangeUserName = function () {
+        var _this = this;
+        this.LoginUserAccountData.Profile.Instructions.forEach(function (instruction) {
+            instruction.UserName = _this.LoginUserAccountData.Profile.UserName;
+        });
+        this.onChange();
     };
     AccountComponent = __decorate([
         core_1.Component({

@@ -52,7 +52,7 @@ var StepComponent = (function () {
     StepComponent.prototype.setStep = function (value) {
         value.Elements = value.Elements.sort(function (n1, n2) { return n1.Number - n2.Number; });
         global_1.BuildStepNow.BuildStep.Id = value.Id;
-        global_1.BuildStepNow.BuildStep.ImageName = value.ImageName;
+        //BuildStepNow.BuildStep.ImageName = value.ImageName;
         global_1.BuildStepNow.BuildStep.Elements = value.Elements;
         global_1.BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
         global_1.BuildStepNow.BuildStep.InstructionId = value.InstructionId;
@@ -169,23 +169,27 @@ var StepComponent = (function () {
             //this.msg = error;
         });
     };
-    StepComponent.prototype.ImageChange = function (ImageName) {
-        this.BuildStepData.ImageName = ImageName;
-        this._userService.put(global_1.Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(function (data) {
-            if (data == 1) {
-                //this.msg = "Data successfully updated.";         
-                console.log("OK->S");
-            }
-            else {
-                //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                console.log("NO->S");
-            }
-        }, function (error) {
-            console.log(error);
-            //this.msg = error;
-        });
-        console.log("image");
-    };
+    //ImageChange(ImageName: string): void {
+    //    this.BuildStepData.ImageName = ImageName;       
+    //    this._userService.put(Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(
+    //        data => {
+    //            if (data == 1) //Success
+    //            {
+    //                //this.msg = "Data successfully updated.";         
+    //                console.log("OK->S");
+    //            }
+    //            else {
+    //                //this.msg = "There is some issue in saving records, please contact to system administrator!"
+    //                console.log("NO->S");
+    //            }
+    //        },
+    //        error => {
+    //            console.log(error);
+    //            //this.msg = error;
+    //        }
+    //    );    
+    //    console.log("image");
+    //}
     StepComponent.prototype.AddImage = function (event) {
         var _this = this;
         var fileList = event.target.files;

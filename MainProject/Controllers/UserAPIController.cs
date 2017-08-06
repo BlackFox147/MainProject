@@ -25,7 +25,7 @@ namespace WebApplication9.Controllers
             //var one = UsersDb.AllUsers.Where(p => p.Email == loggin.Email).ToList().First();
             //var list = ToJson(one);
             //return list;
-            return ToJson(UsersDb.OneUsers.AsEnumerable());
+            return ToJson(UsersDb.Instructions.Include("Steps"));
         }
 
         public HttpResponseMessage Post(OneUser value)

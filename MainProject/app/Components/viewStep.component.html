@@ -1,0 +1,19 @@
+﻿<div class="row" *ngFor="let step of this.BuildStepData.Elements">
+
+    <div *ngIf="step.BlockType==1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <markdown>{{step.Data}}</markdown>
+    </div>
+    <div *ngIf="step.BlockType==2">
+
+        <img style="max-height:400px; margin: 0 auto; padding: 15px 0;" class="img-responsive img-rounded center-block" src="../../images/{{step.Data}}" />
+    </div>
+
+    <div *ngIf="step.BlockType==3">
+
+        <div *ngIf="step.Data!=''&&step.Data!=null" class="embed-responsive embed-responsive-16by9" style="text-align: center;">
+
+            <iframe [src]='videoURL(step)' width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen class="center-block embed-responsive-item"></iframe>
+        </div>
+    </div>
+</div>

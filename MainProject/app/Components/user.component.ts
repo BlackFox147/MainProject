@@ -3,21 +3,25 @@ import { UserService } from '../Service/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { IUser } from '../Model/user';
+import { Instruction } from '../Model/instruction';
 import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
-import { Global, LoginUserAccount } from '../Shared/global';
+import { Router } from '@angular/router';
+import { Global, LoginUserAccount, BuildStepNow, BuildInstructionNow } from '../Shared/global';
 //import { loginuser } from '../Model/login';
 //import { LoginUser } from '../Model/login';
 
 @Component({
-    templateUrl: 'app/Components/user.component.html'
+    selector: "instruction-app",
+    templateUrl: 'app/Components/user.component.html',
+    styleUrls: ['./app/Components/user.component.css']
 })
 
 export class UserComponent implements OnInit {
 
     @ViewChild('modal') modal: ModalComponent;
-    users: IUser[];
-    user: IUser;
+    instructions: Instruction[] = null;
+    instruction: Instruction;
     msg: string;
     indLoading: boolean = false;
     userFrm: FormGroup;
@@ -26,10 +30,19 @@ export class UserComponent implements OnInit {
     modalBtnTitle: string;
     info: string = "Start";
 
-    constructor(private fb: FormBuilder, private _userService: UserService) {
-        
+    constructor(private fb: FormBuilder, private _userService: UserService,
+        private router: Router) {
+
     }
 
+
+    OpenStep(id: number): void {
+        BuildStepNow.buildStep = id;
+        console.log(BuildStepNow.buildStep);
+        //this.GetStep();
+
+        this.router.navigate(['viewStep']);
+    }
 
     ngOnInit(): void {
         this.userFrm = this.fb.group({
@@ -40,129 +53,40 @@ export class UserComponent implements OnInit {
 
             UserProfile: ['']
         });
-        this.LoadUsers();        
+        this.LoadUsers();
+        console.log("finish");
+
+    }
+
+    setInstructions(em: Instruction[]) {
+        this.instructions = em;
+        console.log(em);
+        console.log(this.instructions);
+        console.log("OK");
     }
 
 
-
-        LoadUsers(): void {
+    LoadUsers(): void {
+        
         this.indLoading = true;
         this._userService.get(Global.BASE_USER_ENDPOINT)
-            .subscribe(users => { this.users = users; this.indLoading = false; },
-            error => this.msg = <any>error);     
-           
-        }
-
-
-    addUser() {
-        this.dbops = DBOperation.create;
-        this.SetControlsState(true);
-        this.modalTitle = "Add New User";
-        this.modalBtnTitle = "Add";
-        this.userFrm.reset();
-        this.modal.open();
+            .subscribe(instructions => {
+                this.indLoading = false; 
+                //this.instructions = instructions;
+                               
+                //console.log(instructions);
+                this.setInstructions(instructions);
+            },
+            error => this.msg = <any>error);
+        //this.instructions.push(new Instruction(0, 0, "test1"));
+        //console.log(this.instructions);
     }
 
-    editUser(id: number) {
-        this.dbops = DBOperation.update;
-        this.SetControlsState(true);
-        this.modalTitle = "Edit User";
-        this.modalBtnTitle = "Update";
-        this.user = this.users.filter(x => x.Id == id)[0];
-        this.userFrm.setValue(this.user);
-        this.modal.open();
-    }
 
-    deleteUser(id: number) {
-        this.dbops = DBOperation.delete;
-        this.SetControlsState(false);
-        this.modalTitle = "Confirm to Delete?";
-        this.modalBtnTitle = "Delete";
-        this.user = this.users.filter(x => x.Id == id)[0];
-        this.userFrm.setValue(this.user);
-        this.modal.open();
-    }
-
-    onSubmit(formData: any) {
-        this.msg = "";
    
-        switch (this.dbops) {
-            case DBOperation.create:
+    
 
-                //this.info = "Finish";
-                //Asd.Mabe.setemail("Test");
-                //console.log(Asd.Mabe.getparams());
-                //this.msg = "Data successfully updated.";
-
-                //Asd.Mabe.setemail(formData._value.Email);
-                //console.log(Asd.Mabe.getparams());
-                //Asd.Mabe.setData(formData._value);
-                //console.log(Asd.Mabe.getparams());
-                this._userService.post(Global.BASE_USER_ENDPOINT, formData._value).subscribe(
-                    data => {
-                        if (data == 1) //Success
-                        {
-                            this.msg = "Data successfully added.";
-                            this.LoadUsers();                                                      
-                        }
-                        else
-                        {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                        }
-                        
-                        this.modal.dismiss();
-                    },
-                    error => {
-                      this.msg = error;
-                    }
-                );
-                break;
-            case DBOperation.update:
-                
-                this._userService.put(Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(
-                    data => {
-                        if (data == 1) //Success
-                        {                            
-                            this.msg = "Data successfully updated.";
-                            this.LoadUsers();
-                           
-                        }
-                        else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                        }
-
-                        this.modal.dismiss();
-                    },
-                    error => {
-                        this.msg = error;
-                    }
-                );
-                break;
-            case DBOperation.delete:
-                this._userService.delete(Global.BASE_USER_ENDPOINT, formData._value.Id).subscribe(
-                    data => {
-                        if (data == 1) //Success
-                        {
-                            this.msg = "Data successfully deleted.";
-                            this.LoadUsers();
-                        }
-                        else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                        }
-
-                        this.modal.dismiss();
-                    },
-                    error => {
-                        this.msg = error;
-                    }
-                );
-                break;
-
-        }
-    }
-
-    SetControlsState(isEnable: boolean)
-    {
+    SetControlsState(isEnable: boolean) {
         isEnable ? this.userFrm.enable() : this.userFrm.disable();
     }
 }

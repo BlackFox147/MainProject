@@ -1,31 +1,10 @@
-﻿<button title="Test" class="btn btn-primary" (click)="Test()">Test</button>
+﻿<!--<button title="Test" class="btn btn-primary" (click)="Test()">Test</button>
 
-<div style="padding-top:25px;"> </div>
+<div style="padding-top:25px;"> </div>-->
 
 <div class="panel panel-default col-sm-12 col-lg-12 col-md-12">
     <div class="panel-body">
-
-        
-        <div class="container-fluid">
-            <div class="row">
-                <!--<div class="col-md-3">
-                    <p class="crop">
-                        <a>
-                            <img *ngIf="BuildInstructionData.ImageName==null" src="http://itchief.ru/assets/demo/image/image1-800-530.jpg" alt="" style="width: 100%;">
-                            <img class="img-responsive center-block" *ngIf="BuildInstructionData.ImageName!=null" src="../../images/{{BuildInstructionData.ImageName}}" alt="">
-                        </a>
-                    </p>
-                </div>-->
-                <div class="col-md-9">
-                    <!--<div> <h1 class="panel-title pull-left" style="font-size:30px;">{{BuildInstructionData.Name}}</h1></div>-->
-                    <!--<div>
-                        <input class="form-control pull-left" style="width:50%;" (change)="onChangeName()" type="text" name="Name"
-                               [(ngModel)]="BuildInstructionData.Name" #Name="ngModel" />
-                    </div>-->
-                </div>
-            </div>
-        </div>
-        <hr>
+     
         <span class="pull-left">
             <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Steps <span class="badge">{{BuildInstructionData.Steps.length}}</span></a>
 
@@ -74,16 +53,11 @@
                     
                 </div>-->
                 <div class="card-content">
-                    <div class="card-meta">
-                        <!--<span class="meta-date meta-box">
-                            {{step.DataTimeChange}}
-                        </span>-->
-                        <span class="meta-pulse meta-box">                           
-                            <a  class="card-share-number sharrre"><span class="glyphicon glyphicon-align-left"></span></a>
-                        </span>
+                    <div class="card-meta">                       
+                       
                     </div>
                     <h2 class="box-text btn-link">
-                        <a (click)="Open(step.Id)">
+                        <a title={{step.Name}} (click)="Open(step.Id)">
                             {{step.Name}}
                         </a>
                     </h2>
@@ -92,8 +66,7 @@
                     <button title="Delete" class="btn btn-danger" (click)="Delete(step.Id)">Delete</button>
                 </div>
                 <span class="meta-tags">
-                    <a title="tags" class="tag">{{step.DataTimeChange}}</a>
-                    <button (click)="ImageChange(step.ImageName)" class="btn-info cursor-pointer"><i class="glyphicon glyphicon-cog"></i></button>
+                    <a class="tag">{{step.DataTimeChange}}</a>                    
                 </span>
 
             </div>

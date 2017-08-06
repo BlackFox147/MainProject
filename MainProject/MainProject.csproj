@@ -245,6 +245,10 @@
     <Compile Include="Migrations\201708032100093_DeleteMaterialsMigration.Designer.cs">
       <DependentUpon>201708032100093_DeleteMaterialsMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708052149556_SomeChangeMigration.cs" />
+    <Compile Include="Migrations\201708052149556_SomeChangeMigration.Designer.cs">
+      <DependentUpon>201708052149556_SomeChangeMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\Element.cs" />
@@ -267,7 +271,10 @@
     <Content Include="app\Components\register.component.html" />
     <Content Include="app\Components\step.component.css" />
     <Content Include="app\Components\step.component.html" />
+    <Content Include="app\Components\user.component.css" />
     <Content Include="app\Components\user.component.html" />
+    <Content Include="app\Components\viewStep.component.css" />
+    <Content Include="app\Components\viewStep.component.html" />
     <Content Include="App_Data\UserDB.mdf" />
     <Content Include="App_Data\UserDB_log.ldf">
       <DependentUpon>UserDB.mdf</DependentUpon>
@@ -337,6 +344,7 @@
     <TypeScriptCompile Include="app\Components\register.component.ts" />
     <TypeScriptCompile Include="app\Components\step.component.ts" />
     <TypeScriptCompile Include="app\Components\user.component.ts" />
+    <TypeScriptCompile Include="app\Components\viewStep.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\Model\element.ts" />
     <TypeScriptCompile Include="app\Model\instruction.ts" />
@@ -397,6 +405,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708032100093_DeleteMaterialsMigration.resx">
       <DependentUpon>201708032100093_DeleteMaterialsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708052149556_SomeChangeMigration.resx">
+      <DependentUpon>201708052149556_SomeChangeMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

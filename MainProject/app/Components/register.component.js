@@ -40,7 +40,7 @@ var RegisterComponent = (function () {
             .subscribe(function (user) {
             global_1.LoginUserAccount.userData.setId(user.Id);
             global_1.LoginUserAccount.userData.setemail(user.Email);
-            global_1.LoginUserAccount.userData.setName(user.UserName);
+            //LoginUserAccount.userData.setName(user.UserName);
             global_1.LoginUserAccount.userData.setPassord(user.Password);
             if (user.Profile.Age == 0) {
                 user.Profile.Age = null;
@@ -49,7 +49,7 @@ var RegisterComponent = (function () {
         }, function (error) { return _this.msg = error; });
         //Asd.Mabe.setId(this.user.Id);
     };
-    RegisterComponent.prototype.onSubmit = function (register_username, register_email, register_password, register_cpassword) {
+    RegisterComponent.prototype.onSubmit = function (register_email, register_password, register_cpassword) {
         var _this = this;
         this.msg = "";
         var required = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$/;
@@ -64,7 +64,7 @@ var RegisterComponent = (function () {
             console.log("No ConformPassword");
             return;
         }
-        this._userService.post(this.activeUrl, new user_1.IUser(register_username, register_email, register_password)).subscribe(function (data) {
+        this._userService.post(this.activeUrl, new user_1.IUser(register_email, register_password)).subscribe(function (data) {
             if (data == 1) {
                 _this.msg = "Data successfully added.";
                 _this.LoadOneUsers();
@@ -81,7 +81,7 @@ var RegisterComponent = (function () {
         var _this = this;
         this.msg = "";
         this.activeUrl = global_1.Global.BASE_LOGIN_ENDPOINT;
-        this._userService.post(global_1.Global.BASE_LOGIN_ENDPOINT, new user_1.IUser("", email, password)).subscribe(function (data) {
+        this._userService.post(global_1.Global.BASE_LOGIN_ENDPOINT, new user_1.IUser(email, password)).subscribe(function (data) {
             if (data == 1) {
                 _this.msg = "Data successfully added.";
                 _this.LoadOneUsers();

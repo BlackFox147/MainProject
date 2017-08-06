@@ -29,13 +29,13 @@ namespace MainProject.Controllers
             {
                 return ToJson(2);
             }
-
+            
             UsersDb.OneUsers.Add(value);
             int s = UsersDb.SaveChanges();
             if (s == 1)
             {                
                 int size = UsersDb.OneUsers.Count();
-                UserProfile profile1 = new UserProfile { Id = value.Id };
+                UserProfile profile1 = new UserProfile { Id = value.Id,UserName=value.Email };
                 UsersDb.UserProfiles.Add(profile1);
                 UsersDb.SaveChanges();
                 loggin = value;

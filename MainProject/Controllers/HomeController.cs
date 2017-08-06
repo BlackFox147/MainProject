@@ -13,11 +13,13 @@ namespace MainProject.Controllers
     {
         public ActionResult Index()
         {
-            using (UserContextNew db = new UserContextNew())
-            {
+            //using (UserContextNew db = new UserContextNew())
+            //{
+
+               //var test =  db.Instructions.Include("Steps").ToList();
                 //OneUser user1 = new OneUser { UserName = "login6", Email = "email6", Password = "pass7654" };
                 //OneUser user2 = new OneUser { UserName = "login7", Email = "email7", Password = "5678word09" };
-
+                //int aaa = 0;
 
                 //db.OneUsers.Add(user1);
                 //db.SaveChanges();
@@ -54,7 +56,7 @@ namespace MainProject.Controllers
                 //foreach (OneUser user in db.OneUsers.Include("Profile").ToList())
                 //    Console.WriteLine("Name: {0}  Age: {1}  Login: {2}  Password: {3}",
                 //            user.UserName, user.Profile.Age, user.Email, user.Password);
-            }
+            //}
 
             //DateTime date1 = DateTime.Today;
             //var time = date1.ToShortDateString();

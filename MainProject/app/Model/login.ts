@@ -5,14 +5,14 @@ import { BuildInstructionNow } from '../Shared/global';
 
 export class ILogin{
     Id: number;
-    UserName: string;
+    //UserName: string;
     Email: string;
     Password: string;
     Profile: UserProfile;
 
-    constructor(id: number, name: string, email: string, pass: string, prof:number) {
+    constructor(id: number, email: string, pass: string, prof:number) {
         this.Id = id;
-        this.UserName = name;
+        //this.UserName = name;
         this.Email = email;
         this.Password = pass;
         this.Profile = new UserProfile(prof, prof,"","","",null);
@@ -25,13 +25,13 @@ export class ILogin{
 //@Injectable()
 
 export class loginUser {
-    private userAccount: ILogin = new ILogin(0, "", "Login1", "", 0);
+    private userAccount: ILogin = new ILogin(0, "", "", 0);
 
     constructor() { }
     
     public logOff(): void {
         delete (this.userAccount);
-        this.userAccount = new ILogin(0, "", "Login1", "", 0);
+        this.userAccount = new ILogin(0, "", "", 0);
     }
 
     public setemail(em:string) {
@@ -49,9 +49,9 @@ export class loginUser {
     public setId(em: number) {
         this.userAccount.Id = em;
     }
-    public setName(em: string) {
-        this.userAccount.UserName = em;
-    }
+    //public setName(em: string) {
+    //    this.userAccount.UserName = em;
+    //}
     public setPassord(em: string) {
         this.userAccount.Password = em;
     }
@@ -78,7 +78,7 @@ export class loginUser {
 
                 instructin.DataTimeChange = temp.DataTimeChange;               
                 instructin.Steps = temp.Steps;
-                instructin.ImageName = temp.ImageName;
+                //instructin.ImageName = temp.ImageName;
 
                 return;
             }
@@ -89,6 +89,9 @@ export class loginUser {
 
     public setInstructions(em: Instruction[]) {
         this.userAccount.Profile.Instructions = em;
+        //console.log(em);
+        //console.log(this.userAccount.Profile.Instructions);
+
     }
 
    

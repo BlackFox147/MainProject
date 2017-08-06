@@ -37,7 +37,7 @@ export class StepComponent {
         value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number); 
 
         BuildStepNow.BuildStep.Id = value.Id;
-        BuildStepNow.BuildStep.ImageName = value.ImageName;
+        //BuildStepNow.BuildStep.ImageName = value.ImageName;
         BuildStepNow.BuildStep.Elements = value.Elements;
         BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
         BuildStepNow.BuildStep.InstructionId = value.InstructionId;
@@ -232,28 +232,28 @@ export class StepComponent {
 
     }
 
-    ImageChange(ImageName: string): void {
-        this.BuildStepData.ImageName = ImageName;       
-        this._userService.put(Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(
-            data => {
-                if (data == 1) //Success
-                {
-                    //this.msg = "Data successfully updated.";         
-                    console.log("OK->S");
+    //ImageChange(ImageName: string): void {
+    //    this.BuildStepData.ImageName = ImageName;       
+    //    this._userService.put(Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(
+    //        data => {
+    //            if (data == 1) //Success
+    //            {
+    //                //this.msg = "Data successfully updated.";         
+    //                console.log("OK->S");
 
-                }
-                else {
-                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                    console.log("NO->S");
-                }
-            },
-            error => {
-                console.log(error);
-                //this.msg = error;
-            }
-        );    
-        console.log("image");
-    }
+    //            }
+    //            else {
+    //                //this.msg = "There is some issue in saving records, please contact to system administrator!"
+    //                console.log("NO->S");
+    //            }
+    //        },
+    //        error => {
+    //            console.log(error);
+    //            //this.msg = error;
+    //        }
+    //    );    
+    //    console.log("image");
+    //}
 
     
     AddImage(event: any) {
