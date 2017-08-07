@@ -1,4 +1,21 @@
-﻿<div class="row" *ngFor="let step of this.BuildStepData.Elements">
+﻿<div class="panel-body">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <h3>{{BuildStepData.Name}}</h3>
+        </div>
+        <button style="padding:0px;" (click)="OpenInstruction(BuildStepData.InstructionId)" type="button" class="btn btn-link"><h4 class="content-title">Go to the Instruction</h4></button>
+
+        <hr>
+        <span class="pull-left">
+            <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Elements <span class="badge">{{BuildStepData.Elements.length}}</span></a>
+
+        </span>
+       
+    </div>
+</div>
+<div class="row" *ngFor="let step of this.BuildStepData.Elements">
 
     <div *ngIf="step.BlockType==1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 

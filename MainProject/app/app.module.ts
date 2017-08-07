@@ -6,10 +6,10 @@ import { AppComponent } from './app.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
-import { UserComponent } from './components/user.component';
+
 import { HomeComponent } from './components/home.component';
 import { AccountComponent } from './components/account.component';
-import { LoginComponent } from './components/login.component';
+
 import { RegisterComponent } from './components/register.component';
 import { StepComponent } from './components/step.component';
 import { FormsModule } from '@angular/forms';
@@ -30,15 +30,14 @@ import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/c
 
 import { Autosize } from 'angular2-autosize/angular2-autosize';
 
-
 import { UserService } from './Service/user.service';
-
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
 @NgModule({
     imports: [CommonModule, BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule, FormsModule, DragulaModule,
-        MarkdownModule.forRoot()],
-    declarations: [AppComponent, UserComponent, HomeComponent, AccountComponent,
-        LoginComponent, RegisterComponent, BuildInstructionComponent, StepComponent, Autosize,
+        MarkdownModule.forRoot(), SlimLoadingBarModule.forRoot()],
+    declarations: [AppComponent, HomeComponent, AccountComponent,
+         RegisterComponent, BuildInstructionComponent, StepComponent, Autosize,
         ViewStepComponent, ViewInstructionComponent, ViewUserComponent],
     providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]

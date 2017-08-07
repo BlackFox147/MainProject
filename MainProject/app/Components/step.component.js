@@ -20,8 +20,9 @@ var step_1 = require("../Model/step");
 var element_1 = require("../Model/element");
 var platform_browser_1 = require("@angular/platform-browser");
 var router_2 = require("@angular/router");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var StepComponent = (function () {
-    function StepComponent(http, _userService, router, dragulaService, sanit, activateRoute) {
+    function StepComponent(http, _userService, router, dragulaService, sanit, activateRoute, slimLoader) {
         var _this = this;
         this.http = http;
         this._userService = _userService;
@@ -29,6 +30,7 @@ var StepComponent = (function () {
         this.dragulaService = dragulaService;
         this.sanit = sanit;
         this.activateRoute = activateRoute;
+        this.slimLoader = slimLoader;
         this.BuildStepData = new step_1.Step(0, 0, 0, "");
         this.markdownContent = "## Markdown content data";
         //trackByIndex(index: number, value: number) {
@@ -58,16 +60,6 @@ var StepComponent = (function () {
         var el = args[0], source = args[1];
         // do something else
     };
-    //setStep(value: Step): void {
-    //    value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number); 
-    //    BuildStepNow.BuildStep.Id = value.Id;
-    //    //BuildStepNow.BuildStep.ImageName = value.ImageName;
-    //    BuildStepNow.BuildStep.Elements = value.Elements;
-    //    BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-    //    BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-    //    BuildStepNow.BuildStep.Name = value.Name;
-    //    BuildStepNow.BuildStep.Number = value.Number;
-    //}
     StepComponent.prototype.GetStep = function () {
         var _this = this;
         this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, this.id)
@@ -77,14 +69,29 @@ var StepComponent = (function () {
             //this.setStep(stepT);
             console.log("OK->Get_step");
             console.log(_this.BuildStepData);
+            _this.slimLoader.complete();
         }, function (error) {
-            return console.log(error);
+            console.log(error);
+            _this.slimLoader.complete();
         });
     };
     StepComponent.prototype.Stert = function () {
         //var temp: Instruction = new Instruction(0, 0, "");
+        this.slimLoader.start();
         this.GetStep();
         return true;
+    };
+    //getItem: boolean = this.Stert();
+    StepComponent.prototype.ngOnInit = function () {
+        this.runSlimLoader();
+        //this.LoadUsers();        
+    };
+    StepComponent.prototype.runSlimLoader = function () {
+        var _this = this;
+        this.slimLoader.start();
+        setTimeout(function () {
+            _this.slimLoader.complete();
+        }, 500);
     };
     StepComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
@@ -93,6 +100,8 @@ var StepComponent = (function () {
         console.log(this.BuildStepData.Elements);
     };
     StepComponent.prototype.onChange = function (text, i) {
+        var _this = this;
+        this.slimLoader.start();
         console.log(text);
         this.BuildStepData.Elements[i].Data = text;
         this._userService.put(global_1.Global.BASE_BUILDELEMENT_ENDPOINT, this.BuildStepData.Elements[i].Id, this.BuildStepData.Elements[i]).subscribe(function (data) {
@@ -104,21 +113,29 @@ var StepComponent = (function () {
                 //this.msg = "There is some issue in saving records, please contact to system administrator!"
                 console.log("NO->textCange");
             }
+            _this.slimLoader.complete();
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
             //this.msg = error;
         });
         console.log(this.BuildStepData.Elements[i]);
     };
     StepComponent.prototype.Develop = function () {
+        this.slimLoader.start();
         this.develop = true;
         console.log(this.develop);
+        this.slimLoader.complete();
     };
     StepComponent.prototype.View = function () {
+        this.slimLoader.start();
         this.develop = false;
         console.log(this.develop);
+        this.slimLoader.complete();
     };
     StepComponent.prototype.onChangeName = function () {
+        var _this = this;
+        this.slimLoader.start();
         this._userService.put(global_1.Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";         
@@ -128,8 +145,10 @@ var StepComponent = (function () {
                 //this.msg = "There is some issue in saving records, please contact to system administrator!"
                 console.log("NO->S");
             }
+            _this.slimLoader.complete();
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
             //this.msg = error;
         });
         console.log(this.BuildStepData.Name);
@@ -144,6 +163,7 @@ var StepComponent = (function () {
     };
     StepComponent.prototype.Create = function (type) {
         var _this = this;
+        this.slimLoader.start();
         this._userService.post(global_1.Global.BASE_BUILDSTEP_ENDPOINT, new element_1.Element(0, this.BuildStepData.Id, type, this.BuildStepData.Elements.length)).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";
@@ -154,22 +174,29 @@ var StepComponent = (function () {
                 console.log("NO->step");
             }
             _this.GetStep();
+            _this.slimLoader.complete();
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
             //this.msg = error;
         });
         this.create = false;
     };
     StepComponent.prototype.Delete = function (elementId) {
         var _this = this;
+        this.slimLoader.start();
         this._userService.delete(global_1.Global.BASE_BUILDSTEP_ENDPOINT, elementId).subscribe(function (data) {
             console.log("Good del");
             _this.GetStep();
+            _this.slimLoader.complete();
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
         });
     };
     StepComponent.prototype.Save = function () {
+        var _this = this;
+        this.slimLoader.start();
         this.BuildStepData.Elements.forEach(function (step, index) {
             step.Number = index + 1;
         });
@@ -182,34 +209,16 @@ var StepComponent = (function () {
                 //this.msg = "There is some issue in saving records, please contact to system administrator!"
                 console.log("NO->S");
             }
+            _this.slimLoader.complete();
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
             //this.msg = error;
         });
     };
-    //ImageChange(ImageName: string): void {
-    //    this.BuildStepData.ImageName = ImageName;       
-    //    this._userService.put(Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(
-    //        data => {
-    //            if (data == 1) //Success
-    //            {
-    //                //this.msg = "Data successfully updated.";         
-    //                console.log("OK->S");
-    //            }
-    //            else {
-    //                //this.msg = "There is some issue in saving records, please contact to system administrator!"
-    //                console.log("NO->S");
-    //            }
-    //        },
-    //        error => {
-    //            console.log(error);
-    //            //this.msg = error;
-    //        }
-    //    );    
-    //    console.log("image");
-    //}
     StepComponent.prototype.AddImage = function (event) {
         var _this = this;
+        this.slimLoader.start();
         var fileList = event.target.files;
         if (fileList.length > 0) {
             var file = fileList[0];
@@ -227,10 +236,20 @@ var StepComponent = (function () {
                 console.log('success');
                 _this.BuildStepData = data;
                 _this.BuildStepData.Elements = _this.BuildStepData.Elements.sort(function (n1, n2) { return n1.Number - n2.Number; });
+                _this.slimLoader.complete();
                 //this.setStep(data);
                 //this.router.navigate(['account']);
-            }, function (error) { return console.log(error); });
+            }, function (error) {
+                console.log(error);
+                _this.slimLoader.complete();
+            });
         }
+        else {
+            this.slimLoader.complete();
+        }
+    };
+    StepComponent.prototype.OpenInstruction = function (id) {
+        this.router.navigate(['buildInstruction', id]);
     };
     StepComponent.prototype.videoURL = function (elem) {
         //return elem.Data
@@ -243,7 +262,8 @@ var StepComponent = (function () {
             styleUrls: ['./app/Components/step.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer, router_2.ActivatedRoute])
+            ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer,
+            router_2.ActivatedRoute, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], StepComponent);
     return StepComponent;
 }());

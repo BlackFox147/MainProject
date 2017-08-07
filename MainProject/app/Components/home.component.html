@@ -5,8 +5,73 @@
         </div>
     </div>
 </div>
+<div style="padding-top:15px;"> </div>
+<div class="container">
+    <div class="row">
+        <div style="padding:0px;" class="wp-block property list" *ngFor="let instruction of this.instructions; let i = index">
 
-<instruction-app>
-    Loading...
-</instruction-app>
+            <div class="wp-block-body">
+
+                <div class="wp-block-content">
+
+                    <button style="padding:0px;" (click)="OpenInstruction(instruction.Id)" type="button" class="btn btn-link"><h4 class="content-title">{{instruction.Name}}</h4></button>
+
+
+                    <div class="container">
+                        <div class="row">
+                            <div>
+
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" [attr.data-target]="'#stepDetails' + i">
+                                                    {{instruction.Steps.length}} STEPS
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div [attr.id]="'stepDetails' + i" class="panel-collapse collapse">
+
+
+                                            <div class="list-group">
+
+                                                <a (click)="OpenStep(step.Id)" class="list-group-item" *ngFor="let step of instruction.Steps; let i = index">
+                                                    <span class="glyphicon glyphicon-th-list"></span> {{step.Name}} <!--<span class="badge">411</span>-->
+                                                </a>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div><!-- /.panel-group -->
+
+                            </div><!-- /.col-md-offset-3 col-md-6 -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container -->
+
+
+                </div>
+            </div>
+
+            <div class="wp-block-footer">
+                <p class="aux-info">
+                    <!--<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> {{instruction.Steps.length}}-->
+                    <small>
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{instruction.DataTimeChange}}
+                    </small>
+
+                    <a (click)="OpenUser(instruction.UserProfileId)" class="pull-right" style="font-size:16px;">
+                        {{instruction.UserName}} <!--<span class="badge">411</span>-->
+                    </a>
+                </p>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
 

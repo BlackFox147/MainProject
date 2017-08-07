@@ -21,7 +21,7 @@
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'ng2-bs3-modal': 'npm:/ng2-bs3-modal',
-
+            'ng2-slim-loading-bar': 'node_modules/ng2-slim-loading-bar/bundles/index.umd.js',
 
             'dragula': 'node_modules/dragula/dist/dragula.js',
             'angular2-autosize': 'npm:angular2-autosize',
@@ -43,6 +43,7 @@
             'dragula': { defaultExtension: 'js' },
             'ng2-dragula': { defaultExtension: 'js' },
             'angular2-autosize': { defaultExtension: 'js' },
+            
             //'ng2-image-gallery': { defaultExtension: 'js' },
 
             'ng2-bs3-modal':

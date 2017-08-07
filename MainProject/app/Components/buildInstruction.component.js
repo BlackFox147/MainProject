@@ -18,14 +18,16 @@ var instruction_1 = require("../Model/instruction");
 var ng2_dragula_1 = require("ng2-dragula/ng2-dragula");
 var step_1 = require("../Model/step");
 var router_2 = require("@angular/router");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var BuildInstructionComponent = (function () {
-    function BuildInstructionComponent(http, _userService, router, dragulaService, activateRoute) {
+    function BuildInstructionComponent(http, _userService, router, dragulaService, activateRoute, slimLoader) {
         var _this = this;
         this.http = http;
         this._userService = _userService;
         this.router = router;
         this.dragulaService = dragulaService;
         this.activateRoute = activateRoute;
+        this.slimLoader = slimLoader;
         this.BuildInstructionData = new instruction_1.Instruction(0, 0, "");
         this.subscription = activateRoute.params.subscribe(function (params) {
             _this.id = params['id'];
@@ -42,6 +44,18 @@ var BuildInstructionComponent = (function () {
     BuildInstructionComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
+    //LoginUserAccountData: IUser = new IUser("", "");
+    BuildInstructionComponent.prototype.ngOnInit = function () {
+        this.runSlimLoader();
+        //this.LoadUsers();        
+    };
+    BuildInstructionComponent.prototype.runSlimLoader = function () {
+        var _this = this;
+        this.slimLoader.start();
+        setTimeout(function () {
+            _this.slimLoader.complete();
+        }, 500);
+    };
     BuildInstructionComponent.prototype.setInstruction = function (value) {
         value.Steps = value.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
         this.BuildInstructionData.DataTimeChange = value.DataTimeChange;
@@ -49,6 +63,7 @@ var BuildInstructionComponent = (function () {
         //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
     };
     BuildInstructionComponent.prototype.Stert = function () {
+        this.slimLoader.start();
         //var temp: Instruction = new Instruction(0, 0, "");
         this.GetInstruction();
         return true;
@@ -66,8 +81,10 @@ var BuildInstructionComponent = (function () {
             //this.setInstruction(instruction);
             console.log("OK->Get_step");
             console.log(_this.BuildInstructionData);
+            _this.slimLoader.complete();
         }, function (error) {
-            return console.log(error);
+            console.log(error);
+            _this.slimLoader.complete();
         });
     };
     BuildInstructionComponent.prototype.Test = function () {
@@ -84,6 +101,7 @@ var BuildInstructionComponent = (function () {
     };
     BuildInstructionComponent.prototype.Create = function (stepName) {
         var _this = this;
+        this.slimLoader.start();
         this._userService.post(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, new step_1.Step(0, this.BuildInstructionData.Id, this.BuildInstructionData.Steps.length, stepName)).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";
@@ -113,6 +131,7 @@ var BuildInstructionComponent = (function () {
     };
     BuildInstructionComponent.prototype.Save = function () {
         var _this = this;
+        this.slimLoader.start();
         this.BuildInstructionData.Steps.forEach(function (step, index) {
             step.Number = index + 1;
         });
@@ -126,18 +145,23 @@ var BuildInstructionComponent = (function () {
                 console.log("NO->");
             }
             _this.LoadUserInstruction();
+            _this.slimLoader.complete();
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
             //this.msg = error;
         });
     };
     BuildInstructionComponent.prototype.Delete = function (stepId) {
         var _this = this;
+        this.slimLoader.start();
         this._userService.delete(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, stepId).subscribe(function (data) {
             console.log("Good del");
             _this.LoadUserInstruction();
+            _this.slimLoader.complete();
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
         });
     };
     BuildInstructionComponent.prototype.addStep = function () {
@@ -166,6 +190,9 @@ var BuildInstructionComponent = (function () {
             //this.msg = error;
         });
     };
+    BuildInstructionComponent.prototype.OpenUser = function (id) {
+        this.router.navigate(['viewUser', id]);
+    };
     BuildInstructionComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/Components/buildInstruction.component.html',
@@ -174,7 +201,8 @@ var BuildInstructionComponent = (function () {
             //styleUrls: ['./app/Components/account.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            ng2_dragula_1.DragulaService, router_2.ActivatedRoute])
+            ng2_dragula_1.DragulaService, router_2.ActivatedRoute,
+            ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], BuildInstructionComponent);
     return BuildInstructionComponent;
 }());

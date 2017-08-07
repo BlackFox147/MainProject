@@ -1,16 +1,16 @@
 ﻿import { Component, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Global, LoginUserAccount} from '../Shared/global';
-import { ILogin } from '../Model/login';
+import { Global, LoginUserAccount } from '../Shared/global';
+
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';  
-import { Router } from '@angular/router'; 
+import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 import { Instruction } from '../Model/instruction';
 import { Step } from '../Model/step';
-
-
+import { IUser } from '../Model/user';
+import { SlimLoadingBarComponent, SlimLoadingBarService } from 'ng2-slim-loading-bar';
 @Component({
     templateUrl: 'app/Components/account.component.html',
     styleUrls: ['./app/Components/account.component.css']
@@ -21,16 +21,31 @@ export class AccountComponent {
     modalTitle: string;
     modalBtnTitle: string;
     create: boolean;
-    
+
     private isUploadBtn: boolean = true;
-    constructor(private http: Http, private _userService: UserService, private router: Router) {
-    }  
+    constructor(private http: Http, private _userService: UserService, private router: Router,
+        private slimLoader: SlimLoadingBarService) {
 
-    
-    LoginUserAccountData: ILogin = this.Stert();
+    }
 
+
+    LoginUserAccountData: IUser = new IUser("", "");
+
+    ngOnInit(): void {
+        this.runSlimLoader();
+        this.LoginUserAccountData = this.Stert();
+        //this.LoadUsers();        
+    }
+
+    runSlimLoader() {
+        this.slimLoader.start();
+        setTimeout(() => {
+            this.slimLoader.complete();
+        }, 500);
+    }
 
     onChange(): void {
+        this.slimLoader.start();
         this._userService.put(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, this.LoginUserAccountData.Profile.Id, this.LoginUserAccountData.Profile).subscribe(
             data => {
                 //if (data == 1) //Success
@@ -43,29 +58,31 @@ export class AccountComponent {
                 //    //this.msg = "There is some issue in saving records, please contact to system administrator!"
                 //    console.log("NO->");
                 //}
-                console.log("OK->");    
+                console.log("OK->");
+                this.slimLoader.complete();
                 //this.LoginUserAccountData.Profile = data;
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
                 //this.msg = error;
             }
-        );    
+        );
 
     }
-    Stert(): ILogin{
-        this.LoginUserAccountData = LoginUserAccount.userData.getparams();
+    Stert(): IUser {
+        this.LoginUserAccountData = LoginUserAccount.userData;
         this.LoadUserInstruction();
-        return LoginUserAccount.userData.getparams();
+        return LoginUserAccount.userData;
     }
 
 
-    
-    
 
-    LoadUserInstruction():void {       
-       
-        this._userService.getItem(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, LoginUserAccount.userData.getProfile().Id)
+
+
+    LoadUserInstruction(): void {
+
+        this._userService.getItem(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, LoginUserAccount.userData.Id)
             .subscribe(profile => {
 
                 console.log(profile);
@@ -77,7 +94,7 @@ export class AccountComponent {
                 console.log(this.LoginUserAccountData.Profile.Instructions);
             },
             error =>
-                console.log(error));                            
+                console.log(error));
     }
 
     addInstruction() {
@@ -91,24 +108,27 @@ export class AccountComponent {
     }
 
     Create(instructionName: string): void {
+        this.slimLoader.start();
         this._userService.post(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new Instruction(0, 0, instructionName)).subscribe(
             data => {
                 if (data == 1) //Success
                 {
                     //this.msg = "Data successfully updated.";
-                    console.log("OK->Instruction"); 
-                    this.LoadUserInstruction();                   
-
+                    console.log("OK->Instruction");
+                    this.LoadUserInstruction();
+                    this.slimLoader.complete();
                 }
                 else {
                     //this.msg = "There is some issue in saving records, please contact to system administrator!"
                     console.log("NO->");
+                    this.slimLoader.complete();
                 }
 
 
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
                 //this.msg = error;
             }
         );
@@ -123,32 +143,8 @@ export class AccountComponent {
     }
 
 
-
-    //setInstruction(value: Instruction): void {
-    //    value.Steps = value.Steps.sort((n1, n2) => n1.Number - n2.Number);
-    //    BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
-    //    BuildInstructionNow.BuildInstruction.Steps = value.Steps;
-    //    BuildInstructionNow.BuildInstruction.Id = value.Id;
-    //    BuildInstructionNow.BuildInstruction.Name = value.Name;
-    //    BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
-    //    //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
-    //}
-
-    //GetInstruction(): void {
-    //    this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, BuildInstructionNow.buildInstruction)
-    //        .subscribe(instruction => {
-
-    //            this.setInstruction(instruction);
-    //            console.log("OK->Get_step");
-    //            console.log(BuildInstructionNow.BuildInstruction);
-    //        },
-    //        error =>
-    //            console.log(error));      
-    //}
-
-
-    fileChange(event:any) {
-
+    fileChange(event: any) {
+        this.slimLoader.start();
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             let file: File = fileList[0];
@@ -160,21 +156,7 @@ export class AccountComponent {
             let options = new RequestOptions({ headers: headers });
             let apiUrl1 = "api/uploadfileapi/";
 
-            //this._userService.post(apiUrl1, formData).subscribe(
-            //    data => {
-            //        if (data == 1) //Success
-            //        {
-            //            console.log('success');                        
-            //            console.log(LoginUserAccountData.Mabe.getparams());
-            //        }
-            //        else {
-            //            console.log('error');  
-            //        }
-            //    },
-            //    error => {
-            //        console.log(error);
-            //    }
-            //);
+
 
             this.http.post(apiUrl1, formData, options)
                 .map(res => res.json())
@@ -183,38 +165,54 @@ export class AccountComponent {
                 data => {
                     console.log('success');
                     this.LoginUserAccountData.Profile.UserImageName = file.name;
-                    this.router.navigate(['account']);
+                    this.slimLoader.complete();
+                    //this.router.navigate(['account']);
                 },
-                error => console.log(error)
-                )
+                error => {
+                    console.log(error);
+                    this.slimLoader.complete();
+                }
+                );
         }
-       // window.location.reload();
-    }  
+        else {
+            this.slimLoader.complete();
+        }
+
+    }
 
 
     Delete(instructionId: number): void {
+        this.slimLoader.start();
         this._userService.delete(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, instructionId).subscribe(
             data => {
                 if (data == 1) //Success
                 {
                     console.log("Good del");
-                    this.LoadUserInstruction();  
-                    
+                    this.LoadUserInstruction();
+                    this.slimLoader.complete();
                 }
                 else {
                     console.log("No del");
+                    this.slimLoader.complete();
                 }
-            
+
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
             }
         );
+
     }
 
     Open(id: number): void {
 
         this.router.navigate(['step', id]);
+    }
+
+    OpenUser(id: number): void {
+
+        this.router.navigate(['viewUser', id]);
     }
 
     onChangeUserName(): void {

@@ -49,10 +49,11 @@
 
     "ng2-dragula": "1.5.0",
     "dragula": "3.7.2",
-
+    "ng2-slim-loading-bar": "4.0.0",
     "angular2-markdown": "1.6.0",
     "angular2-autosize": "1.0.1",
     "ng2-image-gallery": "0.3.15",
+    "angular-elastic": "2.5.1",
 
     "canonical-path": "0.0.2",
     "tslint": "^3.15.1",

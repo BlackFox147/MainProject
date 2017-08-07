@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnDestroy} from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Global, LoginUserAccount } from '../Shared/global';
-import { ILogin } from '../Model/login';
+
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -13,6 +13,7 @@ import { Step } from '../Model/step';
 import { Element } from '../Model/element';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { SlimLoadingBarComponent, SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
     templateUrl: 'app/Components/buildInstruction.component.html',
@@ -27,11 +28,15 @@ export class BuildInstructionComponent {
     private subscription: Subscription;
 
     constructor(private http: Http, private _userService: UserService, private router: Router,
-        private dragulaService: DragulaService, private activateRoute: ActivatedRoute)
+        private dragulaService: DragulaService, private activateRoute: ActivatedRoute,
+        private slimLoader: SlimLoadingBarService)
     {
+        
         this.subscription = activateRoute.params.subscribe(params => {
             this.id = params['id'];
             this.Stert();
+
+
         });
         console.log("id " + this.id);
         dragulaService.dropModel.subscribe((value: any) => {
@@ -46,6 +51,20 @@ export class BuildInstructionComponent {
         this.subscription.unsubscribe();       
     }
 
+    //LoginUserAccountData: IUser = new IUser("", "");
+
+    ngOnInit(): void {
+        this.runSlimLoader();        
+        //this.LoadUsers();        
+    }
+
+    runSlimLoader() {
+        this.slimLoader.start();
+        setTimeout(() => {
+            this.slimLoader.complete();
+        }, 500);
+    }
+
     BuildInstructionData: Instruction = new Instruction(0, 0, "");
 
     setInstruction(value: Instruction): void {
@@ -57,9 +76,10 @@ export class BuildInstructionComponent {
     }
 
     Stert(): boolean {
+        this.slimLoader.start();
         //var temp: Instruction = new Instruction(0, 0, "");
         this.GetInstruction();
-
+        
         return true;
     }
 
@@ -75,9 +95,13 @@ export class BuildInstructionComponent {
                 //this.setInstruction(instruction);
                 console.log("OK->Get_step");
                 console.log(this.BuildInstructionData);
+                this.slimLoader.complete();
             },
-            error =>
-                console.log(error));
+            error => {
+                console.log(error);
+                this.slimLoader.complete();
+            }
+            );       
         
     }
     //getItem: boolean = this.Stert();
@@ -109,7 +133,7 @@ export class BuildInstructionComponent {
     }
 
     Create(stepName: string): void {
-
+        this.slimLoader.start();
         this._userService.post(Global.BASE_BUILDINSTRUCTION_ENDPOINT, new Step(0, this.BuildInstructionData.Id, this.BuildInstructionData.Steps.length, stepName)).subscribe(
             data => {
                 if (data == 1) //Success
@@ -149,7 +173,7 @@ export class BuildInstructionComponent {
 
 
     Save(): void {
-
+        this.slimLoader.start();
         this.BuildInstructionData.Steps.forEach((step, index) => {
             step.Number = index + 1;
         });
@@ -167,12 +191,15 @@ export class BuildInstructionComponent {
                 else {
                     //this.msg = "There is some issue in saving records, please contact to system administrator!"
                     console.log("NO->");
+                    
                 }
 
                 this.LoadUserInstruction();
+                this.slimLoader.complete();
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
                 //this.msg = error;
             }
         ); 
@@ -180,13 +207,16 @@ export class BuildInstructionComponent {
     }
 
     Delete(stepId: number): void {
+        this.slimLoader.start();
         this._userService.delete(Global.BASE_BUILDINSTRUCTION_ENDPOINT, stepId).subscribe(
             data => {
                 console.log("Good del");
                 this.LoadUserInstruction();
+                this.slimLoader.complete();
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
             }
         );
     }
@@ -225,6 +255,11 @@ export class BuildInstructionComponent {
                 //this.msg = error;
             }
         ); 
+    }
+
+    OpenUser(id: number): void {
+
+        this.router.navigate(['viewUser', id]);
     }
 
     //ImageChange(ImageName: string): void {

@@ -17,14 +17,16 @@ var router_1 = require("@angular/router");
 var step_1 = require("../Model/step");
 var platform_browser_1 = require("@angular/platform-browser");
 var router_2 = require("@angular/router");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var ViewStepComponent = (function () {
-    function ViewStepComponent(http, _userService, router, sanit, activateRoute) {
+    function ViewStepComponent(http, _userService, router, sanit, activateRoute, slimLoader) {
         var _this = this;
         this.http = http;
         this._userService = _userService;
         this.router = router;
         this.sanit = sanit;
         this.activateRoute = activateRoute;
+        this.slimLoader = slimLoader;
         this.BuildStepData = new step_1.Step(0, 0, 0, "");
         this.subscription = activateRoute.params.subscribe(function (params) {
             _this.id = params['id'];
@@ -32,16 +34,6 @@ var ViewStepComponent = (function () {
         });
         this.sanit = sanit;
     }
-    //setStep(value: Step): void {
-    //    value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number);
-    //    BuildStepNow.BuildStep.Id = value.Id;
-    //    //BuildStepNow.BuildStep.ImageName = value.ImageName;
-    //    BuildStepNow.BuildStep.Elements = value.Elements;
-    //    BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-    //    BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-    //    BuildStepNow.BuildStep.Name = value.Name;
-    //    BuildStepNow.BuildStep.Number = value.Number;
-    //}
     ViewStepComponent.prototype.GetStep = function () {
         var _this = this;
         this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, this.id)
@@ -51,12 +43,15 @@ var ViewStepComponent = (function () {
             //this.setStep(stepT);
             console.log("OK->Get_step");
             console.log(_this.BuildStepData);
+            _this.slimLoader.complete();
         }, function (error) {
-            return console.log(error);
+            console.log(error);
+            _this.slimLoader.complete();
         });
     };
     ViewStepComponent.prototype.Stert = function () {
         //var temp: Instruction = new Instruction(0, 0, "");
+        this.slimLoader.start();
         this.GetStep();
         return true;
     };
@@ -64,13 +59,27 @@ var ViewStepComponent = (function () {
         //return elem.Data
         return this.sanit.bypassSecurityTrustResourceUrl(elem.Data);
     };
+    ViewStepComponent.prototype.OpenInstruction = function (id) {
+        this.router.navigate(['viewInstruction', id]);
+    };
+    ViewStepComponent.prototype.ngOnInit = function () {
+        this.runSlimLoader();
+        //this.LoadUsers();        
+    };
+    ViewStepComponent.prototype.runSlimLoader = function () {
+        var _this = this;
+        this.slimLoader.start();
+        setTimeout(function () {
+            _this.slimLoader.complete();
+        }, 500);
+    };
     ViewStepComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/Components/viewStep.component.html',
             styleUrls: ['./app/Components/viewStep.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            platform_browser_1.DomSanitizer, router_2.ActivatedRoute])
+            platform_browser_1.DomSanitizer, router_2.ActivatedRoute, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], ViewStepComponent);
     return ViewStepComponent;
 }());

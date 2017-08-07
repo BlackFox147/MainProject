@@ -1,8 +1,9 @@
 ﻿import { Component } from "@angular/core"
 import { Global, LoginUserAccount } from './Shared/global';
-import { ILogin } from './Model/login';
-import { Router } from '@angular/router'; 
 
+import { Router } from '@angular/router'; 
+import { IUser } from './Model/user';
+import { SlimLoadingBarComponent, SlimLoadingBarService } from 'ng2-slim-loading-bar';
 @Component({
     selector: "user-app",
     templateUrl: 'app/app.component.html'
@@ -10,10 +11,12 @@ import { Router } from '@angular/router';
 
 export class AppComponent {
 
-    constructor(private router: Router) {       //!!!
+    constructor(private router: Router,private slimLoader: SlimLoadingBarService) {       //!!!
+        this.slimLoader.height = '4px';
+        this.slimLoader.color = 'blue';
     }
 
-    LoginUserAccountData: ILogin = LoginUserAccount.userData.getparams();
+    LoginUserAccountData: IUser = LoginUserAccount.userData;
 
     ShowE(): void {
         console.log(this.LoginUserAccountData);
@@ -38,9 +41,23 @@ export class AppComponent {
     }
 
     LogOff(): void {
-        LoginUserAccount.userData.logOff();
-        this.LoginUserAccountData = LoginUserAccount.userData.getparams();
+        
+        delete (LoginUserAccount.userData);
+        LoginUserAccount.userData = new IUser("", "");
+    
+        this.LoginUserAccountData = LoginUserAccount.userData;
         this.router.navigate(['/']); 
         console.log(this.LoginUserAccountData);
+    }
+
+    ngOnInit(): any {
+        this.runSlimLoader();       
+    }
+   
+    runSlimLoader() {
+        this.slimLoader.start();
+        setTimeout(() => {
+            this.slimLoader.complete();
+        }, 500);
     }
 }

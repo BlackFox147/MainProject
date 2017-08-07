@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnDestroy} from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Global, LoginUserAccount } from '../Shared/global';
-import { ILogin } from '../Model/login';
+
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -14,6 +14,7 @@ import { Element } from '../Model/element';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { SlimLoadingBarComponent, SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
     templateUrl: 'app/Components/step.component.html',
@@ -35,17 +36,7 @@ export class StepComponent {
         // do something else
     }
 
-    //setStep(value: Step): void {
-    //    value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number); 
-
-    //    BuildStepNow.BuildStep.Id = value.Id;
-    //    //BuildStepNow.BuildStep.ImageName = value.ImageName;
-    //    BuildStepNow.BuildStep.Elements = value.Elements;
-    //    BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-    //    BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-    //    BuildStepNow.BuildStep.Name = value.Name;
-    //    BuildStepNow.BuildStep.Number = value.Number;
-    //}
+ 
 
     GetStep(): void {
         this._userService.getItem(Global.BASE_BUILDSTEP_ENDPOINT, this.id)
@@ -55,13 +46,18 @@ export class StepComponent {
                 //this.setStep(stepT);
                 console.log("OK->Get_step");
                 console.log(this.BuildStepData);
+                this.slimLoader.complete();
             },
-            error =>
-                console.log(error));        
+            error => {
+                console.log(error);
+                this.slimLoader.complete();
+            }
+            );         
     }
 
     Stert(): boolean {
         //var temp: Instruction = new Instruction(0, 0, "");
+        this.slimLoader.start();
         this.GetStep();
 
         return true;
@@ -69,14 +65,25 @@ export class StepComponent {
    
     //getItem: boolean = this.Stert();
 
+    ngOnInit(): void {
+        this.runSlimLoader();        
+        //this.LoadUsers();        
+    }
 
+    runSlimLoader() {
+        this.slimLoader.start();
+        setTimeout(() => {
+            this.slimLoader.complete();
+        }, 500);
+    }
 
 
     id: number;
     private subscription: Subscription;
 
     constructor(private http: Http, private _userService: UserService, private router: Router,
-        private dragulaService: DragulaService, private sanit: DomSanitizer, private activateRoute: ActivatedRoute) {
+        private dragulaService: DragulaService, private sanit: DomSanitizer,
+        private activateRoute: ActivatedRoute, private slimLoader: SlimLoadingBarService) {
 
 
         this.subscription = activateRoute.params.subscribe(params => {
@@ -114,6 +121,7 @@ export class StepComponent {
     }
 
     onChange(text: string, i: number) {
+        this.slimLoader.start();
         console.log(text);
         this.BuildStepData.Elements[i].Data = text;
         this._userService.put(Global.BASE_BUILDELEMENT_ENDPOINT, this.BuildStepData.Elements[i].Id, this.BuildStepData.Elements[i]).subscribe(
@@ -129,10 +137,11 @@ export class StepComponent {
                     console.log("NO->textCange");
                 }
 
-
+                this.slimLoader.complete();
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
                 //this.msg = error;
             }
         );
@@ -141,15 +150,20 @@ export class StepComponent {
 
 
     Develop(): void {
+        this.slimLoader.start();
         this.develop = true;
         console.log(this.develop);
+        this.slimLoader.complete();
     }
     View(): void {
+        this.slimLoader.start();
         this.develop = false;
         console.log(this.develop);
+        this.slimLoader.complete();
     }
 
     onChangeName(): void {        
+        this.slimLoader.start();
         this._userService.put(Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(
             data => {
                 if (data == 1) //Success
@@ -163,10 +177,11 @@ export class StepComponent {
                     console.log("NO->S");
                 }
 
-
+                this.slimLoader.complete();
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
                 //this.msg = error;
             }
         );    
@@ -189,7 +204,7 @@ export class StepComponent {
     }
 
     Create(type: number): void {
-
+        this.slimLoader.start();
         this._userService.post(Global.BASE_BUILDSTEP_ENDPOINT, new Element(0, this.BuildStepData.Id, type , this.BuildStepData.Elements.length)).subscribe(
             data => {
                 if (data == 1) //Success
@@ -204,10 +219,12 @@ export class StepComponent {
                     console.log("NO->step");
                 }
                 this.GetStep();
+                this.slimLoader.complete();
 
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
                 //this.msg = error;
             }
         );
@@ -215,19 +232,22 @@ export class StepComponent {
     }
 
     Delete(elementId: number): void {
+        this.slimLoader.start();
         this._userService.delete(Global.BASE_BUILDSTEP_ENDPOINT, elementId).subscribe(
             data => {
                 console.log("Good del");
                 this.GetStep();
+                this.slimLoader.complete();
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
             }
         );
     }
 
     Save(): void {
-
+        this.slimLoader.start();
         this.BuildStepData.Elements.forEach((step, index) => {
             step.Number = index + 1;
         });
@@ -246,11 +266,12 @@ export class StepComponent {
                     //this.msg = "There is some issue in saving records, please contact to system administrator!"
                     console.log("NO->S");
                 }
-
+                this.slimLoader.complete();
 
             },
             error => {
                 console.log(error);
+                this.slimLoader.complete();
                 //this.msg = error;
             }
         );    
@@ -258,32 +279,10 @@ export class StepComponent {
 
     }
 
-    //ImageChange(ImageName: string): void {
-    //    this.BuildStepData.ImageName = ImageName;       
-    //    this._userService.put(Global.BASE_BUILDSTEP_ENDPOINT, this.BuildStepData.Id, this.BuildStepData).subscribe(
-    //        data => {
-    //            if (data == 1) //Success
-    //            {
-    //                //this.msg = "Data successfully updated.";         
-    //                console.log("OK->S");
-
-    //            }
-    //            else {
-    //                //this.msg = "There is some issue in saving records, please contact to system administrator!"
-    //                console.log("NO->S");
-    //            }
-    //        },
-    //        error => {
-    //            console.log(error);
-    //            //this.msg = error;
-    //        }
-    //    );    
-    //    console.log("image");
-    //}
-
+ 
     
     AddImage(event: any) {
-
+        this.slimLoader.start();
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             let file: File = fileList[0];
@@ -304,16 +303,26 @@ export class StepComponent {
                     console.log('success');
                     this.BuildStepData = data;
                     this.BuildStepData.Elements = this.BuildStepData.Elements.sort((n1, n2) => n1.Number - n2.Number);
+                    this.slimLoader.complete();
                     //this.setStep(data);
                     //this.router.navigate(['account']);
                 },
-                error => console.log(error)
+                error => {
+                    console.log(error);
+                    this.slimLoader.complete();
+                }
                 )
+        }
+        else {
+            this.slimLoader.complete();
         }
         
     }  
+    OpenInstruction(id:number): void {
+        this.router.navigate(['buildInstruction', id]);
+    }
 
-
+  
     videoURL(elem: Element) {
         //return elem.Data
         return this.sanit.bypassSecurityTrustResourceUrl(elem.Data);

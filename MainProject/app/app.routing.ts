@@ -1,10 +1,10 @@
 ﻿import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { UserComponent } from './components/user.component';
+
 import { HomeComponent } from './components/home.component';
 import { AccountComponent } from './components/account.component';
-import { LoginComponent } from './components/login.component';
+
 import { RegisterComponent } from './components/register.component';
 import { BuildInstructionComponent } from './components/buildInstruction.component';
 import { StepComponent } from './components/step.component';
@@ -15,9 +15,9 @@ import { ViewUserComponent } from './components/viewUser.component';
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'user', component: UserComponent },
+   
     { path: 'account', component: AccountComponent },
-    { path: 'login', component: LoginComponent },
+   
     { path: 'register', component: RegisterComponent },
     { path: 'buildInstruction/:id', component: BuildInstructionComponent },
     { path: 'step/:id', component: StepComponent },

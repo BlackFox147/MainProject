@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnDestroy } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Global, LoginUserAccount } from '../Shared/global';
-import { ILogin } from '../Model/login';
+
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -12,6 +12,7 @@ import { UserProfile } from '../Model/profile';
 import { Step } from '../Model/step';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { SlimLoadingBarComponent, SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
     templateUrl: 'app/Components/viewUser.component.html',
@@ -26,9 +27,10 @@ export class ViewUserComponent {
 
     private isUploadBtn: boolean = true;
     constructor(private http: Http, private _userService: UserService, private router: Router,
-        private activateRoute: ActivatedRoute) {
+        private activateRoute: ActivatedRoute, private slimLoader: SlimLoadingBarService) {
         this.subscription = activateRoute.params.subscribe(params => {
             this.id = params['id'];
+
             this.Stert();
         });
     }
@@ -37,6 +39,7 @@ export class ViewUserComponent {
 
     Stert(): boolean {
         //var temp: Instruction = new Instruction(0, 0, "");
+        this.slimLoader.start();
         this.GetInstruction();
         return true;
     }
@@ -54,9 +57,13 @@ export class ViewUserComponent {
 
                 console.log("OK->Get_Instruction");
                 console.log(this.UserProfileData.Instructions);
+                this.slimLoader.complete();
             },
-            error =>
-                console.log(error));       
+            error => {
+                console.log(error);
+                this.slimLoader.complete();
+            }
+            );       
 
     }
   
@@ -71,5 +78,17 @@ export class ViewUserComponent {
         this.router.navigate(['viewStep', id]);
     }
 
-   
+    ngOnInit(): void {
+        this.runSlimLoader();
+       
+        //this.LoadUsers();        
+    }
+
+    runSlimLoader() {
+        this.slimLoader.start();
+        setTimeout(() => {
+            this.slimLoader.complete();
+        }, 500);
+    }
+
 }

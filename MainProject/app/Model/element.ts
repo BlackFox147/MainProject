@@ -1,4 +1,4 @@
-﻿import { Material } from '../Model/material';
+﻿
 
 export class Element {
     Id: number;

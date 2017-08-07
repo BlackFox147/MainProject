@@ -81,8 +81,10 @@ namespace MainProject.Controllers
         {
 
             var del = UsersDb.Instructions.Include("Steps").FirstOrDefault(x => x.Id == id);
+            var steps = UsersDb.Steps.Include("Elements").Where(p => p.InstructionId == id).ToList();
+            del.Steps = steps;
             int aaa = del.Steps.Count;
-          
+            
             DeleteInstruction(del);
             return ToJson(1);
         }

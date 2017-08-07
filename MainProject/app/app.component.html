@@ -22,7 +22,7 @@
 </div>-->
 <!-- Static navbar -->
 
-
+<ng2-slim-loading-bar></ng2-slim-loading-bar>
 <div class="container">
 
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -34,26 +34,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="#">Helper</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a [routerLink]="['home']">Home</a></li>
-                    <li><a [routerLink]="['user']">Users Management</a></li>
-
-                    <li><a [routerLink]="['login']">LoginTest</a></li>
+                    <li><a [routerLink]="['home']">Home</a></li>                   
 
                 </ul>
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+               
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a *ngIf="!isUserLoggedIn()" [routerLink]="['register']">Register</a></li>
+                    <li><a *ngIf="!isUserLoggedIn()" [routerLink]="['register']">Log in</a></li>
                     <li *ngIf="isUserLoggedIn()"><a [routerLink]="['account']">{{LoginUserAccountData.Profile.UserName}}</a></li>
-                    <li *ngIf="isUserLoggedIn()"><a href="#" (click)="LogOff()">LogOff</a></li>
+                    <li *ngIf="isUserLoggedIn()"><a href="#" (click)="LogOff()">Log off</a></li>
 
                 </ul>
             </div>
@@ -61,7 +53,8 @@
         </div>
         <!--/.container-fluid -->
     </nav>
-    <div style="margin-top: 50px;" class='container'>
+    <div style="margin-top: 50px;" class='container-fluid'>
         <router-outlet></router-outlet>
+        
     </div>
 </div>

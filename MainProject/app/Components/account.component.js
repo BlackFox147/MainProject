@@ -16,15 +16,32 @@ var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var router_1 = require("@angular/router");
 var instruction_1 = require("../Model/instruction");
+var user_1 = require("../Model/user");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var AccountComponent = (function () {
-    function AccountComponent(http, _userService, router) {
+    function AccountComponent(http, _userService, router, slimLoader) {
         this.http = http;
         this._userService = _userService;
         this.router = router;
+        this.slimLoader = slimLoader;
         this.isUploadBtn = true;
-        this.LoginUserAccountData = this.Stert();
+        this.LoginUserAccountData = new user_1.IUser("", "");
     }
+    AccountComponent.prototype.ngOnInit = function () {
+        this.runSlimLoader();
+        this.LoginUserAccountData = this.Stert();
+        //this.LoadUsers();        
+    };
+    AccountComponent.prototype.runSlimLoader = function () {
+        var _this = this;
+        this.slimLoader.start();
+        setTimeout(function () {
+            _this.slimLoader.complete();
+        }, 500);
+    };
     AccountComponent.prototype.onChange = function () {
+        var _this = this;
+        this.slimLoader.start();
         this._userService.put(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, this.LoginUserAccountData.Profile.Id, this.LoginUserAccountData.Profile).subscribe(function (data) {
             //if (data == 1) //Success
             //{
@@ -36,20 +53,22 @@ var AccountComponent = (function () {
             //    console.log("NO->");
             //}
             console.log("OK->");
+            _this.slimLoader.complete();
             //this.LoginUserAccountData.Profile = data;
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
             //this.msg = error;
         });
     };
     AccountComponent.prototype.Stert = function () {
-        this.LoginUserAccountData = global_1.LoginUserAccount.userData.getparams();
+        this.LoginUserAccountData = global_1.LoginUserAccount.userData;
         this.LoadUserInstruction();
-        return global_1.LoginUserAccount.userData.getparams();
+        return global_1.LoginUserAccount.userData;
     };
     AccountComponent.prototype.LoadUserInstruction = function () {
         var _this = this;
-        this._userService.getItem(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, global_1.LoginUserAccount.userData.getProfile().Id)
+        this._userService.getItem(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, global_1.LoginUserAccount.userData.Id)
             .subscribe(function (profile) {
             console.log(profile);
             _this.LoginUserAccountData.Profile = profile;
@@ -71,18 +90,22 @@ var AccountComponent = (function () {
     };
     AccountComponent.prototype.Create = function (instructionName) {
         var _this = this;
+        this.slimLoader.start();
         this._userService.post(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, new instruction_1.Instruction(0, 0, instructionName)).subscribe(function (data) {
             if (data == 1) {
                 //this.msg = "Data successfully updated.";
                 console.log("OK->Instruction");
                 _this.LoadUserInstruction();
+                _this.slimLoader.complete();
             }
             else {
                 //this.msg = "There is some issue in saving records, please contact to system administrator!"
                 console.log("NO->");
+                _this.slimLoader.complete();
             }
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
             //this.msg = error;
         });
         this.create = false;
@@ -93,27 +116,9 @@ var AccountComponent = (function () {
         //this.GetInstruction();
         this.router.navigate(['buildInstruction', instructionId]);
     };
-    //setInstruction(value: Instruction): void {
-    //    value.Steps = value.Steps.sort((n1, n2) => n1.Number - n2.Number);
-    //    BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
-    //    BuildInstructionNow.BuildInstruction.Steps = value.Steps;
-    //    BuildInstructionNow.BuildInstruction.Id = value.Id;
-    //    BuildInstructionNow.BuildInstruction.Name = value.Name;
-    //    BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
-    //    //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
-    //}
-    //GetInstruction(): void {
-    //    this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, BuildInstructionNow.buildInstruction)
-    //        .subscribe(instruction => {
-    //            this.setInstruction(instruction);
-    //            console.log("OK->Get_step");
-    //            console.log(BuildInstructionNow.BuildInstruction);
-    //        },
-    //        error =>
-    //            console.log(error));      
-    //}
     AccountComponent.prototype.fileChange = function (event) {
         var _this = this;
+        this.slimLoader.start();
         var fileList = event.target.files;
         if (fileList.length > 0) {
             var file_1 = fileList[0];
@@ -124,48 +129,46 @@ var AccountComponent = (function () {
             //headers.append('Accept', 'application/json');  
             var options = new http_1.RequestOptions({ headers: headers });
             var apiUrl1 = "api/uploadfileapi/";
-            //this._userService.post(apiUrl1, formData).subscribe(
-            //    data => {
-            //        if (data == 1) //Success
-            //        {
-            //            console.log('success');                        
-            //            console.log(LoginUserAccountData.Mabe.getparams());
-            //        }
-            //        else {
-            //            console.log('error');  
-            //        }
-            //    },
-            //    error => {
-            //        console.log(error);
-            //    }
-            //);
             this.http.post(apiUrl1, formData, options)
                 .map(function (res) { return res.json(); })
                 .catch(function (error) { return Rx_1.Observable.throw(error); })
                 .subscribe(function (data) {
                 console.log('success');
                 _this.LoginUserAccountData.Profile.UserImageName = file_1.name;
-                _this.router.navigate(['account']);
-            }, function (error) { return console.log(error); });
+                _this.slimLoader.complete();
+                //this.router.navigate(['account']);
+            }, function (error) {
+                console.log(error);
+                _this.slimLoader.complete();
+            });
         }
-        // window.location.reload();
+        else {
+            this.slimLoader.complete();
+        }
     };
     AccountComponent.prototype.Delete = function (instructionId) {
         var _this = this;
+        this.slimLoader.start();
         this._userService.delete(global_1.Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, instructionId).subscribe(function (data) {
             if (data == 1) {
                 console.log("Good del");
                 _this.LoadUserInstruction();
+                _this.slimLoader.complete();
             }
             else {
                 console.log("No del");
+                _this.slimLoader.complete();
             }
         }, function (error) {
             console.log(error);
+            _this.slimLoader.complete();
         });
     };
     AccountComponent.prototype.Open = function (id) {
         this.router.navigate(['step', id]);
+    };
+    AccountComponent.prototype.OpenUser = function (id) {
+        this.router.navigate(['viewUser', id]);
     };
     AccountComponent.prototype.onChangeUserName = function () {
         var _this = this;
@@ -179,7 +182,8 @@ var AccountComponent = (function () {
             templateUrl: 'app/Components/account.component.html',
             styleUrls: ['./app/Components/account.component.css']
         }),
-        __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router])
+        __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
+            ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], AccountComponent);
     return AccountComponent;
 }());

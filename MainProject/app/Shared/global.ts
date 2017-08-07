@@ -1,4 +1,4 @@
-﻿import { loginUser } from '../Model/login';
+﻿
 import { IUser } from '../Model/user';
 import { Instruction } from '../Model/instruction';
 import { Step } from '../Model/step';
@@ -15,7 +15,8 @@ export class Global {
 
 
 export class LoginUserAccount {
-    public static userData: loginUser = new loginUser();
+    //public static userData: loginUser = new loginUser();
+    public static userData: IUser = new IUser("", "");   
 }
 
 //export class BuildInstructionNow {

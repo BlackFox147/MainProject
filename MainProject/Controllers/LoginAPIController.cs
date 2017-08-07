@@ -37,18 +37,20 @@ namespace WebApplication9.Controllers
            
             if (one!=null)
             {
-                loggin = one;
-                profile = UsersDb.UserProfiles.Include("Instructions").FirstOrDefault(p => p.Id == loggin.Id);
-                loggin.Profile = profile;
-                //var instr = UsersDb.Instructions.Include("Steps").Where(p => p.UserProfileId == profile.Id).AsEnumerable();
+                if (value.Password == one.Password)
+                {
+                    loggin = one;
+                    //profile = UsersDb.UserProfiles.Include("Instructions").FirstOrDefault(p => p.Id == loggin.Id);
+                    //loggin.Profile = profile;
+                    return ToJson(1);
+                }
+                
                
-                //loggin.Profile.Instructions = instr.ToList();
             }
 
             //UsersDb.AllUsers.Add(value);
             //var s = UsersDb.SaveChanges();
-            var s = 1;
-            return ToJson(s);
+            return ToJson(2);
         }
 
         public HttpResponseMessage Put(int id, OneUser value)

@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnDestroy } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Global, LoginUserAccount } from '../Shared/global';
-import { ILogin } from '../Model/login';
+
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -14,6 +14,8 @@ import { Element } from '../Model/element';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
+import { SlimLoadingBarComponent, SlimLoadingBarService } from 'ng2-slim-loading-bar';
+
 @Component({
     templateUrl: 'app/Components/viewInstruction.component.html',
     styleUrls: ['./app/Components/example.css']
@@ -25,9 +27,10 @@ export class ViewInstructionComponent {
     private subscription: Subscription;
 
     constructor(private http: Http, private _userService: UserService, private router: Router,
-        private activateRoute: ActivatedRoute) {
+        private activateRoute: ActivatedRoute, private slimLoader: SlimLoadingBarService) {
         this.subscription = activateRoute.params.subscribe(params => {
             this.id = params['id'];
+
             this.Stert();
         });
         console.log("id " + this.id);
@@ -36,6 +39,19 @@ export class ViewInstructionComponent {
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
+
+    ngOnInit(): void {
+        this.runSlimLoader();        
+        //this.LoadUsers();        
+    }
+
+    runSlimLoader() {
+        this.slimLoader.start();
+        setTimeout(() => {
+            this.slimLoader.complete();
+        }, 500);
+    }
+
 
     BuildInstructionData: Instruction = new Instruction(0, 0, "");
 
@@ -49,6 +65,7 @@ export class ViewInstructionComponent {
 
     Stert(): boolean {
         //var temp: Instruction = new Instruction(0, 0, "");
+        this.slimLoader.start();
         this.GetInstruction();
 
         return true;
@@ -57,24 +74,31 @@ export class ViewInstructionComponent {
     GetInstruction(): void {
         var temp: Instruction = new Instruction(0, 0, "");
         var test = this.id;
-        console.log("test1 " + test);
+
         this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, test)
             .subscribe(instruction => {
-                console.log("test " + test);
+
                 this.BuildInstructionData = instruction;
                 this.BuildInstructionData.Steps = this.BuildInstructionData.Steps.sort((n1, n2) => n1.Number - n2.Number);
                 //this.setInstruction(instruction);
-                console.log("OK->Get_step");
-                console.log(this.BuildInstructionData);
+
+                this.slimLoader.complete();
             },
-            error =>
-                console.log(error));
+            error => {
+                this.slimLoader.complete();
+                console.log(error);
+            });
 
     }
 
     Open(id: number): void {
        
-        this.router.navigate(['viewStep', id]);
-       
+        this.router.navigate(['viewStep', id]);       
     }
+
+    OpenUser(id: number): void {
+
+        this.router.navigate(['viewUser', id]);
+    }
+
 }

@@ -10,6 +10,7 @@ import { Element } from '../Model/element';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { SlimLoadingBarComponent, SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
     templateUrl: 'app/Components/viewStep.component.html',
@@ -20,19 +21,7 @@ export class ViewStepComponent {
 
     BuildStepData: Step = new Step(0, 0, 0, "");
 
-   
-    //setStep(value: Step): void {
-    //    value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number);
-        
-    //    BuildStepNow.BuildStep.Id = value.Id;
-    //    //BuildStepNow.BuildStep.ImageName = value.ImageName;
-    //    BuildStepNow.BuildStep.Elements = value.Elements;
-    //    BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-    //    BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-    //    BuildStepNow.BuildStep.Name = value.Name;
-    //    BuildStepNow.BuildStep.Number = value.Number;
-    //}
-
+  
     GetStep(): void {
         this._userService.getItem(Global.BASE_BUILDSTEP_ENDPOINT, this.id)
             .subscribe(stepT => {
@@ -41,13 +30,18 @@ export class ViewStepComponent {
                 //this.setStep(stepT);
                 console.log("OK->Get_step");
                 console.log(this.BuildStepData);
+                this.slimLoader.complete();
             },
-            error =>
-                console.log(error));
+            error => {
+                console.log(error);
+                this.slimLoader.complete();
+            }
+            );
     }
 
     Stert(): boolean {
         //var temp: Instruction = new Instruction(0, 0, "");
+        this.slimLoader.start();
         this.GetStep();
 
         return true;
@@ -58,10 +52,11 @@ export class ViewStepComponent {
 
 
     constructor(private http: Http, private _userService: UserService, private router: Router,
-        private sanit: DomSanitizer, private activateRoute: ActivatedRoute) {
+        private sanit: DomSanitizer, private activateRoute: ActivatedRoute, private slimLoader: SlimLoadingBarService) {
 
         this.subscription = activateRoute.params.subscribe(params => {
             this.id = params['id'];
+
             this.Stert();
         });
 
@@ -72,5 +67,24 @@ export class ViewStepComponent {
         //return elem.Data
         return this.sanit.bypassSecurityTrustResourceUrl(elem.Data);
     }
+        
+    OpenInstruction(id: number): void {
+
+        this.router.navigate(['viewInstruction', id]);
+    }
+
+    ngOnInit(): void {
+        this.runSlimLoader();
+       
+        //this.LoadUsers();        
+    }
+
+    runSlimLoader() {
+        this.slimLoader.start();
+        setTimeout(() => {
+            this.slimLoader.complete();
+        }, 500);
+    }
+
 
 }

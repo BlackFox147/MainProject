@@ -16,13 +16,15 @@ var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var instruction_1 = require("../Model/instruction");
 var router_2 = require("@angular/router");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var ViewInstructionComponent = (function () {
-    function ViewInstructionComponent(http, _userService, router, activateRoute) {
+    function ViewInstructionComponent(http, _userService, router, activateRoute, slimLoader) {
         var _this = this;
         this.http = http;
         this._userService = _userService;
         this.router = router;
         this.activateRoute = activateRoute;
+        this.slimLoader = slimLoader;
         this.BuildInstructionData = new instruction_1.Instruction(0, 0, "");
         this.subscription = activateRoute.params.subscribe(function (params) {
             _this.id = params['id'];
@@ -33,6 +35,17 @@ var ViewInstructionComponent = (function () {
     ViewInstructionComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
+    ViewInstructionComponent.prototype.ngOnInit = function () {
+        this.runSlimLoader();
+        //this.LoadUsers();        
+    };
+    ViewInstructionComponent.prototype.runSlimLoader = function () {
+        var _this = this;
+        this.slimLoader.start();
+        setTimeout(function () {
+            _this.slimLoader.complete();
+        }, 500);
+    };
     ViewInstructionComponent.prototype.setInstruction = function (value) {
         value.Steps = value.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
         this.BuildInstructionData.DataTimeChange = value.DataTimeChange;
@@ -41,6 +54,7 @@ var ViewInstructionComponent = (function () {
     };
     ViewInstructionComponent.prototype.Stert = function () {
         //var temp: Instruction = new Instruction(0, 0, "");
+        this.slimLoader.start();
         this.GetInstruction();
         return true;
     };
@@ -48,21 +62,22 @@ var ViewInstructionComponent = (function () {
         var _this = this;
         var temp = new instruction_1.Instruction(0, 0, "");
         var test = this.id;
-        console.log("test1 " + test);
         this._userService.getItem(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, test)
             .subscribe(function (instruction) {
-            console.log("test " + test);
             _this.BuildInstructionData = instruction;
             _this.BuildInstructionData.Steps = _this.BuildInstructionData.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
             //this.setInstruction(instruction);
-            console.log("OK->Get_step");
-            console.log(_this.BuildInstructionData);
+            _this.slimLoader.complete();
         }, function (error) {
-            return console.log(error);
+            _this.slimLoader.complete();
+            console.log(error);
         });
     };
     ViewInstructionComponent.prototype.Open = function (id) {
-        this.router.navigate(['step', id]);
+        this.router.navigate(['viewStep', id]);
+    };
+    ViewInstructionComponent.prototype.OpenUser = function (id) {
+        this.router.navigate(['viewUser', id]);
     };
     ViewInstructionComponent = __decorate([
         core_1.Component({
@@ -71,7 +86,7 @@ var ViewInstructionComponent = (function () {
             //styleUrls: ['./app/Components/account.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            router_2.ActivatedRoute])
+            router_2.ActivatedRoute, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], ViewInstructionComponent);
     return ViewInstructionComponent;
 }());

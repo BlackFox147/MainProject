@@ -16,13 +16,15 @@ var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var profile_1 = require("../Model/profile");
 var router_2 = require("@angular/router");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var ViewUserComponent = (function () {
-    function ViewUserComponent(http, _userService, router, activateRoute) {
+    function ViewUserComponent(http, _userService, router, activateRoute, slimLoader) {
         var _this = this;
         this.http = http;
         this._userService = _userService;
         this.router = router;
         this.activateRoute = activateRoute;
+        this.slimLoader = slimLoader;
         this.isUploadBtn = true;
         this.UserProfileData = new profile_1.UserProfile(0, 0, "", "", "", null);
         this.subscription = activateRoute.params.subscribe(function (params) {
@@ -32,6 +34,7 @@ var ViewUserComponent = (function () {
     }
     ViewUserComponent.prototype.Stert = function () {
         //var temp: Instruction = new Instruction(0, 0, "");
+        this.slimLoader.start();
         this.GetInstruction();
         return true;
     };
@@ -45,8 +48,10 @@ var ViewUserComponent = (function () {
             _this.UserProfileData = profile;
             console.log("OK->Get_Instruction");
             console.log(_this.UserProfileData.Instructions);
+            _this.slimLoader.complete();
         }, function (error) {
-            return console.log(error);
+            console.log(error);
+            _this.slimLoader.complete();
         });
     };
     ViewUserComponent.prototype.OpenInstruction = function (instructionId) {
@@ -55,13 +60,24 @@ var ViewUserComponent = (function () {
     ViewUserComponent.prototype.Open = function (id) {
         this.router.navigate(['viewStep', id]);
     };
+    ViewUserComponent.prototype.ngOnInit = function () {
+        this.runSlimLoader();
+        //this.LoadUsers();        
+    };
+    ViewUserComponent.prototype.runSlimLoader = function () {
+        var _this = this;
+        this.slimLoader.start();
+        setTimeout(function () {
+            _this.slimLoader.complete();
+        }, 500);
+    };
     ViewUserComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/Components/viewUser.component.html',
             styleUrls: ['./app/Components/account.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            router_2.ActivatedRoute])
+            router_2.ActivatedRoute, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], ViewUserComponent);
     return ViewUserComponent;
 }());

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var login_1 = require("../Model/login");
+var user_1 = require("../Model/user");
 var Global = (function () {
     function Global() {
     }
@@ -17,7 +17,8 @@ exports.Global = Global;
 var LoginUserAccount = (function () {
     function LoginUserAccount() {
     }
-    LoginUserAccount.userData = new login_1.loginUser();
+    //public static userData: loginUser = new loginUser();
+    LoginUserAccount.userData = new user_1.IUser("", "");
     return LoginUserAccount;
 }());
 exports.LoginUserAccount = LoginUserAccount;

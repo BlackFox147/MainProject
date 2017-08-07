@@ -12,11 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var global_1 = require("./Shared/global");
 var router_1 = require("@angular/router");
+var user_1 = require("./Model/user");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var AppComponent = (function () {
-    function AppComponent(router) {
+    function AppComponent(router, slimLoader) {
         this.router = router;
-        this.LoginUserAccountData = global_1.LoginUserAccount.userData.getparams();
+        this.slimLoader = slimLoader;
+        this.LoginUserAccountData = global_1.LoginUserAccount.userData;
         this.a = "a";
+        this.slimLoader.height = '4px';
+        this.slimLoader.color = 'blue';
     }
     AppComponent.prototype.ShowE = function () {
         console.log(this.LoginUserAccountData);
@@ -35,17 +40,28 @@ var AppComponent = (function () {
             return true;
     };
     AppComponent.prototype.LogOff = function () {
-        global_1.LoginUserAccount.userData.logOff();
-        this.LoginUserAccountData = global_1.LoginUserAccount.userData.getparams();
+        delete (global_1.LoginUserAccount.userData);
+        global_1.LoginUserAccount.userData = new user_1.IUser("", "");
+        this.LoginUserAccountData = global_1.LoginUserAccount.userData;
         this.router.navigate(['/']);
         console.log(this.LoginUserAccountData);
+    };
+    AppComponent.prototype.ngOnInit = function () {
+        this.runSlimLoader();
+    };
+    AppComponent.prototype.runSlimLoader = function () {
+        var _this = this;
+        this.slimLoader.start();
+        setTimeout(function () {
+            _this.slimLoader.complete();
+        }, 500);
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: "user-app",
             templateUrl: 'app/app.component.html'
         }),
-        __metadata("design:paramtypes", [router_1.Router])
+        __metadata("design:paramtypes", [router_1.Router, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], AppComponent);
     return AppComponent;
 }());

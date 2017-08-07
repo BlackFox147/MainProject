@@ -3,11 +3,11 @@ import { UserService } from '../Service/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { IUser } from '../Model/user';
-import { ILogin } from '../Model/login';
-import { DBOperation } from '../Shared/enum';
+
+
 import { Observable } from 'rxjs/Rx';
 import { Global, LoginUserAccount } from '../Shared/global';
-import { loginUser } from '../Model/login';
+import { SlimLoadingBarComponent, SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { UserProfile } from '../Model/profile';
 import { Router } from '@angular/router';       //!!!
 
@@ -22,26 +22,27 @@ export class RegisterComponent {
     user: IUser;
     msg: string;
     indLoading: boolean = false;
-    userFrm: FormGroup;
-    dbops: DBOperation;
+
     modalTitle: string;
     modalBtnTitle: string;
     info: string = "Start";
     activeUrl: string; 
 
 
-    constructor(private fb: FormBuilder, private _userService: UserService, private router: Router) {       //!!!
+    constructor( private _userService: UserService,
+        private router: Router, private slimLoader: SlimLoadingBarService) {       //!!!
+    }
+    
+    runSlimLoader() {
+        this.slimLoader.start();
+        setTimeout(() => {
+            this.slimLoader.complete();
+        }, 500);
     }
 
 
     ngOnInit(): void {
-        this.userFrm = this.fb.group({
-            Id: [''],
-            UserName: [''],
-            Email: [''],
-            Password: [''],
-            Profile:['']
-        });
+        this.runSlimLoader();       
         //this.LoadUsers();        
     }
 
@@ -49,22 +50,19 @@ export class RegisterComponent {
         this.indLoading = true;
         this._userService.get(this.activeUrl)
             .subscribe(user => {
-                LoginUserAccount.userData.setId(user.Id);
-                LoginUserAccount.userData.setemail(user.Email);
-                //LoginUserAccount.userData.setName(user.UserName);
-                LoginUserAccount.userData.setPassord(user.Password);
-                if (user.Profile.Age == 0) {
-                    user.Profile.Age = null;
-                }
-                LoginUserAccount.userData.setProfile(user.Profile);
-                
+                console.log(user);
+
+                LoginUserAccount.userData.Id = user.Id;
+                LoginUserAccount.userData.Profile = user.Profile;
+             
             },
             error => this.msg = <any>error);
-        //Asd.Mabe.setId(this.user.Id);
+
     }
 
     onSubmit(register_email: string, register_password: string, register_cpassword: string) {
 
+        this.slimLoader.start();
         this.msg = "";
 
         var required = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$/;
@@ -72,6 +70,7 @@ export class RegisterComponent {
         if (!required.test(register_email)) {
             this.msg = "Email isn't correct";
             console.log("wrong email");
+            this.slimLoader.complete();
             return;            
         }
 
@@ -79,6 +78,7 @@ export class RegisterComponent {
         if (register_password != register_cpassword) {
             this.msg = "ConformPassword isn't correct";
             console.log("No ConformPassword");
+            this.slimLoader.complete();
             return;
         }
         
@@ -88,20 +88,26 @@ export class RegisterComponent {
                 {
                     this.msg = "Data successfully added.";
                     this.LoadOneUsers();
-                    console.log(LoginUserAccount.userData.getparams());
+                    //console.log(LoginUserAccount.userData.getparams());
+                    this.slimLoader.complete();
+                    this.router.navigate(['/']); 
                 }                
                 else {
+                    this.slimLoader.complete();
                     this.msg = "There is some issue in saving records, please contact to system administrator!"
                 }
             },
             error => {
+                this.slimLoader.complete();
                 this.msg = error;
             }
         );
+        
     }
 
 
-    onSubmitLogin(email:string, password:string) {
+    onSubmitLogin(email: string, password: string) {
+        this.slimLoader.start();
         this.msg = "";
 
         this.activeUrl = Global.BASE_LOGIN_ENDPOINT;
@@ -112,24 +118,26 @@ export class RegisterComponent {
                 {
                     this.msg = "Data successfully added.";
                     this.LoadOneUsers();
-                    console.log(LoginUserAccount.userData.getparams());
+                    console.log(LoginUserAccount.userData);
+                    this.slimLoader.complete();
                     this.router.navigate(['/']);       //!!!
                 }
                 if (data == 2) {
-                    this.msg = "Wrong Email";
+                    this.slimLoader.complete();
+                    this.msg = "Wrong Email or Password";
                 }
                 else {
+                    this.slimLoader.complete();
                     this.msg = "There is some issue in saving records, please contact to system administrator!"
                 }
 
             },
             error => {
+                this.slimLoader.complete();
                 this.msg = error;
             }
         );
+        
     }
 
-    SetControlsState(isEnable: boolean) {
-        isEnable ? this.userFrm.enable() : this.userFrm.disable();
-    }
 }
