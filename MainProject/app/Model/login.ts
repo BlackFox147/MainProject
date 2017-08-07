@@ -1,7 +1,7 @@
 ﻿import { IUser } from '../Model/user';
 import { UserProfile } from '../Model/profile';
 import { Instruction } from '../Model/instruction';
-import { BuildInstructionNow } from '../Shared/global';
+
 
 export class ILogin{
     Id: number;
@@ -56,34 +56,34 @@ export class loginUser {
         this.userAccount.Password = em;
     }
 
-    public getInstrustion() {
-        var temp: Instruction = new Instruction(0, 0, "");
-        this.userAccount.Profile.Instructions.forEach(instructin => {           
-            if (instructin.Id == BuildInstructionNow.buildInstruction) {               
-                temp = instructin;    
-                return;            
-            }            
-        }) 
+    //public getInstrustion() {
+    //    var temp: Instruction = new Instruction(0, 0, "");
+    //    this.userAccount.Profile.Instructions.forEach(instructin => {           
+    //        if (instructin.Id == BuildInstructionNow.buildInstruction) {               
+    //            temp = instructin;    
+    //            return;            
+    //        }            
+    //    }) 
 
-        temp.Steps = temp.Steps.sort((n1, n2) => n1.Number - n2.Number);         
-        return temp;
-    }
+    //    temp.Steps = temp.Steps.sort((n1, n2) => n1.Number - n2.Number);         
+    //    return temp;
+    //}
 
-    public setInstrustion(temp: Instruction) {
-        //var temp: Instruction = new Instruction(0, 0, "", 0, null);
-        console.log(temp);
-        temp.Steps = temp.Steps.sort((n1, n2) => n1.Number - n2.Number);
-        this.userAccount.Profile.Instructions.forEach(instructin => {
-            if (instructin.Id == BuildInstructionNow.buildInstruction) {
+    //public setInstrustion(temp: Instruction) {
+    //    //var temp: Instruction = new Instruction(0, 0, "", 0, null);
+    //    console.log(temp);
+    //    temp.Steps = temp.Steps.sort((n1, n2) => n1.Number - n2.Number);
+    //    this.userAccount.Profile.Instructions.forEach(instructin => {
+    //        if (instructin.Id == BuildInstructionNow.buildInstruction) {
 
-                instructin.DataTimeChange = temp.DataTimeChange;               
-                instructin.Steps = temp.Steps;
-                //instructin.ImageName = temp.ImageName;
+    //            instructin.DataTimeChange = temp.DataTimeChange;               
+    //            instructin.Steps = temp.Steps;
+    //            //instructin.ImageName = temp.ImageName;
 
-                return;
-            }
-        })       
-    }
+    //            return;
+    //        }
+    //    })       
+    //}
     
 
 

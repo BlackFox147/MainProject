@@ -14,16 +14,24 @@ var global_1 = require("../Shared/global");
 var user_service_1 = require("../Service/user.service");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
+var instruction_1 = require("../Model/instruction");
 var ng2_dragula_1 = require("ng2-dragula/ng2-dragula");
 var step_1 = require("../Model/step");
+var router_2 = require("@angular/router");
 var BuildInstructionComponent = (function () {
-    function BuildInstructionComponent(http, _userService, router, dragulaService) {
+    function BuildInstructionComponent(http, _userService, router, dragulaService, activateRoute) {
         var _this = this;
         this.http = http;
         this._userService = _userService;
         this.router = router;
         this.dragulaService = dragulaService;
-        this.BuildInstructionData = global_1.BuildInstructionNow.BuildInstruction;
+        this.activateRoute = activateRoute;
+        this.BuildInstructionData = new instruction_1.Instruction(0, 0, "");
+        this.subscription = activateRoute.params.subscribe(function (params) {
+            _this.id = params['id'];
+            _this.Stert();
+        });
+        console.log("id " + this.id);
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
         });
@@ -31,23 +39,36 @@ var BuildInstructionComponent = (function () {
             _this.onRemoveModel(value.slice(1));
         });
     }
+    BuildInstructionComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
     BuildInstructionComponent.prototype.setInstruction = function (value) {
         value.Steps = value.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
-        global_1.BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
-        global_1.BuildInstructionNow.BuildInstruction.Steps = value.Steps;
+        this.BuildInstructionData.DataTimeChange = value.DataTimeChange;
+        this.BuildInstructionData.Steps = value.Steps;
         //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
+    };
+    BuildInstructionComponent.prototype.Stert = function () {
+        //var temp: Instruction = new Instruction(0, 0, "");
+        this.GetInstruction();
+        return true;
     };
     BuildInstructionComponent.prototype.GetInstruction = function () {
         var _this = this;
-        this._userService.getItem(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, global_1.BuildInstructionNow.buildInstruction)
+        var temp = new instruction_1.Instruction(0, 0, "");
+        var test = this.id;
+        console.log("test1 " + test);
+        this._userService.getItem(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, test)
             .subscribe(function (instruction) {
-            _this.setInstruction(instruction);
+            console.log("test " + test);
+            _this.BuildInstructionData = instruction;
+            _this.BuildInstructionData.Steps = _this.BuildInstructionData.Steps.sort(function (n1, n2) { return n1.Number - n2.Number; });
+            //this.setInstruction(instruction);
             console.log("OK->Get_step");
             console.log(_this.BuildInstructionData);
         }, function (error) {
             return console.log(error);
         });
-        return true;
     };
     BuildInstructionComponent.prototype.Test = function () {
         console.log(this.BuildInstructionData);
@@ -128,43 +149,17 @@ var BuildInstructionComponent = (function () {
         this.create = false;
     };
     BuildInstructionComponent.prototype.Open = function (id) {
-        global_1.BuildStepNow.buildStep = id;
-        console.log(global_1.BuildStepNow.buildStep);
+        //BuildStepNow.buildStep = id;
+        //console.log(BuildStepNow.buildStep);
         //this.GetStep();
-        this.router.navigate(['step']);
-    };
-    BuildInstructionComponent.prototype.setStep = function (value) {
-        console.log(value);
-        global_1.BuildStepNow.BuildStep.Id = value.Id;
-        global_1.BuildStepNow.BuildStep.Elements = value.Elements;
-        global_1.BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-        global_1.BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-        global_1.BuildStepNow.BuildStep.Name = value.Name;
-        global_1.BuildStepNow.BuildStep.Number = value.Number;
-    };
-    BuildInstructionComponent.prototype.GetStep = function () {
-        var _this = this;
-        this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, global_1.BuildStepNow.buildStep)
-            .subscribe(function (stepT) {
-            _this.setStep(stepT);
-            console.log("OK->Get_step");
-            console.log(global_1.BuildStepNow.BuildStep);
-        }, function (error) {
-            return console.log(error);
-        });
+        this.router.navigate(['step', id]);
+        //this.router.navigate(['/courses', course.id]);
     };
     BuildInstructionComponent.prototype.onChangeName = function () {
         var _this = this;
         console.log(this.BuildInstructionData.Name);
         this._userService.put(global_1.Global.BASE_BUILDINSTRUCTION_ENDPOINT, this.BuildInstructionData.Id, this.BuildInstructionData).subscribe(function (data) {
-            if (data == 1) {
-                //this.msg = "Data successfully updated.";         
-                console.log("OK->N");
-            }
-            else {
-                //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                console.log("NO->N");
-            }
+            console.log("OK->name");
             _this.LoadUserInstruction();
         }, function (error) {
             console.log(error);
@@ -179,7 +174,7 @@ var BuildInstructionComponent = (function () {
             //styleUrls: ['./app/Components/account.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            ng2_dragula_1.DragulaService])
+            ng2_dragula_1.DragulaService, router_2.ActivatedRoute])
     ], BuildInstructionComponent);
     return BuildInstructionComponent;
 }());

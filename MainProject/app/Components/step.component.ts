@@ -1,6 +1,6 @@
-﻿import { Component, ViewChild } from '@angular/core';
+﻿import { Component, ViewChild, OnDestroy} from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Global, LoginUserAccount, BuildInstructionNow, BuildStepNow } from '../Shared/global';
+import { Global, LoginUserAccount } from '../Shared/global';
 import { ILogin } from '../Model/login';
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
@@ -12,6 +12,8 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Step } from '../Model/step';
 import { Element } from '../Model/element';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     templateUrl: 'app/Components/step.component.html',
@@ -20,7 +22,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class StepComponent {
 
-    BuildStepData: Step = this.GetStep();
+    BuildStepData: Step = new Step(0,0,0,"");
 
     private onDropModel(args: any) {
         let [el, target, source] = args;
@@ -33,35 +35,56 @@ export class StepComponent {
         // do something else
     }
 
-    setStep(value: Step): void {
-        value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number); 
+    //setStep(value: Step): void {
+    //    value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number); 
 
-        BuildStepNow.BuildStep.Id = value.Id;
-        //BuildStepNow.BuildStep.ImageName = value.ImageName;
-        BuildStepNow.BuildStep.Elements = value.Elements;
-        BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-        BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-        BuildStepNow.BuildStep.Name = value.Name;
-        BuildStepNow.BuildStep.Number = value.Number;
-    }
+    //    BuildStepNow.BuildStep.Id = value.Id;
+    //    //BuildStepNow.BuildStep.ImageName = value.ImageName;
+    //    BuildStepNow.BuildStep.Elements = value.Elements;
+    //    BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
+    //    BuildStepNow.BuildStep.InstructionId = value.InstructionId;
+    //    BuildStepNow.BuildStep.Name = value.Name;
+    //    BuildStepNow.BuildStep.Number = value.Number;
+    //}
 
-    GetStep(): Step {
-        this._userService.getItem(Global.BASE_BUILDSTEP_ENDPOINT, BuildStepNow.buildStep)
+    GetStep(): void {
+        this._userService.getItem(Global.BASE_BUILDSTEP_ENDPOINT, this.id)
             .subscribe(stepT => {
-
-                this.setStep(stepT);
+                this.BuildStepData = stepT;
+                this.BuildStepData.Elements = this.BuildStepData.Elements.sort((n1, n2) => n1.Number - n2.Number);
+                //this.setStep(stepT);
                 console.log("OK->Get_step");
-                console.log(BuildStepNow.BuildStep);
+                console.log(this.BuildStepData);
             },
             error =>
-                console.log(error));
-
-        return BuildStepNow.BuildStep;
+                console.log(error));        
     }
 
+    Stert(): boolean {
+        //var temp: Instruction = new Instruction(0, 0, "");
+        this.GetStep();
+
+        return true;
+    }
+   
+    //getItem: boolean = this.Stert();
+
+
+
+
+    id: number;
+    private subscription: Subscription;
 
     constructor(private http: Http, private _userService: UserService, private router: Router,
-        private dragulaService: DragulaService, private sanit: DomSanitizer) {
+        private dragulaService: DragulaService, private sanit: DomSanitizer, private activateRoute: ActivatedRoute) {
+
+
+        this.subscription = activateRoute.params.subscribe(params => {
+            this.id = params['id'];
+            this.Stert();
+        });
+        //this.id = activateRoute.snapshot.params['id'];
+        console.log("id " + this.id);
 
         dragulaService.dropModel.subscribe((value: any) => {
             this.onDropModel(value.slice(1));
@@ -71,6 +94,9 @@ export class StepComponent {
         });
         //this.BuildStepData.Elements[0].Materials[0].Data
         this.sanit = sanit;    
+    }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
    
@@ -177,7 +203,7 @@ export class StepComponent {
                     //this.msg = "There is some issue in saving records, please contact to system administrator!"
                     console.log("NO->step");
                 }
-                this.BuildStepData = this.GetStep();
+                this.GetStep();
 
             },
             error => {
@@ -192,7 +218,7 @@ export class StepComponent {
         this._userService.delete(Global.BASE_BUILDSTEP_ENDPOINT, elementId).subscribe(
             data => {
                 console.log("Good del");
-                this.BuildStepData= this.GetStep();
+                this.GetStep();
             },
             error => {
                 console.log(error);
@@ -276,7 +302,9 @@ export class StepComponent {
                 .subscribe(
                 data => {
                     console.log('success');
-                    this.setStep(data);
+                    this.BuildStepData = data;
+                    this.BuildStepData.Elements = this.BuildStepData.Elements.sort((n1, n2) => n1.Number - n2.Number);
+                    //this.setStep(data);
                     //this.router.navigate(['account']);
                 },
                 error => console.log(error)

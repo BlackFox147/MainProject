@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var login_1 = require("../Model/login");
-var instruction_1 = require("../Model/instruction");
-var step_1 = require("../Model/step");
 var Global = (function () {
     function Global() {
     }
@@ -23,22 +21,14 @@ var LoginUserAccount = (function () {
     return LoginUserAccount;
 }());
 exports.LoginUserAccount = LoginUserAccount;
-var BuildInstructionNow = (function () {
-    function BuildInstructionNow() {
-    }
-    BuildInstructionNow.buildInstruction = 0;
-    BuildInstructionNow.BuildInstruction = new instruction_1.Instruction(0, 0, "");
-    return BuildInstructionNow;
-}());
-exports.BuildInstructionNow = BuildInstructionNow;
-var BuildStepNow = (function () {
-    function BuildStepNow() {
-    }
-    BuildStepNow.buildStep = 0;
-    BuildStepNow.BuildStep = new step_1.Step(0, 0, 0, "");
-    return BuildStepNow;
-}());
-exports.BuildStepNow = BuildStepNow;
+//export class BuildInstructionNow {
+//    public static buildInstruction: number = 0;   
+//    public static BuildInstruction: Instruction = new Instruction(0, 0, "");
+//}
+//export class BuildStepNow {
+//    public static buildStep: number = 0;
+//    public static BuildStep: Step = new Step(0,0,0,"");
+//}
 //public static Log: ILogin = new ILogin(0, "", "", "");  
 //export class LoginUser {
 //    private Log: ILogin = new ILogin(0, "", "", "");   

@@ -1,0 +1,53 @@
+﻿
+<div class="panel panel-default col-sm-12 col-lg-12 col-md-12">
+    <div class="panel-body">
+        <div class="row">
+
+            <div class="col-md-9">
+               <h3>{{BuildInstructionData.Name}}</h3> 
+            </div>
+
+        </div>
+        <hr>
+        <span class="pull-left">
+            <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Steps <span class="badge">{{BuildInstructionData.Steps.length}}</span></a>
+                       
+        </span>
+        <span>
+            <a class="pull-right" style="font-size:16px;">
+                {{BuildInstructionData.UserName}} <!--<span class="badge">411</span>-->
+            </a>
+        </span>
+
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="container">
+
+        <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let step of BuildInstructionData.Steps">
+            <div class="card card-favorite">
+               
+                <div class="card-content">
+                    <div class="card-meta">
+
+                    </div>
+                    <h2 class="box-text btn-link">
+                        <a title={{step.Name}} (click)="Open(step.Id)">
+                            {{step.Name}}
+                        </a>
+                    </h2>
+                </div>
+              
+                <span class="meta-tags">
+                    <a class="tag">{{step.DataTimeChange}}</a>
+                </span>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

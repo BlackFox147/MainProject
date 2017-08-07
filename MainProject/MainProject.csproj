@@ -273,8 +273,10 @@
     <Content Include="app\Components\step.component.html" />
     <Content Include="app\Components\user.component.css" />
     <Content Include="app\Components\user.component.html" />
+    <Content Include="app\Components\viewInstruction.component.html" />
     <Content Include="app\Components\viewStep.component.css" />
     <Content Include="app\Components\viewStep.component.html" />
+    <Content Include="app\Components\viewUser.component.html" />
     <Content Include="App_Data\UserDB.mdf" />
     <Content Include="App_Data\UserDB_log.ldf">
       <DependentUpon>UserDB.mdf</DependentUpon>
@@ -344,7 +346,9 @@
     <TypeScriptCompile Include="app\Components\register.component.ts" />
     <TypeScriptCompile Include="app\Components\step.component.ts" />
     <TypeScriptCompile Include="app\Components\user.component.ts" />
+    <TypeScriptCompile Include="app\Components\viewInstruction.component.ts" />
     <TypeScriptCompile Include="app\Components\viewStep.component.ts" />
+    <TypeScriptCompile Include="app\Components\viewUser.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\Model\element.ts" />
     <TypeScriptCompile Include="app\Model\instruction.ts" />

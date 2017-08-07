@@ -27,10 +27,13 @@ var UserComponent = (function () {
         this.info = "Start";
     }
     UserComponent.prototype.OpenStep = function (id) {
-        global_1.BuildStepNow.buildStep = id;
-        console.log(global_1.BuildStepNow.buildStep);
-        //this.GetStep();
-        this.router.navigate(['viewStep']);
+        this.router.navigate(['viewStep', id]);
+    };
+    UserComponent.prototype.OpenInstruction = function (id) {
+        this.router.navigate(['viewInstruction', id]);
+    };
+    UserComponent.prototype.OpenUser = function (id) {
+        this.router.navigate(['viewUser', id]);
     };
     UserComponent.prototype.ngOnInit = function () {
         this.userFrm = this.fb.group({

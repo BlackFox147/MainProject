@@ -1,0 +1,104 @@
+﻿
+<div style="padding-top:25px;"> </div>
+<div class="col-sm-3">
+    <!--left col-->
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="media">
+                <div align="center">
+                    <img *ngIf='UserProfileData.UserImageName!=null' class="thumbnail img-responsive" alt="Responsive image" src="../../images/{{UserProfileData.UserImageName}}" style="display: block;max-width:100%;height:auto;">
+                    <img *ngIf='UserProfileData.UserImageName==null' class="thumbnail img-responsive" alt="Responsive image" src="../../images/no_avatar.png" style="display: block;max-width:100%;height:auto;">
+
+                    <hr />
+                </div>
+                <div class="media-body">
+                    <h5><strong>UserName</strong></h5>
+                    <h4 *ngIf="UserProfileData.UserName!=null">{{UserProfileData.UserName}}</h4>
+                    <h4 *ngIf="UserProfileData.UserName==null">---</h4>
+
+                    <h5><strong>FirstName</strong></h5>
+                    <h4 *ngIf="UserProfileData.FirstName!=null">{{UserProfileData.FirstName}}</h4>
+                    <h4 *ngIf="UserProfileData.FirstName==null">---</h4>
+
+                    <h5><strong>LastName</strong></h5>
+                    <h4 *ngIf="UserProfileData.LastName!=null">{{UserProfileData.LastName}}</h4>
+                    <h4 *ngIf="UserProfileData.LastName==null">---</h4>
+
+                    <h5><strong>Age</strong></h5>
+                    <h4 *ngIf="UserProfileData.Age!=0">{{UserProfileData.Age}}</h4>
+                    <h4 *ngIf="UserProfileData.Age==0">---</h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-9">
+
+    <div class="wp-block property list" *ngFor="let instruction of UserProfileData.Instructions; let i = index">
+
+        <div class="wp-block-body">
+
+            <div class="wp-block-content">
+
+                <button style="padding:0px;" (click)="OpenInstruction(instruction.Id)" type="button" class="btn btn-link"><h4 class="content-title">{{instruction.Name}}</h4></button>
+
+
+                <div class="container">
+                    <div class="row">
+                        <div>
+
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" [attr.data-target]="'#stepDetails' + i">
+                                                {{instruction.Steps.length}} STEPS
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div [attr.id]="'stepDetails' + i" class="panel-collapse collapse">
+
+
+                                        <div class="list-group">
+
+                                            <a (click)="Open(step.Id)" class="list-group-item" *ngFor="let step of instruction.Steps; let i = index">
+                                                <span class="glyphicon glyphicon-th-list"></span> {{step.Name}} <!--<span class="badge">411</span>-->
+                                            </a>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div><!-- /.panel-group -->
+
+                        </div><!-- /.col-md-offset-3 col-md-6 -->
+                    </div><!-- /.row -->
+                </div><!-- /.container -->
+
+
+            </div>
+        </div>
+
+        <div class="wp-block-footer">
+            <p class="aux-info">
+                <!--<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> {{instruction.Steps.length}}-->
+                <small>
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{instruction.DataTimeChange}}
+                </small>
+                <a class="pull-right" style="font-size:16px;">
+                    {{instruction.UserName}} <!--<span class="badge">411</span>-->
+                </a>
+            </p>
+
+        </div>
+
+
+
+
+    </div>
+</div>
+

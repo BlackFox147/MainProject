@@ -16,22 +16,31 @@ var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var router_1 = require("@angular/router");
 var ng2_dragula_1 = require("ng2-dragula/ng2-dragula");
+var step_1 = require("../Model/step");
 var element_1 = require("../Model/element");
 var platform_browser_1 = require("@angular/platform-browser");
+var router_2 = require("@angular/router");
 var StepComponent = (function () {
-    function StepComponent(http, _userService, router, dragulaService, sanit) {
+    function StepComponent(http, _userService, router, dragulaService, sanit, activateRoute) {
         var _this = this;
         this.http = http;
         this._userService = _userService;
         this.router = router;
         this.dragulaService = dragulaService;
         this.sanit = sanit;
-        this.BuildStepData = this.GetStep();
+        this.activateRoute = activateRoute;
+        this.BuildStepData = new step_1.Step(0, 0, 0, "");
         this.markdownContent = "## Markdown content data";
         //trackByIndex(index: number, value: number) {
         //    return index;
         //}
         this.develop = true;
+        this.subscription = activateRoute.params.subscribe(function (params) {
+            _this.id = params['id'];
+            _this.Stert();
+        });
+        //this.id = activateRoute.snapshot.params['id'];
+        console.log("id " + this.id);
         dragulaService.dropModel.subscribe(function (value) {
             _this.onDropModel(value.slice(1));
         });
@@ -49,27 +58,36 @@ var StepComponent = (function () {
         var el = args[0], source = args[1];
         // do something else
     };
-    StepComponent.prototype.setStep = function (value) {
-        value.Elements = value.Elements.sort(function (n1, n2) { return n1.Number - n2.Number; });
-        global_1.BuildStepNow.BuildStep.Id = value.Id;
-        //BuildStepNow.BuildStep.ImageName = value.ImageName;
-        global_1.BuildStepNow.BuildStep.Elements = value.Elements;
-        global_1.BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-        global_1.BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-        global_1.BuildStepNow.BuildStep.Name = value.Name;
-        global_1.BuildStepNow.BuildStep.Number = value.Number;
-    };
+    //setStep(value: Step): void {
+    //    value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number); 
+    //    BuildStepNow.BuildStep.Id = value.Id;
+    //    //BuildStepNow.BuildStep.ImageName = value.ImageName;
+    //    BuildStepNow.BuildStep.Elements = value.Elements;
+    //    BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
+    //    BuildStepNow.BuildStep.InstructionId = value.InstructionId;
+    //    BuildStepNow.BuildStep.Name = value.Name;
+    //    BuildStepNow.BuildStep.Number = value.Number;
+    //}
     StepComponent.prototype.GetStep = function () {
         var _this = this;
-        this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, global_1.BuildStepNow.buildStep)
+        this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, this.id)
             .subscribe(function (stepT) {
-            _this.setStep(stepT);
+            _this.BuildStepData = stepT;
+            _this.BuildStepData.Elements = _this.BuildStepData.Elements.sort(function (n1, n2) { return n1.Number - n2.Number; });
+            //this.setStep(stepT);
             console.log("OK->Get_step");
-            console.log(global_1.BuildStepNow.BuildStep);
+            console.log(_this.BuildStepData);
         }, function (error) {
             return console.log(error);
         });
-        return global_1.BuildStepNow.BuildStep;
+    };
+    StepComponent.prototype.Stert = function () {
+        //var temp: Instruction = new Instruction(0, 0, "");
+        this.GetStep();
+        return true;
+    };
+    StepComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
     };
     StepComponent.prototype.Test = function () {
         console.log(this.BuildStepData.Elements);
@@ -135,7 +153,7 @@ var StepComponent = (function () {
                 //this.msg = "There is some issue in saving records, please contact to system administrator!"
                 console.log("NO->step");
             }
-            _this.BuildStepData = _this.GetStep();
+            _this.GetStep();
         }, function (error) {
             console.log(error);
             //this.msg = error;
@@ -146,7 +164,7 @@ var StepComponent = (function () {
         var _this = this;
         this._userService.delete(global_1.Global.BASE_BUILDSTEP_ENDPOINT, elementId).subscribe(function (data) {
             console.log("Good del");
-            _this.BuildStepData = _this.GetStep();
+            _this.GetStep();
         }, function (error) {
             console.log(error);
         });
@@ -207,7 +225,9 @@ var StepComponent = (function () {
                 .catch(function (error) { return Rx_1.Observable.throw(error); })
                 .subscribe(function (data) {
                 console.log('success');
-                _this.setStep(data);
+                _this.BuildStepData = data;
+                _this.BuildStepData.Elements = _this.BuildStepData.Elements.sort(function (n1, n2) { return n1.Number - n2.Number; });
+                //this.setStep(data);
                 //this.router.navigate(['account']);
             }, function (error) { return console.log(error); });
         }
@@ -223,7 +243,7 @@ var StepComponent = (function () {
             styleUrls: ['./app/Components/step.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer])
+            ng2_dragula_1.DragulaService, platform_browser_1.DomSanitizer, router_2.ActivatedRoute])
     ], StepComponent);
     return StepComponent;
 }());

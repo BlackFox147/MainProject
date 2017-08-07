@@ -18,15 +18,15 @@ export class LoginUserAccount {
     public static userData: loginUser = new loginUser();
 }
 
-export class BuildInstructionNow {
-    public static buildInstruction: number = 0;   
-    public static BuildInstruction: Instruction = new Instruction(0, 0, "");
-}
+//export class BuildInstructionNow {
+//    public static buildInstruction: number = 0;   
+//    public static BuildInstruction: Instruction = new Instruction(0, 0, "");
+//}
 
-export class BuildStepNow {
-    public static buildStep: number = 0;
-    public static BuildStep: Step = new Step(0,0,0,"");
-}
+//export class BuildStepNow {
+//    public static buildStep: number = 0;
+//    public static BuildStep: Step = new Step(0,0,0,"");
+//}
 
 
 //public static Log: ILogin = new ILogin(0, "", "", "");  

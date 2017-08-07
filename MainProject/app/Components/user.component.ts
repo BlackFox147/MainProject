@@ -7,7 +7,7 @@ import { Instruction } from '../Model/instruction';
 import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
-import { Global, LoginUserAccount, BuildStepNow, BuildInstructionNow } from '../Shared/global';
+import { Global, LoginUserAccount, } from '../Shared/global';
 //import { loginuser } from '../Model/login';
 //import { LoginUser } from '../Model/login';
 
@@ -36,12 +36,20 @@ export class UserComponent implements OnInit {
     }
 
 
-    OpenStep(id: number): void {
-        BuildStepNow.buildStep = id;
-        console.log(BuildStepNow.buildStep);
-        //this.GetStep();
 
-        this.router.navigate(['viewStep']);
+    OpenStep(id: number): void {
+        
+        this.router.navigate(['viewStep',id]);
+    }
+
+    OpenInstruction(id: number): void {
+       
+        this.router.navigate(['viewInstruction', id]);
+    }
+
+    OpenUser(id: number): void {
+
+        this.router.navigate(['viewUser', id]);
     }
 
     ngOnInit(): void {

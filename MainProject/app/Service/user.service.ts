@@ -16,7 +16,8 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    getItem(url: string,id:number): Observable<any> {
+    getItem(url: string, id: number): Observable<any> {
+        
         return this._http.get(url + id)
             .map((response: Response) => <any>response.json())
             // .do(data => console.log("All: " + JSON.stringify(data)))

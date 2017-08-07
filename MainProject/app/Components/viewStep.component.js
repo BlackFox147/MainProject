@@ -14,37 +14,51 @@ var global_1 = require("../Shared/global");
 var user_service_1 = require("../Service/user.service");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
+var step_1 = require("../Model/step");
 var platform_browser_1 = require("@angular/platform-browser");
+var router_2 = require("@angular/router");
 var ViewStepComponent = (function () {
-    function ViewStepComponent(http, _userService, router, sanit) {
+    function ViewStepComponent(http, _userService, router, sanit, activateRoute) {
+        var _this = this;
         this.http = http;
         this._userService = _userService;
         this.router = router;
         this.sanit = sanit;
-        this.BuildStepData = this.GetStep();
+        this.activateRoute = activateRoute;
+        this.BuildStepData = new step_1.Step(0, 0, 0, "");
+        this.subscription = activateRoute.params.subscribe(function (params) {
+            _this.id = params['id'];
+            _this.Stert();
+        });
         this.sanit = sanit;
     }
-    ViewStepComponent.prototype.setStep = function (value) {
-        value.Elements = value.Elements.sort(function (n1, n2) { return n1.Number - n2.Number; });
-        global_1.BuildStepNow.BuildStep.Id = value.Id;
-        //BuildStepNow.BuildStep.ImageName = value.ImageName;
-        global_1.BuildStepNow.BuildStep.Elements = value.Elements;
-        global_1.BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-        global_1.BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-        global_1.BuildStepNow.BuildStep.Name = value.Name;
-        global_1.BuildStepNow.BuildStep.Number = value.Number;
-    };
+    //setStep(value: Step): void {
+    //    value.Elements = value.Elements.sort((n1, n2) => n1.Number - n2.Number);
+    //    BuildStepNow.BuildStep.Id = value.Id;
+    //    //BuildStepNow.BuildStep.ImageName = value.ImageName;
+    //    BuildStepNow.BuildStep.Elements = value.Elements;
+    //    BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
+    //    BuildStepNow.BuildStep.InstructionId = value.InstructionId;
+    //    BuildStepNow.BuildStep.Name = value.Name;
+    //    BuildStepNow.BuildStep.Number = value.Number;
+    //}
     ViewStepComponent.prototype.GetStep = function () {
         var _this = this;
-        this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, global_1.BuildStepNow.buildStep)
+        this._userService.getItem(global_1.Global.BASE_BUILDSTEP_ENDPOINT, this.id)
             .subscribe(function (stepT) {
-            _this.setStep(stepT);
+            _this.BuildStepData = stepT;
+            _this.BuildStepData.Elements = _this.BuildStepData.Elements.sort(function (n1, n2) { return n1.Number - n2.Number; });
+            //this.setStep(stepT);
             console.log("OK->Get_step");
-            console.log(global_1.BuildStepNow.BuildStep);
+            console.log(_this.BuildStepData);
         }, function (error) {
             return console.log(error);
         });
-        return global_1.BuildStepNow.BuildStep;
+    };
+    ViewStepComponent.prototype.Stert = function () {
+        //var temp: Instruction = new Instruction(0, 0, "");
+        this.GetStep();
+        return true;
     };
     ViewStepComponent.prototype.videoURL = function (elem) {
         //return elem.Data
@@ -56,7 +70,7 @@ var ViewStepComponent = (function () {
             styleUrls: ['./app/Components/viewStep.component.css']
         }),
         __metadata("design:paramtypes", [http_1.Http, user_service_1.UserService, router_1.Router,
-            platform_browser_1.DomSanitizer])
+            platform_browser_1.DomSanitizer, router_2.ActivatedRoute])
     ], ViewStepComponent);
     return ViewStepComponent;
 }());

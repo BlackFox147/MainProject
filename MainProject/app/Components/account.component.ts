@@ -1,17 +1,6 @@
-﻿//import { Component } from "@angular/core";
-
-//@Component({
-//   templateUrl: 'app/Components/account.component.html'
-//})
-
-//export class AccountComponent {
-
-//    qqq: ILogin = Asd.Mabe.getparams();
-//}
-
-import { Component, ViewChild } from '@angular/core';
+﻿import { Component, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Global, LoginUserAccount, BuildInstructionNow, BuildStepNow } from '../Shared/global';
+import { Global, LoginUserAccount} from '../Shared/global';
 import { ILogin } from '../Model/login';
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
@@ -75,18 +64,15 @@ export class AccountComponent {
     
 
     LoadUserInstruction():void {       
-        //this._userService.get(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT)
-        //    .subscribe(instructions => {                
-        //        LoginUserAccount.userData.setInstructions(instructions);
-        //        console.log("OK->Get_Instruction"); 
-        //        console.log(this.LoginUserAccountData.Profile.Instructions);
-        //    },
-        //    error => 
-        //        console.log(error));       
-
+       
         this._userService.getItem(Global.BASE_CHANGE_USER_PROFILE_ENDPOINT, LoginUserAccount.userData.getProfile().Id)
-            .subscribe(instructions => {
-                LoginUserAccount.userData.setInstructions(instructions);
+            .subscribe(profile => {
+
+                console.log(profile);
+
+                this.LoginUserAccountData.Profile = profile;
+                //LoginUserAccount.userData.setProfile(profile);
+                //LoginUserAccount.userData.setInstructions(profile.Instructions);
                 console.log("OK->Get_Instruction");
                 console.log(this.LoginUserAccountData.Profile.Instructions);
             },
@@ -130,35 +116,35 @@ export class AccountComponent {
     }
 
     BuildInstruction(instructionId: number): void {
-        BuildInstructionNow.buildInstruction = instructionId;
-        console.log(BuildInstructionNow.buildInstruction);
-        this.GetInstruction();
-        this.router.navigate(['buildInstruction']);
+        //BuildInstructionNow.buildInstruction = instructionId;
+        //console.log(BuildInstructionNow.buildInstruction);
+        //this.GetInstruction();
+        this.router.navigate(['buildInstruction', instructionId]);
     }
 
 
 
-    setInstruction(value: Instruction): void {
-        value.Steps = value.Steps.sort((n1, n2) => n1.Number - n2.Number);
-        BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
-        BuildInstructionNow.BuildInstruction.Steps = value.Steps;
-        BuildInstructionNow.BuildInstruction.Id = value.Id;
-        BuildInstructionNow.BuildInstruction.Name = value.Name;
-        BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
-        //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
-    }
+    //setInstruction(value: Instruction): void {
+    //    value.Steps = value.Steps.sort((n1, n2) => n1.Number - n2.Number);
+    //    BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
+    //    BuildInstructionNow.BuildInstruction.Steps = value.Steps;
+    //    BuildInstructionNow.BuildInstruction.Id = value.Id;
+    //    BuildInstructionNow.BuildInstruction.Name = value.Name;
+    //    BuildInstructionNow.BuildInstruction.UserProfileId = value.UserProfileId;
+    //    //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
+    //}
 
-    GetInstruction(): void {
-        this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, BuildInstructionNow.buildInstruction)
-            .subscribe(instruction => {
+    //GetInstruction(): void {
+    //    this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, BuildInstructionNow.buildInstruction)
+    //        .subscribe(instruction => {
 
-                this.setInstruction(instruction);
-                console.log("OK->Get_step");
-                console.log(BuildInstructionNow.BuildInstruction);
-            },
-            error =>
-                console.log(error));      
-    }
+    //            this.setInstruction(instruction);
+    //            console.log("OK->Get_step");
+    //            console.log(BuildInstructionNow.BuildInstruction);
+    //        },
+    //        error =>
+    //            console.log(error));      
+    //}
 
 
     fileChange(event:any) {
@@ -227,34 +213,8 @@ export class AccountComponent {
     }
 
     Open(id: number): void {
-        BuildStepNow.buildStep = id;
-        console.log(BuildStepNow.buildStep);
-        //this.GetStep();
 
-        this.router.navigate(['step']);
-    }
-
-    setStep(value: Step): void {
-        console.log(value);
-        BuildStepNow.BuildStep.Id = value.Id;
-        BuildStepNow.BuildStep.Elements = value.Elements;
-        BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-        BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-        BuildStepNow.BuildStep.Name = value.Name;
-        BuildStepNow.BuildStep.Number = value.Number;
-    }
-
-    GetStep(): void {
-        this._userService.getItem(Global.BASE_BUILDSTEP_ENDPOINT, BuildStepNow.buildStep)
-            .subscribe(stepT => {
-
-                this.setStep(stepT);
-                console.log("OK->Get_step");
-                console.log(BuildStepNow.BuildStep);
-            },
-            error =>
-                console.log(error));
-
+        this.router.navigate(['step', id]);
     }
 
     onChangeUserName(): void {

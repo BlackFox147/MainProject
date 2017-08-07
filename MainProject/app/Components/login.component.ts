@@ -37,7 +37,7 @@
 
 import { NgModel } from '@angular/forms';
 import { Component } from '@angular/core';
-import { Global, LoginUserAccount, BuildInstructionNow } from '../Shared/global';
+import { Global, LoginUserAccount } from '../Shared/global';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 import { MarkdownModule } from 'angular2-markdown';

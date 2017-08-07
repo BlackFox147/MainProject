@@ -4,7 +4,16 @@
 
 <div class="panel panel-default col-sm-12 col-lg-12 col-md-12">
     <div class="panel-body">
-     
+        <div class="row">
+
+            <div class="col-md-9">
+
+                <input class="form-control pull-left" style="width:70%;" (change)="onChangeName()" type="text" name="Name"
+                       [(ngModel)]="BuildInstructionData.Name" #Name="ngModel" />
+            </div>
+
+        </div>
+        <hr>
         <span class="pull-left">
             <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="glyphicon glyphicon-th-large" aria-hidden="true"></i> Steps <span class="badge">{{BuildInstructionData.Steps.length}}</span></a>
 
@@ -17,6 +26,11 @@
                 <span class="glyphicon glyphicon-ok"></span>
                 Save
             </button>
+        </span>
+        <span>
+            <a class="pull-right" style="font-size:16px;">
+                {{BuildInstructionData.UserName}} <!--<span class="badge">411</span>-->
+            </a>
         </span>
 
     </div>

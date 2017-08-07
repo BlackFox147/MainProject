@@ -1,6 +1,6 @@
-﻿import { Component, ViewChild } from '@angular/core';
+﻿import { Component, ViewChild, OnDestroy} from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Global, LoginUserAccount, BuildInstructionNow, BuildStepNow } from '../Shared/global';
+import { Global, LoginUserAccount } from '../Shared/global';
 import { ILogin } from '../Model/login';
 import { UserService } from '../Service/user.service';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
@@ -11,6 +11,8 @@ import { Instruction } from '../Model/instruction';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Step } from '../Model/step';
 import { Element } from '../Model/element';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     templateUrl: 'app/Components/buildInstruction.component.html',
@@ -20,10 +22,18 @@ import { Element } from '../Model/element';
 })
 export class BuildInstructionComponent {
 
-    constructor(private http: Http, private _userService: UserService, private router: Router,
-        private dragulaService: DragulaService)
-    {
 
+    private id: number;
+    private subscription: Subscription;
+
+    constructor(private http: Http, private _userService: UserService, private router: Router,
+        private dragulaService: DragulaService, private activateRoute: ActivatedRoute)
+    {
+        this.subscription = activateRoute.params.subscribe(params => {
+            this.id = params['id'];
+            this.Stert();
+        });
+        console.log("id " + this.id);
         dragulaService.dropModel.subscribe((value: any) => {
             this.onDropModel(value.slice(1));
         });
@@ -32,31 +42,45 @@ export class BuildInstructionComponent {
         });      
 
     }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();       
+    }
 
-    BuildInstructionData: Instruction = BuildInstructionNow.BuildInstruction;
+    BuildInstructionData: Instruction = new Instruction(0, 0, "");
 
     setInstruction(value: Instruction): void {
         value.Steps = value.Steps.sort((n1, n2) => n1.Number - n2.Number); 
-        BuildInstructionNow.BuildInstruction.DataTimeChange = value.DataTimeChange;
-        BuildInstructionNow.BuildInstruction.Steps = value.Steps;
+        this.BuildInstructionData.DataTimeChange = value.DataTimeChange;
+        this.BuildInstructionData.Steps = value.Steps;
+
         //BuildInstructionNow.BuildInstruction.ImageName = value.ImageName;
     }
 
+    Stert(): boolean {
+        //var temp: Instruction = new Instruction(0, 0, "");
+        this.GetInstruction();
 
+        return true;
+    }
 
-    GetInstruction(): boolean {
-        this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, BuildInstructionNow.buildInstruction)
+    GetInstruction(): void {
+        var temp: Instruction = new Instruction(0, 0, "");
+        var test = this.id;
+        console.log("test1 " + test);
+        this._userService.getItem(Global.BASE_BUILDINSTRUCTION_ENDPOINT, test)
             .subscribe(instruction => {
-
-                this.setInstruction(instruction);
+                console.log("test "+test);
+                this.BuildInstructionData = instruction;
+                this.BuildInstructionData.Steps = this.BuildInstructionData.Steps.sort((n1, n2) => n1.Number - n2.Number); 
+                //this.setInstruction(instruction);
                 console.log("OK->Get_step");
                 console.log(this.BuildInstructionData);
             },
             error =>
                 console.log(error));
-        return true;
+        
     }
-    //getItem: boolean = this.GetInstruction();
+    //getItem: boolean = this.Stert();
 
      
     //BuildInstructionData:Instruction = LoginUserAccount.userData.getInstrustion();
@@ -180,52 +204,20 @@ export class BuildInstructionComponent {
 
 
     Open(id: number): void {
-        BuildStepNow.buildStep = id;
-        console.log(BuildStepNow.buildStep);
+        //BuildStepNow.buildStep = id;
+        //console.log(BuildStepNow.buildStep);
         //this.GetStep();
         
-        this.router.navigate(['step']);
+        this.router.navigate(['step',id]);
+
+        //this.router.navigate(['/courses', course.id]);
     }
-
-    setStep(value: Step): void {
-        console.log(value);
-        BuildStepNow.BuildStep.Id = value.Id;
-        BuildStepNow.BuildStep.Elements = value.Elements;
-        BuildStepNow.BuildStep.DataTimeChange = value.DataTimeChange;
-        BuildStepNow.BuildStep.InstructionId = value.InstructionId;
-        BuildStepNow.BuildStep.Name = value.Name;
-        BuildStepNow.BuildStep.Number = value.Number; 
-    }
-
-    GetStep(): void {
-        this._userService.getItem(Global.BASE_BUILDSTEP_ENDPOINT, BuildStepNow.buildStep)
-            .subscribe(stepT => {
-
-                this.setStep(stepT);
-                console.log("OK->Get_step");   
-                console.log(BuildStepNow.BuildStep);             
-            },
-            error =>
-                console.log(error));
-
-    }
-
 
     onChangeName() {
         console.log(this.BuildInstructionData.Name);
         this._userService.put(Global.BASE_BUILDINSTRUCTION_ENDPOINT, this.BuildInstructionData.Id, this.BuildInstructionData).subscribe(
             data => {
-                if (data == 1) //Success
-                {
-                    //this.msg = "Data successfully updated.";         
-                    console.log("OK->N");
-
-                }
-                else {
-                    //this.msg = "There is some issue in saving records, please contact to system administrator!"
-                    console.log("NO->N");
-                }
-
+                console.log("OK->name");
                 this.LoadUserInstruction();
             },
             error => {
